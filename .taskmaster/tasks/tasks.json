@@ -1,0 +1,140 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Config Loader and YAML Integration",
+        "description": "Establish the foundation for the 'No Magic Numbers' rule by implementing a robust YAML configuration loader.",
+        "details": "Implement a 'GameConfig' singleton that uses a YAML parser (like js-yaml) to load the game's tunable parameters from a local file. This task involves mapping the YAML structure provided in the PRD (v0.1) into a typed object accessible globally. Ensure that any attempt to use a hardcoded value for gameplay parameters (e.g., player speed, sun damage) is caught during development. Include a mechanism to refresh/hot-reload the config for easier balancing during development.",
+        "testStrategy": "Unit test the config loader to ensure it correctly parses strings, numbers, and nested objects from the YAML. Verify that changing a value in the YAML reflects in the loaded config object without code changes.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Design System (DS) Component Library",
+        "description": "Develop a reusable UI component library following the pixel-retro art direction and PRD specifications.",
+        "details": "Create the core UI components listed in the PRD (Design System section 12.2). Components include: PixelCard, ButtonPrimary, ButtonSecondary, HUDChip, ProgressBar, HeatIndicator, TimeOfDayIndicator, and ModalSheet. Use standard spacing tokens (4/8/12/16/24) and pixel-safe typography. These components should be framework-agnostic or built as Phaser UI plugins to ensure consistency across all screens (S0-S10).",
+        "testStrategy": "Visual regression testing for each component against the design tokens. Verify that spacing and radius tokens are strictly applied via a 'Theme' object derived from the DS.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Core Scene Management & Navigation Flow",
+        "description": "Implement the state machine for game scenes and navigation as defined in the PRD.",
+        "details": "Setup the scene hierarchy: S0 (Boot), S1 (Main Menu), S2 (Character Select), S3 (Castle Base), S6 (Town Gameplay), and S7 (Interior). Implement the navigation logic (e.g., S6 to S9 on death, then to S3). Ensure the Character Select screen handles the random name generation (default) and manual input [A-Za-z0-9] validation using logic defined in the YAML config.",
+        "testStrategy": "Manual navigation testing through all specified paths (S1->S2->S3->S6). Verify name validation rejects non-alphanumeric characters based on the YAML regex.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Mobile Input: Tap-to-Move and Tap-to-Target",
+        "description": "Implement the 'Thumb-first' control scheme using Phaser input handling.",
+        "details": "Create a 'ControlModule' that listens for taps. Tap-to-move: Calculate pathfinding (Grid-based A*) to the tapped tile. Tap-to-target: Identify if an NPC was tapped, trigger a TargetRingFlash (150-250ms duration from config), and apply a soft outline. Integrate the BottomActionBar with contextual buttons (Bite/Action) that appear when a target is selected.",
+        "testStrategy": "Simulate mobile taps in the browser dev tools. Verify that a tap on ground moves the player and a tap on an NPC selects them with the config-specified flash duration.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Day/Night Cycle and Sun Damage System",
+        "description": "Implement the environmental cycle that dictates core gameplay constraints.",
+        "details": "Implement a 'DayNightController' that transitions through Day, Dusk, Night, and Dawn phases based on the YAML 'cycle' settings. During the Day phase, check the player's current tile for 'sunlit' status. If sunlit and not in a 'safeZone' (indoors/castle), apply damage per second defined in YAML after a grace period. Use a visual overlay that changes intensity/color based on the phase.",
+        "testStrategy": "Accelerate the cycle timer to verify phase transitions. Move the player into 'sun' tiles during the day and verify health reduction. Move into 'shade' or 'indoors' and verify damage stops.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "NPC System & Variant Multipliers",
+        "description": "Develop the NPC spawning system with data-driven behavior and stats.",
+        "details": "Create an 'NPCManager' that spawns humans (men, women, kids, grandmas, grandpas) with frequencies and density multipliers from YAML. Apply multipliers to walk speed and blood quality based on the variant (e.g., kids are 1.35x speed, 1.25x blood). Ensure NPC density shifts automatically when the DayNightController switches phases (Night = 0.45x humans).",
+        "testStrategy": "Unit test NPC stat calculation for different variants. Verify NPC population count changes when transitioning from Day to Night.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Local Panic Bubble and Witness Logic",
+        "description": "Implement the localized 'Panic Bubble' system for AI detection.",
+        "details": "When a suspicious action occurs (e.g., feeding), create a 'PanicBubble' at the incident location with radius 'radiusTiles' from YAML. NPCs within the bubble transition to 'Panic' state, attempt to flee, and call police after a 'witness.callPoliceDelaySeconds'. This system must be spatial/localized and NOT affect NPCs on the other side of the map.",
+        "testStrategy": "Trigger a feeding event and visualize the bubble radius. Verify only NPCs within the circle react. Confirm police are called only after the delay.",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Feeding Mechanics and Player Stats",
+        "description": "Implement the core 'Bite' action and resource management.",
+        "details": "Implement the Feeding action: verify range (bite.rangeTiles), lock player/target in place for 'baseDurationSeconds', and grant blood. Ensure feeding is interruptible if the player taps away. Link blood and health to the HUD ProgressBar components. Implement the 'Death' state when health reaches zero, triggering the S9 (Death Screen) and subsequent respawn in the Castle (S3) coffin.",
+        "testStrategy": "Perform a bite and verify blood gain. Interrupt a bite halfway and verify partial blood gain/risk. Allow health to drop to zero and verify respawn logic.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Police AI and Heat System",
+        "description": "Implement the tactical response system and localized police patrols.",
+        "details": "Create a 'PoliceResponseController' that monitors the 'Heat' level. When a panic bubble triggers a police call, spawn police units within that area. Apply the YAML multipliers (Night = x2 police count). Police should have a vision cone (Day vs Night range from config) and fire bullets that deal damage. Heat should decay over time according to YAML 'decay' settings.",
+        "testStrategy": "Raise heat and verify police spawn counts in the specific panic district. Check that their vision range is shorter at night (as per YAML). Verify heat decay starts after the specified delay.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Castle Base, Upgrades, and Persistence",
+        "description": "Implement the meta-progression hub and save data system.",
+        "details": "Develop the S4 (Upgrades) screen with a scrollable list of improvements. Use IndexedDB to save player progress, blood, and purchased upgrades. Ensure the 'Castle Base' (S3) correctly summarizes the current state. Finalize the PWA configuration (manifest, service worker for asset caching) to allow the game to be installed on mobile home screens.",
+        "testStrategy": "Purchase an upgrade, refresh the browser, and verify the upgrade persists. Verify the game works offline (PWA) and can be 'installed' on a mobile device/emulator.",
+        "priority": "low",
+        "dependencies": [
+          3,
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2026-02-04T13:33:30.398Z",
+      "updated": "2026-02-04T13:33:30.398Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
