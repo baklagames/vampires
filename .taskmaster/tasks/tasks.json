@@ -397,7 +397,7 @@
           "5",
           "6"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -405,9 +405,10 @@
             "description": "Establish the foundational structure of the Town scene and load necessary graphical assets for the environment.",
             "dependencies": [],
             "details": "Implement the preload() and create() methods in src/scenes/town.ts. Load the Tiled JSON map, tilesets, and sprite sheets for the player and NPCs. Ensure the camera is initialized to follow the player character.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that the game loads without errors and the town tilemap is rendered correctly in the browser.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:26:36.592Z"
           },
           {
             "id": 2,
@@ -417,9 +418,10 @@
               1
             ],
             "details": "Initialize the NPC pool within the Town scene. Implement a spawning algorithm that places NPCs on walkable tilemap coordinates, respecting the density multipliers provided by the Day/Night controller.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Observe that NPCs are spawned upon scene start and that the number of NPCs matches the expected density for the current time phase.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:28:51.189Z"
           },
           {
             "id": 3,
@@ -429,9 +431,10 @@
               1
             ],
             "details": "Instantiate the DayNightController, PanicController, and PoliceController. Set up event listeners within the scene to handle phase shifts (e.g., changing ambient light) and panic escalations (e.g., triggering police spawns).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Trigger a simulated phase change via the console and verify that the scene's ambient tint and NPC behavior update accordingly.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:29:33.738Z"
           },
           {
             "id": 4,
@@ -442,9 +445,10 @@
               2
             ],
             "details": "Set up Phaser Arcade Physics or Matter.js to handle collisions with the 'Obstacles' layer of the tilemap. Implement trigger zones for the 'Bite' mechanic and ensure the player cannot pass through buildings or scene boundaries.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Perform manual movement tests to ensure the player character is blocked by walls and can trigger interaction prompts when near NPCs.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:30:10.743Z"
           },
           {
             "id": 5,
@@ -457,14 +461,16 @@
               4
             ],
             "details": "Create a UI overlay that renders physics bodies, NPC detection radii, and current controller states (Time, Panic Level, Active Police Count). This will be used for balancing the 'move -> bite -> escape' gameplay loop.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Toggle the debug view and confirm that collision boxes align with visual assets and that NPC state labels update in real-time.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:30:48.177Z"
           }
         ],
         "complexity": 8,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "Structure the core scene implementation: 1. Scene lifecycle management and asset loading. 2. Integration of NPC pooling for performance. 3. Controller orchestration (Day/Night, Panic, Police). 4. Player-world collision and interaction setup. 5. Debug overlay for spatial systems."
+        "expansionPrompt": "Structure the core scene implementation: 1. Scene lifecycle management and asset loading. 2. Integration of NPC pooling for performance. 3. Controller orchestration (Day/Night, Panic, Police). 4. Player-world collision and interaction setup. 5. Debug overlay for spatial systems.",
+        "updatedAt": "2026-02-04T19:30:48.177Z"
       },
       {
         "id": "8",
@@ -632,13 +638,30 @@
         "complexity": 4,
         "recommendedSubtasks": 3,
         "expansionPrompt": "Detail the menu flow: 1. Centralized navigation controller/router. 2. Implementation of Splash, Main, and Settings screens. 3. Validation logic for player names based on YAML config."
+      },
+      {
+        "id": "11",
+        "title": "Local Run / Demo Build Harness",
+        "description": "Enable local dev and demo build for running the game.",
+        "details": "Add a minimal bootstrapping entrypoint (e.g., src/main.ts) that creates the Phaser game instance and wires initial scenes/navigation. Add a local dev server and build/preview scripts (e.g., Vite). Add index.html container and document run/build steps in README. Ensure config loader and design tokens are integrated at boot.",
+        "testStrategy": "Smoke test: run dev server, confirm game boots to splash/menu; run build/preview and confirm a playable demo loads without console errors.",
+        "priority": "medium",
+        "dependencies": [
+          "10"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 3,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down into: 1) Add bundler/dev server + scripts. 2) Add Phaser boot entrypoint and scene wiring. 3) Document run/build instructions and smoke-test checklist.",
+        "updatedAt": "2026-02-04T19:31:10.867Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-04T19:24:25.824Z",
-      "taskCount": 10,
-      "completedCount": 6,
+      "lastModified": "2026-02-04T19:31:10.867Z",
+      "taskCount": 11,
+      "completedCount": 7,
       "tags": [
         "master"
       ]
