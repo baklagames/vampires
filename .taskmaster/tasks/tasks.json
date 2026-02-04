@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "YAML Config Loader and Validation System",
         "description": "Implement the core configuration system to load, validate, and provide immutable runtime access to game balance parameters.",
         "details": "Create `src/config/loader.ts` and `src/config/schema.ts`. Use a library like `js-yaml` to parse the YAML file and `zod` or `ajv` for schema validation. Ensure the config object is deeply frozen (`Object.freeze`) once loaded to maintain immutability. Parameters include player name rules, NPC density, cycle timers, and bite ranges. \n\n```typescript\n// Pseudo-code snippet\nexport const loadConfig = async (path: string) => {\n  const raw = await fetch(path).then(res => res.text());\n  const data = yaml.load(raw);\n  const validated = ConfigSchema.parse(data);\n  return Object.freeze(validated);\n};\n```",
@@ -71,7 +71,7 @@
         "updatedAt": "2026-02-04T18:13:42.537Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Design System Tokens and Color Roles",
         "description": "Establish the foundational UI tokens and color roles for consistent styling across all screens and components.",
         "details": "Implement `src/ui/tokens.ts` defining spacing, typography, radii, and color palettes (e.g., semantic roles like 'danger', 'stealth-active', 'sun-warning'). These tokens must be used by all subsequent UI components. \n\n```typescript\nexport const TOKENS = {\n  colors: { primary: '#6200ee', sunDamage: '#ffeb3b', panic: '#f44336' },\n  spacing: { sm: 4, md: 8, lg: 16 },\n  radius: { default: 4 }\n};\n```",
@@ -111,7 +111,7 @@
         "updatedAt": "2026-02-04T18:21:49.011Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Pathfinding and Sun-Shade Map Systems",
         "description": "Implement the spatial logic for NPC/Player movement and detection of sunlit versus shaded areas.",
         "details": "Create `src/systems/pathfinding.ts` using Phaser's built-in A* or a custom grid-based pathfinder. Implement `src/systems/sun-shade-map.ts` which takes a tilemap and identifies 'safe' zones (interiors, shadows) versus 'danger' zones based on time of day. This will use the runtime config for damage intervals.",
@@ -179,7 +179,7 @@
         "updatedAt": "2026-02-04T18:41:08.763Z"
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Day/Night Cycle Controller",
         "description": "Implement the logic for transitioning between Day, Dusk, Night, and Dawn phases.",
         "details": "Create `src/controllers/day-night.ts`. It should manage a global timer and update the current 'Phase'. It triggers events that other systems (like NPC density or Police Response) listen to. Transitions should provide visual warnings (Dusk/Dawn) as per PRD.",
@@ -248,7 +248,7 @@
         "updatedAt": "2026-02-04T19:06:23.760Z"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Panic Bubble and Police Response Logic",
         "description": "Develop the local panic mechanics and the resulting police spawning system.",
         "details": "Implement `src/controllers/panic-bubble.ts` to manage circular areas of effect around incidents. Implement `src/controllers/police-response.ts` to spawn police NPCs within or near the panic bubble. Use config for bubble radius, duration, and the 'night x2' multiplier for police response density.",
@@ -317,7 +317,7 @@
         "updatedAt": "2026-02-04T19:19:27.908Z"
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "One-Handed Tap-to-Move and Stealth Interaction",
         "description": "Implement the primary mobile control scheme for movement, target selection, and feeding.",
         "details": "Create the input handling logic in a base player class. Tapping empty space moves the player. Tapping an NPC selects them as a target (showing a TargetRingFlash). Tapping the target again while in range initiates the 'Bite' (feeding) action. All timings and ranges must come from `RuntimeConfig`.",
@@ -386,7 +386,7 @@
         "updatedAt": "2026-02-04T19:24:25.824Z"
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Town Scene: Core World Implementation",
         "description": "Assemble the primary game world (Town) with NPCs, tilemaps, and active controllers.",
         "details": "Implement `src/scenes/town.ts`. Integrate the Tilemap, Player character, NPC pooling, and the DayNight/Panic/Police controllers. This scene acts as the main gameplay loop container where 'move -> bite -> panic -> escape' occurs.",
@@ -473,7 +473,7 @@
         "updatedAt": "2026-02-04T19:30:48.177Z"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Interior and Castle Scenes with Respawn Logic",
         "description": "Implement secondary scenes and the transition logic between them, including the death/respawn flow.",
         "details": "Create `src/scenes/interior.ts` and `src/scenes/castle.ts`. The Castle serves as the safe-zone/respawn point. Use a scene manager to handle transitions. If health reaches zero in the Town or Sun, the player must respawn in the Castle scene.",
@@ -482,7 +482,7 @@
         "dependencies": [
           "7"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -490,9 +490,10 @@
             "description": "Create a centralized manager to handle scene switching and data preservation between map segments.",
             "dependencies": [],
             "details": "Develop a utility to wrap Phaser's Scene Manager to pass player state (health, inventory) between Town, Interior, and Castle scenes efficiently.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that player health values and state variables remain consistent when moving from the Town scene to an Interior scene and back.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:34:30.869Z"
           },
           {
             "id": 2,
@@ -502,9 +503,10 @@
               1
             ],
             "details": "Construct src/scenes/interior.ts and src/scenes/castle.ts. Set up tilemap loading, collision layers, and exit portals that trigger the Scene Manager to return to the Town.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Manually trigger scene transitions via portal overlaps and confirm the correct Tiled assets are rendered for both the Castle and building interiors.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:36:33.828Z"
           },
           {
             "id": 3,
@@ -515,17 +517,19 @@
               2
             ],
             "details": "Add a listener to the player state for health reaching 0. Upon death, trigger a fade-out animation and invoke the Scene Manager to move the player to the Castle spawn coordinates.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Simulate player death in the Town scene by reducing health to zero and confirm the game successfully reloads the player at the designated Castle spawn point with reset health.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:37:11.423Z"
           }
         ],
         "complexity": 5,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "Expand into: 1. Scene transition manager for handling data persistence between scenes. 2. Implementation of Interior and Castle tilemap logic. 3. Death and Respawn flow (Health 0 -> Castle transition)."
+        "expansionPrompt": "Expand into: 1. Scene transition manager for handling data persistence between scenes. 2. Implementation of Interior and Castle tilemap logic. 3. Death and Respawn flow (Health 0 -> Castle transition).",
+        "updatedAt": "2026-02-04T19:37:11.423Z"
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "UI Components and Game Overlays (S1-S9 HUD)",
         "description": "Create the Design System-based UI components and in-game overlays like the Blood bar, Phase indicator, and Panic flash.",
         "details": "Implement components in `src/ui/components/` and `src/ui/overlays/`. Include `BottomActionBar`, `TimeOfDayIndicator`, and full-screen flashes for damage/panic. These must use the tokens defined in Task 2. Use Phaser DOM elements or React/Vue overlay if specified by the stack.",
@@ -587,7 +591,7 @@
         "expansionPrompt": "Break down the HUD: 1. Dynamic Blood Bar component. 2. Phase indicator linked to the Day/Night controller. 3. Full-screen damage/panic flash effects. 4. Responsive layout system for mobile portrait mode."
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Navigation and Screen Management (S0-S10)",
         "description": "Implement the complete set of screens (Main Menu, Settings, Game Over) and the navigation flow.",
         "details": "Implement the remaining screens (S0: Splash, S1: Main Menu, S10: Settings, etc.). Create a navigation controller that handles transitions between menus and scenes. Ensure the player name validation rules (Task 1) are applied on the profile/start screen.",
@@ -640,7 +644,7 @@
         "expansionPrompt": "Detail the menu flow: 1. Centralized navigation controller/router. 2. Implementation of Splash, Main, and Settings screens. 3. Validation logic for player names based on YAML config."
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Local Run / Demo Build Harness",
         "description": "Enable local dev and demo build for running the game.",
         "details": "Add a minimal bootstrapping entrypoint (e.g., src/main.ts) that creates the Phaser game instance and wires initial scenes/navigation. Add a local dev server and build/preview scripts (e.g., Vite). Add index.html container and document run/build steps in README. Ensure config loader and design tokens are integrated at boot.",
@@ -658,7 +662,8 @@
             "dependencies": [],
             "details": "Install Vite as a dev dependency. Create a root 'index.html' that includes a container element for the Phaser canvas and scripts for 'src/main.ts'. Update 'package.json' with 'dev', 'build', and 'preview' commands to facilitate rapid development and demo packaging.",
             "status": "pending",
-            "testStrategy": "Verify that 'npm run dev' successfully launches a browser tab and 'npm run build' generates a 'dist' folder without errors."
+            "testStrategy": "Verify that 'npm run dev' successfully launches a browser tab and 'npm run build' generates a 'dist' folder without errors.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -669,7 +674,8 @@
             ],
             "details": "Implement 'src/main.ts' to invoke the YAML config loader (Task 1) and register Design System Tokens (Task 2). Initialize the Phaser.Game instance with appropriate configuration (physics, scaling, rendering). Wire the first scene provided by the Navigation Controller (Task 10).",
             "status": "pending",
-            "testStrategy": "Check the browser console during startup to ensure the frozen config object is loaded and design tokens are applied to the game canvas/DOM."
+            "testStrategy": "Check the browser console during startup to ensure the frozen config object is loaded and design tokens are applied to the game canvas/DOM.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -680,7 +686,8 @@
             ],
             "details": "Create or update 'README.md' with clear instructions on prerequisites, installation, and run/build steps. Verify that the build artifact (Vite build) correctly loads the game, navigates to the splash screen, and handles asset loading via the local harness.",
             "status": "pending",
-            "testStrategy": "Run 'npm run build' followed by 'npm run preview' and manually verify the game boots to the Main Menu (S1) as per the navigation flow."
+            "testStrategy": "Run 'npm run build' followed by 'npm run preview' and manually verify the game boots to the Main Menu (S1) as per the navigation flow.",
+            "parentId": "undefined"
           }
         ],
         "complexity": 3,
@@ -691,14 +698,12 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-04T19:31:10.867Z",
+      "lastModified": "2026-02-04T19:37:11.424Z",
       "taskCount": 11,
-      "completedCount": 7,
+      "completedCount": 8,
       "tags": [
         "master"
-      ],
-      "created": "2026-02-04T19:32:25.806Z",
-      "description": "Tasks for master context"
+      ]
     }
   }
 }
