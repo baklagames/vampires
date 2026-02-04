@@ -120,7 +120,7 @@
         "dependencies": [
           "1"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -128,9 +128,10 @@
             "description": "Develop the core pathfinding logic in src/systems/pathfinding.ts using A* to enable NPC and player movement.",
             "dependencies": [],
             "details": "Integrate Phaser's navigation capabilities or an A* library to calculate paths across the tilemap. Map tile collisions and 'unwalkable' properties to the pathfinder grid.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit test: Verify that the pathfinding algorithm returns a valid list of coordinates between two points and correctly avoids collision tiles.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:32:51.101Z"
           },
           {
             "id": 2,
@@ -138,9 +139,10 @@
             "description": "Create src/systems/sun-shade-map.ts to differentiate between sunlit and shaded tilemap areas.",
             "dependencies": [],
             "details": "Iterate through the tilemap layers to identify tiles marked as 'interior' or 'shadow' based on metadata. Define a boolean mask for the current level's safety zones.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration test: Confirm that tiles located under building sprites or inside designated interior layers are flagged as 'safe' zones.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:37:40.315Z"
           },
           {
             "id": 3,
@@ -150,9 +152,10 @@
               2
             ],
             "details": "Listen for Phase events from the Day/Night controller. Adjust the sun-shade map so that all outdoor tiles become 'safe' during Night and 'danger' during Day, with transitions at Dawn/Dusk.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration test: Simulate a cycle transition and verify that the safety status of a specific outdoor tile changes when the phase moves from Day to Night.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:40:11.198Z"
           },
           {
             "id": 4,
@@ -164,14 +167,16 @@
               3
             ],
             "details": "Profile the frequency of map-wide updates using Chrome DevTools. Implement optimizations such as caching safe-zone results or using bitwise operations for grid scanning to maintain 60 FPS.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Performance test: Measure the execution time of the sun-shade update logic to ensure it stays below the 16ms frame budget during scene updates.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:41:08.763Z"
           }
         ],
         "complexity": 7,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "Separate the spatial logic into: 1. Integration of Phaser A* for NPC movement. 2. Implementation of the sun-shade mapping logic (tile-based shadow detection). 3. Dynamic updating of safe zones based on the game clock. 4. Performance profiling for tilemap scanning."
+        "expansionPrompt": "Separate the spatial logic into: 1. Integration of Phaser A* for NPC movement. 2. Implementation of the sun-shade mapping logic (tile-based shadow detection). 3. Dynamic updating of safe zones based on the game clock. 4. Performance profiling for tilemap scanning.",
+        "updatedAt": "2026-02-04T18:41:08.763Z"
       },
       {
         "id": "4",
@@ -616,9 +621,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-04T18:21:49.011Z",
+      "lastModified": "2026-02-04T18:41:08.763Z",
       "taskCount": 10,
-      "completedCount": 2,
+      "completedCount": 3,
       "tags": [
         "master"
       ]
