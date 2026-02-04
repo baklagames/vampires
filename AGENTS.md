@@ -18,6 +18,7 @@
 - Telemetry minimal: events are queued locally; sending can be deferred and disabled in config if needed.
 
 ## Work Process (Task Master)
+- Use Task-master-ai MCP for this
 - Always work from Task Master tasks in .taskmaster/tasks/tasks.json.
 - Take exactly one subtask at a time.
 - Before starting any subtask, ask the user to confirm which subtask to take next.
@@ -82,4 +83,3 @@ Dependency Management
 - `task-master remove-dependency --id=<id> --depends-on=<id>`
 - `task-master validate-dependencies`
 - `task-master fix-dependencies`
-

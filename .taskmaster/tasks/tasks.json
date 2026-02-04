@@ -2,14 +2,14 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "YAML Config Loader and Validation System",
         "description": "Implement the core configuration system to load, validate, and provide immutable runtime access to game balance parameters.",
         "details": "Create `src/config/loader.ts` and `src/config/schema.ts`. Use a library like `js-yaml` to parse the YAML file and `zod` or `ajv` for schema validation. Ensure the config object is deeply frozen (`Object.freeze`) once loaded to maintain immutability. Parameters include player name rules, NPC density, cycle timers, and bite ranges. \n\n```typescript\n// Pseudo-code snippet\nexport const loadConfig = async (path: string) => {\n  const raw = await fetch(path).then(res => res.text());\n  const data = yaml.load(raw);\n  const validated = ConfigSchema.parse(data);\n  return Object.freeze(validated);\n};\n```",
         "testStrategy": "Unit tests to verify: 1. Successful loading of valid YAML. 2. Validation errors for missing/invalid fields. 3. Proper application of default values. 4. Immutability of the returned object.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -17,8 +17,10 @@
             "description": "Create a comprehensive Zod schema in src/config/schema.ts for all game balance parameters.",
             "dependencies": [],
             "details": "Implement the schema using Zod to define player name rules, NPC density, cycle timers, and bite ranges. Ensure it includes default values and exports TypeScript types for use throughout the application.",
-            "status": "pending",
-            "testStrategy": "Validate that the Zod schema correctly rejects invalid types and successfully parses a full object of default values."
+            "status": "done",
+            "testStrategy": "Validate that the Zod schema correctly rejects invalid types and successfully parses a full object of default values.",
+            "updatedAt": "2026-02-04T18:01:06.003Z",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -28,8 +30,10 @@
               1
             ],
             "details": "Use js-yaml to parse raw text into JavaScript objects. Implement a utility to deeply freeze the resulting object after Zod validation to ensure the configuration remains immutable during runtime.",
-            "status": "pending",
-            "testStrategy": "Unit tests to verify that the loader returns a deeply frozen object and that attempts to modify it throw errors in strict mode."
+            "status": "done",
+            "testStrategy": "Unit tests to verify that the loader returns a deeply frozen object and that attempts to modify it throw errors in strict mode.",
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:08:45.379Z"
           },
           {
             "id": 3,
@@ -40,8 +44,10 @@
               2
             ],
             "details": "Create a utility to catch Zod validation errors and format them into readable strings. Instead of raw schema errors, show specific messages indicating which field in the YAML file is incorrect and why.",
-            "status": "pending",
-            "testStrategy": "Inject invalid YAML structures and verify that the console/logs output descriptive errors that would allow a designer to fix the file."
+            "status": "done",
+            "testStrategy": "Inject invalid YAML structures and verify that the console/logs output descriptive errors that would allow a designer to fix the file.",
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:09:23.813Z"
           },
           {
             "id": 4,
@@ -53,13 +59,19 @@
               3
             ],
             "details": "Create assets/config/default.yaml containing standard game balance. Write integration tests that simulate fetching this file, validating it, and checking the resulting object against expected values.",
-            "status": "pending",
-            "testStrategy": "Execute a full test suite checking: 1. Successful loading. 2. Default value application. 3. Handling of missing files. 4. Handling of invalid YAML syntax."
+            "status": "done",
+            "testStrategy": "Execute a full test suite checking: 1. Successful loading. 2. Default value application. 3. Handling of missing files. 4. Handling of invalid YAML syntax.",
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T18:13:42.537Z"
           }
-        ]
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the YAML config loader into: 1. Schema definition using Zod for all game parameters. 2. Implementation of the loader with file system/fetch logic. 3. Unit tests for validation and immutability.",
+        "updatedAt": "2026-02-04T18:13:42.537Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Design System Tokens and Color Roles",
         "description": "Establish the foundational UI tokens and color roles for consistent styling across all screens and components.",
         "details": "Implement `src/ui/tokens.ts` defining spacing, typography, radii, and color palettes (e.g., semantic roles like 'danger', 'stealth-active', 'sun-warning'). These tokens must be used by all subsequent UI components. \n\n```typescript\nexport const TOKENS = {\n  colors: { primary: '#6200ee', sunDamage: '#ffeb3b', panic: '#f44336' },\n  spacing: { sm: 4, md: 8, lg: 16 },\n  radius: { default: 4 }\n};\n```",
@@ -67,17 +79,20 @@
         "priority": "high",
         "dependencies": [],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 2,
+        "recommendedSubtasks": 2,
+        "expansionPrompt": "Split this into: 1. Definition of the token object structure. 2. Implementation of a linting rule or helper function to enforce token usage in UI components."
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Pathfinding and Sun-Shade Map Systems",
         "description": "Implement the spatial logic for NPC/Player movement and detection of sunlit versus shaded areas.",
         "details": "Create `src/systems/pathfinding.ts` using Phaser's built-in A* or a custom grid-based pathfinder. Implement `src/systems/sun-shade-map.ts` which takes a tilemap and identifies 'safe' zones (interiors, shadows) versus 'danger' zones based on time of day. This will use the runtime config for damage intervals.",
         "testStrategy": "Integration tests: 1. Pathfinding returns valid paths around obstacles. 2. Sun-Shade map correctly identifies a tile as 'shaded' when under a building or during night.",
         "priority": "medium",
         "dependencies": [
-          1
+          "1"
         ],
         "status": "pending",
         "subtasks": [
@@ -88,7 +103,8 @@
             "dependencies": [],
             "details": "Integrate Phaser's navigation capabilities or an A* library to calculate paths across the tilemap. Map tile collisions and 'unwalkable' properties to the pathfinder grid.",
             "status": "pending",
-            "testStrategy": "Unit test: Verify that the pathfinding algorithm returns a valid list of coordinates between two points and correctly avoids collision tiles."
+            "testStrategy": "Unit test: Verify that the pathfinding algorithm returns a valid list of coordinates between two points and correctly avoids collision tiles.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -97,7 +113,8 @@
             "dependencies": [],
             "details": "Iterate through the tilemap layers to identify tiles marked as 'interior' or 'shadow' based on metadata. Define a boolean mask for the current level's safety zones.",
             "status": "pending",
-            "testStrategy": "Integration test: Confirm that tiles located under building sprites or inside designated interior layers are flagged as 'safe' zones."
+            "testStrategy": "Integration test: Confirm that tiles located under building sprites or inside designated interior layers are flagged as 'safe' zones.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -108,7 +125,8 @@
             ],
             "details": "Listen for Phase events from the Day/Night controller. Adjust the sun-shade map so that all outdoor tiles become 'safe' during Night and 'danger' during Day, with transitions at Dawn/Dusk.",
             "status": "pending",
-            "testStrategy": "Integration test: Simulate a cycle transition and verify that the safety status of a specific outdoor tile changes when the phase moves from Day to Night."
+            "testStrategy": "Integration test: Simulate a cycle transition and verify that the safety status of a specific outdoor tile changes when the phase moves from Day to Night.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -121,19 +139,23 @@
             ],
             "details": "Profile the frequency of map-wide updates using Chrome DevTools. Implement optimizations such as caching safe-zone results or using bitwise operations for grid scanning to maintain 60 FPS.",
             "status": "pending",
-            "testStrategy": "Performance test: Measure the execution time of the sun-shade update logic to ensure it stays below the 16ms frame budget during scene updates."
+            "testStrategy": "Performance test: Measure the execution time of the sun-shade update logic to ensure it stays below the 16ms frame budget during scene updates.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Separate the spatial logic into: 1. Integration of Phaser A* for NPC movement. 2. Implementation of the sun-shade mapping logic (tile-based shadow detection). 3. Dynamic updating of safe zones based on the game clock. 4. Performance profiling for tilemap scanning."
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Day/Night Cycle Controller",
         "description": "Implement the logic for transitioning between Day, Dusk, Night, and Dawn phases.",
         "details": "Create `src/controllers/day-night.ts`. It should manage a global timer and update the current 'Phase'. It triggers events that other systems (like NPC density or Police Response) listen to. Transitions should provide visual warnings (Dusk/Dawn) as per PRD.",
         "testStrategy": "Unit tests for state transitions: Day -> Dusk -> Night -> Dawn -> Day. Verify multipliers for NPC density are correctly calculated based on the active phase.",
         "priority": "medium",
         "dependencies": [
-          1
+          "1"
         ],
         "status": "pending",
         "subtasks": [
@@ -144,7 +166,8 @@
             "dependencies": [],
             "details": "Develop the internal clock and state machine in src/controllers/day-night.ts to manage transitions between Day, Dusk, Night, and Dawn phases based on a configurable global timer.",
             "status": "pending",
-            "testStrategy": "Unit tests to verify that the internal clock correctly triggers phase transitions at designated intervals (e.g., Day -> Dusk)."
+            "testStrategy": "Unit tests to verify that the internal clock correctly triggers phase transitions at designated intervals (e.g., Day -> Dusk).",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -155,7 +178,8 @@
             ],
             "details": "Implement an EventEmitter within the controller to broadcast 'phaseChange' signals. This allows systems like the UI, NPC Manager, and Police Response to react dynamically to time changes.",
             "status": "pending",
-            "testStrategy": "Integration tests using mock listeners to confirm that events are emitted with the correct phase data exactly when a transition occurs."
+            "testStrategy": "Integration tests using mock listeners to confirm that events are emitted with the correct phase data exactly when a transition occurs.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -166,7 +190,8 @@
             ],
             "details": "Implement getter methods or data structures that provide multipliers for NPC density and police aggression levels tailored to each phase (e.g., lower NPC density during Night, higher police presence during Day).",
             "status": "pending",
-            "testStrategy": "Validation tests to ensure that the getDensityMultiplier() and getPoliceMultiplier() methods return the values defined in the game configuration for each state."
+            "testStrategy": "Validation tests to ensure that the getDensityMultiplier() and getPoliceMultiplier() methods return the values defined in the game configuration for each state.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -178,20 +203,24 @@
             ],
             "details": "Integrate the controller with the rendering engine to adjust global lighting (FX) and trigger 'Dusk/Dawn' warning UI components to alert players of impending environmental changes.",
             "status": "pending",
-            "testStrategy": "Manual verification in-game to observe smooth lighting transitions and the correct display of warning banners during the transitional Dusk and Dawn phases."
+            "testStrategy": "Manual verification in-game to observe smooth lighting transitions and the correct display of warning banners during the transitional Dusk and Dawn phases.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Divide the controller into: 1. Core state machine for cycle phases. 2. Event emitter system for phase transitions. 3. NPC density multiplier calculator based on the current phase."
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Panic Bubble and Police Response Logic",
         "description": "Develop the local panic mechanics and the resulting police spawning system.",
         "details": "Implement `src/controllers/panic-bubble.ts` to manage circular areas of effect around incidents. Implement `src/controllers/police-response.ts` to spawn police NPCs within or near the panic bubble. Use config for bubble radius, duration, and the 'night x2' multiplier for police response density.",
         "testStrategy": "Simulate an incident and verify: 1. Panic state only spreads to NPCs within the radius. 2. Police spawn count increases correctly during Night phase vs Day phase.",
         "priority": "medium",
         "dependencies": [
-          1,
-          4
+          "1",
+          "4"
         ],
         "status": "pending",
         "subtasks": [
@@ -202,7 +231,8 @@
             "dependencies": [],
             "details": "Implement the PanicBubbleManager in src/controllers/panic-bubble.ts. It should store a collection of active bubbles (x, y, radius, remainingDuration) and include a cleanup loop to remove expired bubbles.",
             "status": "pending",
-            "testStrategy": "Unit test to verify that adding a bubble with a 5-second duration results in its removal from the active state after exactly 5 seconds."
+            "testStrategy": "Unit test to verify that adding a bubble with a 5-second duration results in its removal from the active state after exactly 5 seconds.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -213,7 +243,8 @@
             ],
             "details": "Implement a collision or distance-check routine that iterates through active bubbles and identifies all NPCs within the radius. Trigger the 'panic' state on the NPC instances to modify their movement speed or pathing.",
             "status": "pending",
-            "testStrategy": "Integration test: Place an NPC at distance R-1 and another at R+1 from the bubble center; verify only the first NPC enters the panic state."
+            "testStrategy": "Integration test: Place an NPC at distance R-1 and another at R+1 from the bubble center; verify only the first NPC enters the panic state.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -224,7 +255,8 @@
             ],
             "details": "Implement src/controllers/police-response.ts. This controller must query the map for valid, walkable tiles near the panic bubble center and instantiate Police NPC objects at a rate defined by the config.",
             "status": "pending",
-            "testStrategy": "Verify that police NPCs are instantiated at coordinates within 20% of the bubble radius and that they are placed on valid navigation tiles."
+            "testStrategy": "Verify that police NPCs are instantiated at coordinates within 20% of the bubble radius and that they are placed on valid navigation tiles.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -235,20 +267,24 @@
             ],
             "details": "Access the global YAML configuration for base spawn rates and radius. Implement logic to double (x2) the spawn density when the current game state is set to 'Night' phase.",
             "status": "pending",
-            "testStrategy": "Manual test: Trigger a panic bubble during the Day phase and count spawns, then repeat during the Night phase to confirm the count is exactly doubled."
+            "testStrategy": "Manual test: Trigger a panic bubble during the Day phase and count spawns, then repeat during the Night phase to confirm the count is exactly doubled.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Detail the panic mechanics: 1. Area-of-effect (AoE) logic for panic spread. 2. Police spawn algorithm (location selection and frequency). 3. State management for active bubbles. 4. Night-time multiplier implementation."
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "One-Handed Tap-to-Move and Stealth Interaction",
         "description": "Implement the primary mobile control scheme for movement, target selection, and feeding.",
         "details": "Create the input handling logic in a base player class. Tapping empty space moves the player. Tapping an NPC selects them as a target (showing a TargetRingFlash). Tapping the target again while in range initiates the 'Bite' (feeding) action. All timings and ranges must come from `RuntimeConfig`.",
         "testStrategy": "Manual testing in mobile emulator: 1. Tap to move works. 2. NPC selection/deselection via tap works. 3. Feeding logic triggers correctly when within the YAML-defined range.",
         "priority": "high",
         "dependencies": [
-          1,
-          3
+          "1",
+          "3"
         ],
         "status": "pending",
         "subtasks": [
@@ -259,7 +295,8 @@
             "dependencies": [],
             "details": "Integrate with the pathfinding system created in Task 3. On screen tap, convert pointer coordinates to tile coordinates and request a path for the player character. Movement speed must be fetched from the RuntimeConfig loaded in Task 1.",
             "status": "pending",
-            "testStrategy": "Manual testing in emulator: confirm player moves to the tapped location and correctly navigates around static obstacles."
+            "testStrategy": "Manual testing in emulator: confirm player moves to the tapped location and correctly navigates around static obstacles.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -270,7 +307,8 @@
             ],
             "details": "Implement a hit-detection check on input. If an NPC sprite is tapped, set that NPC as the active target. If the ground is tapped, trigger movement instead. Selection must be stored in the base player class to allow for subsequent interaction checks.",
             "status": "pending",
-            "testStrategy": "Verify that tapping an NPC sets them as target and tapping a different NPC updates the target, while tapping empty space clears it or triggers movement."
+            "testStrategy": "Verify that tapping an NPC sets them as target and tapping a different NPC updates the target, while tapping empty space clears it or triggers movement.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -281,7 +319,8 @@
             ],
             "details": "Define a state machine for the feeding interaction. When the active target is tapped again, check if the distance to the NPC is within the 'biteRange' defined in RuntimeConfig. If within range, transition to the feeding state and trigger the relevant game logic.",
             "status": "pending",
-            "testStrategy": "Unit test distance check logic; manual test to ensure 'Bite' action only triggers when the player is sufficiently close to the selected NPC."
+            "testStrategy": "Unit test distance check logic; manual test to ensure 'Bite' action only triggers when the player is sufficiently close to the selected NPC.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -292,21 +331,25 @@
             ],
             "details": "Create a reusable TargetRingFlash graphic that attaches to the selected NPC's position. This visual must update its visibility based on the selection state and play a specific animation (flash or pulse) when the feeding interaction begins.",
             "status": "pending",
-            "testStrategy": "Visual inspection: Ensure the ring correctly follows the NPC and plays its animation during the selection and bite phases."
+            "testStrategy": "Visual inspection: Ensure the ring correctly follows the NPC and plays its animation during the selection and bite phases.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the mobile controls into: 1. Tap-to-move input handler with pathfinder integration. 2. NPC selection/targeting logic (tap vs. movement). 3. The 'Bite' action state machine and range checking. 4. Visual feedback (TargetRingFlash) implementation."
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Town Scene: Core World Implementation",
         "description": "Assemble the primary game world (Town) with NPCs, tilemaps, and active controllers.",
         "details": "Implement `src/scenes/town.ts`. Integrate the Tilemap, Player character, NPC pooling, and the DayNight/Panic/Police controllers. This scene acts as the main gameplay loop container where 'move -> bite -> panic -> escape' occurs.",
         "testStrategy": "Playtest the full loop: Start in town, find NPC, bite, trigger panic bubble, observe police spawning, and escape to a safe zone.",
         "priority": "high",
         "dependencies": [
-          4,
-          5,
-          6
+          "4",
+          "5",
+          "6"
         ],
         "status": "pending",
         "subtasks": [
@@ -317,7 +360,8 @@
             "dependencies": [],
             "details": "Implement the preload() and create() methods in src/scenes/town.ts. Load the Tiled JSON map, tilesets, and sprite sheets for the player and NPCs. Ensure the camera is initialized to follow the player character.",
             "status": "pending",
-            "testStrategy": "Verify that the game loads without errors and the town tilemap is rendered correctly in the browser."
+            "testStrategy": "Verify that the game loads without errors and the town tilemap is rendered correctly in the browser.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -328,7 +372,8 @@
             ],
             "details": "Initialize the NPC pool within the Town scene. Implement a spawning algorithm that places NPCs on walkable tilemap coordinates, respecting the density multipliers provided by the Day/Night controller.",
             "status": "pending",
-            "testStrategy": "Observe that NPCs are spawned upon scene start and that the number of NPCs matches the expected density for the current time phase."
+            "testStrategy": "Observe that NPCs are spawned upon scene start and that the number of NPCs matches the expected density for the current time phase.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -339,7 +384,8 @@
             ],
             "details": "Instantiate the DayNightController, PanicController, and PoliceController. Set up event listeners within the scene to handle phase shifts (e.g., changing ambient light) and panic escalations (e.g., triggering police spawns).",
             "status": "pending",
-            "testStrategy": "Trigger a simulated phase change via the console and verify that the scene's ambient tint and NPC behavior update accordingly."
+            "testStrategy": "Trigger a simulated phase change via the console and verify that the scene's ambient tint and NPC behavior update accordingly.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -351,7 +397,8 @@
             ],
             "details": "Set up Phaser Arcade Physics or Matter.js to handle collisions with the 'Obstacles' layer of the tilemap. Implement trigger zones for the 'Bite' mechanic and ensure the player cannot pass through buildings or scene boundaries.",
             "status": "pending",
-            "testStrategy": "Perform manual movement tests to ensure the player character is blocked by walls and can trigger interaction prompts when near NPCs."
+            "testStrategy": "Perform manual movement tests to ensure the player character is blocked by walls and can trigger interaction prompts when near NPCs.",
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -365,19 +412,23 @@
             ],
             "details": "Create a UI overlay that renders physics bodies, NPC detection radii, and current controller states (Time, Panic Level, Active Police Count). This will be used for balancing the 'move -> bite -> escape' gameplay loop.",
             "status": "pending",
-            "testStrategy": "Toggle the debug view and confirm that collision boxes align with visual assets and that NPC state labels update in real-time."
+            "testStrategy": "Toggle the debug view and confirm that collision boxes align with visual assets and that NPC state labels update in real-time.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 8,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Structure the core scene implementation: 1. Scene lifecycle management and asset loading. 2. Integration of NPC pooling for performance. 3. Controller orchestration (Day/Night, Panic, Police). 4. Player-world collision and interaction setup. 5. Debug overlay for spatial systems."
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Interior and Castle Scenes with Respawn Logic",
         "description": "Implement secondary scenes and the transition logic between them, including the death/respawn flow.",
         "details": "Create `src/scenes/interior.ts` and `src/scenes/castle.ts`. The Castle serves as the safe-zone/respawn point. Use a scene manager to handle transitions. If health reaches zero in the Town or Sun, the player must respawn in the Castle scene.",
         "testStrategy": "Verify scene transitions: 1. Entering a building switches to InteriorScene. 2. Dying in Town correctly triggers transition to CastleScene.",
         "priority": "medium",
         "dependencies": [
-          7
+          "7"
         ],
         "status": "pending",
         "subtasks": [
@@ -388,7 +439,8 @@
             "dependencies": [],
             "details": "Develop a utility to wrap Phaser's Scene Manager to pass player state (health, inventory) between Town, Interior, and Castle scenes efficiently.",
             "status": "pending",
-            "testStrategy": "Verify that player health values and state variables remain consistent when moving from the Town scene to an Interior scene and back."
+            "testStrategy": "Verify that player health values and state variables remain consistent when moving from the Town scene to an Interior scene and back.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -399,7 +451,8 @@
             ],
             "details": "Construct src/scenes/interior.ts and src/scenes/castle.ts. Set up tilemap loading, collision layers, and exit portals that trigger the Scene Manager to return to the Town.",
             "status": "pending",
-            "testStrategy": "Manually trigger scene transitions via portal overlaps and confirm the correct Tiled assets are rendered for both the Castle and building interiors."
+            "testStrategy": "Manually trigger scene transitions via portal overlaps and confirm the correct Tiled assets are rendered for both the Castle and building interiors.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -411,20 +464,24 @@
             ],
             "details": "Add a listener to the player state for health reaching 0. Upon death, trigger a fade-out animation and invoke the Scene Manager to move the player to the Castle spawn coordinates.",
             "status": "pending",
-            "testStrategy": "Simulate player death in the Town scene by reducing health to zero and confirm the game successfully reloads the player at the designated Castle spawn point with reset health."
+            "testStrategy": "Simulate player death in the Town scene by reducing health to zero and confirm the game successfully reloads the player at the designated Castle spawn point with reset health.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Expand into: 1. Scene transition manager for handling data persistence between scenes. 2. Implementation of Interior and Castle tilemap logic. 3. Death and Respawn flow (Health 0 -> Castle transition)."
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "UI Components and Game Overlays (S1-S9 HUD)",
         "description": "Create the Design System-based UI components and in-game overlays like the Blood bar, Phase indicator, and Panic flash.",
         "details": "Implement components in `src/ui/components/` and `src/ui/overlays/`. Include `BottomActionBar`, `TimeOfDayIndicator`, and full-screen flashes for damage/panic. These must use the tokens defined in Task 2. Use Phaser DOM elements or React/Vue overlay if specified by the stack.",
         "testStrategy": "Visual check: 1. UI elements scale for mobile portrait. 2. Phase indicator updates when Day/Night controller changes state. 3. Panic overlay flashes when the player is in a Panic Bubble.",
         "priority": "medium",
         "dependencies": [
-          2,
-          7
+          "2",
+          "7"
         ],
         "status": "pending",
         "subtasks": [
@@ -435,7 +492,8 @@
             "dependencies": [],
             "details": "Implement in `src/ui/components/BloodBar.ts`. Use `TOKENS.colors` for health states (e.g., critical, caution, healthy). The component must support smooth value transitions and scale for high-density mobile displays.",
             "status": "pending",
-            "testStrategy": "Unit test using a mock player state; verify that the bar width and color accurately reflect percentage thresholds from 0 to 100."
+            "testStrategy": "Unit test using a mock player state; verify that the bar width and color accurately reflect percentage thresholds from 0 to 100.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -444,7 +502,8 @@
             "dependencies": [],
             "details": "Implement in `src/ui/components/PhaseIndicator.ts`. This component must subscribe to the state of the Day/Night controller from Task 4 and display the current phase (Day, Dusk, Night, Dawn) using relevant icons and labels.",
             "status": "pending",
-            "testStrategy": "Integration test: manually trigger phase transitions in the controller and confirm the UI label and icon update immediately."
+            "testStrategy": "Integration test: manually trigger phase transitions in the controller and confirm the UI label and icon update immediately.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -453,7 +512,8 @@
             "dependencies": [],
             "details": "Create `src/ui/overlays/FlashOverlay.ts`. Implement a full-screen alpha-rect or shader that flashes 'panic' red or 'sun damage' yellow when specific events are fired from the game engine.",
             "status": "pending",
-            "testStrategy": "Visual verification: trigger the panic event in-game and ensure the screen-wide flash occurs without obstructing UI controls."
+            "testStrategy": "Visual verification: trigger the panic event in-game and ensure the screen-wide flash occurs without obstructing UI controls.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -466,20 +526,24 @@
             ],
             "details": "Implement the main HUD container in `src/ui/HUDContainer.ts`. Include the `BottomActionBar` and use a layout system (CSS Flexbox or Phaser DOM) to ensure components are positioned correctly within mobile safe areas.",
             "status": "pending",
-            "testStrategy": "Responsiveness check: Verify that the HUD layout scales correctly across multiple mobile device aspect ratios (e.g., iPhone SE vs iPhone 14 Pro Max)."
+            "testStrategy": "Responsiveness check: Verify that the HUD layout scales correctly across multiple mobile device aspect ratios (e.g., iPhone SE vs iPhone 14 Pro Max).",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the HUD: 1. Dynamic Blood Bar component. 2. Phase indicator linked to the Day/Night controller. 3. Full-screen damage/panic flash effects. 4. Responsive layout system for mobile portrait mode."
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Navigation and Screen Management (S0-S10)",
         "description": "Implement the complete set of screens (Main Menu, Settings, Game Over) and the navigation flow.",
         "details": "Implement the remaining screens (S0: Splash, S1: Main Menu, S10: Settings, etc.). Create a navigation controller that handles transitions between menus and scenes. Ensure the player name validation rules (Task 1) are applied on the profile/start screen.",
         "testStrategy": "End-to-End test: Boot the game, navigate from Splash to Main Menu, enter Settings, return, start game, trigger Game Over, and return to Menu.",
         "priority": "medium",
         "dependencies": [
-          1,
-          9
+          "1",
+          "9"
         ],
         "status": "pending",
         "subtasks": [
@@ -490,7 +554,8 @@
             "dependencies": [],
             "details": "Create a NavigationController class that maintains a screen stack. Implement logic to switch between Phaser scenes or UI layers, including fade-in/out transitions and state preservation for active scenes.",
             "status": "pending",
-            "testStrategy": "Unit test the router's stack logic to ensure push/pop operations maintain correct hierarchy and scene events are dispatched."
+            "testStrategy": "Unit test the router's stack logic to ensure push/pop operations maintain correct hierarchy and scene events are dispatched.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -501,7 +566,8 @@
             ],
             "details": "Build the screens using UI tokens from Task 2. Integrate the player name validation logic (Task 1) into the profile section. Ensure the Settings screen correctly interacts with the GameConfig/RuntimeConfig.",
             "status": "pending",
-            "testStrategy": "Manual visual verification against design specs and automated validation check to ensure name input rejects invalid strings."
+            "testStrategy": "Manual visual verification against design specs and automated validation check to ensure name input rejects invalid strings.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -513,15 +579,23 @@
             ],
             "details": "Map hardware back-button inputs to navigation 'pop' events. Implement local storage persistence for user settings. Execute an end-to-end smoke test covering the flow: Splash -> Menu -> Settings -> Game -> Game Over.",
             "status": "pending",
-            "testStrategy": "End-to-End test: Verify that navigating through the entire screen flow and returning to the menu works without memory leaks or state corruption."
+            "testStrategy": "End-to-End test: Verify that navigating through the entire screen flow and returning to the menu works without memory leaks or state corruption.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Detail the menu flow: 1. Centralized navigation controller/router. 2. Implementation of Splash, Main, and Settings screens. 3. Validation logic for player names based on YAML config."
       }
     ],
     "metadata": {
-      "created": "2026-02-04T16:14:25.422Z",
-      "updated": "2026-02-04T16:14:25.422Z",
-      "description": "Tasks for master context"
+      "version": "1.0.0",
+      "lastModified": "2026-02-04T18:13:42.537Z",
+      "taskCount": 10,
+      "completedCount": 1,
+      "tags": [
+        "master"
+      ]
     }
   }
 }

@@ -1,0 +1,106 @@
+game:
+  version: "0.1"
+  locale: "en"
+
+player:
+  name:
+    random:
+      enabled: true
+      length: 8
+      charset: "A-Za-z0-9"
+    manualInput:
+      enabled: true
+      regex: "^[A-Za-z0-9]{3,12}$"
+      onInvalid: "reject"
+      replaceChar: "_"
+
+controls:
+  tapToMove:
+    enabled: true
+  tapToTarget:
+    enabled: true
+  targetRing:
+    flashMs: 200
+  tapMarker:
+    enabled: false
+
+dayNight:
+  cycle:
+    totalSeconds: 420
+    daySeconds: 160
+    duskSeconds: 40
+    nightSeconds: 160
+    dawnSeconds: 60
+  npcDensity:
+    dayMultiplier: 1.0
+    nightMultiplier: 0.45
+
+sun:
+  enabled: true
+  damagePerSecond: 12
+  graceMs: 150
+  safeZones:
+    indoors: true
+    castle: true
+
+panic:
+  bubble:
+    radiusTiles: 10
+    durationSeconds: 25
+  witness:
+    callPoliceDelaySeconds: 2.0
+    panicSpreadWithinBubble: true
+
+heat:
+  levels: 6
+  decay:
+    enabled: true
+    secondsToStartDecay: 6
+    decayPerSecond: 0.6
+
+humans:
+  base:
+    walkSpeed: 1.0
+    bloodQuality: 1.0
+  variants:
+    adultMale:
+      speedMultiplier: 1.0
+      bloodQualityMultiplier: 1.0
+    adultFemale:
+      speedMultiplier: 1.0
+      bloodQualityMultiplier: 1.0
+    kid:
+      speedMultiplier: 1.35
+      bloodQualityMultiplier: 1.25
+    grandma:
+      speedMultiplier: 0.75
+      bloodQualityMultiplier: 0.8
+    grandpa:
+      speedMultiplier: 0.75
+      bloodQualityMultiplier: 0.8
+
+police:
+  enabled: true
+  spawn:
+    baseCount: 2
+    responseCountPerHeat: 1
+    nightMultiplier: 2.0
+  vision:
+    dayRangeTiles: 9
+    nightRangeTiles: 6
+  damage:
+    bulletDamage: 10
+    fireRatePerSecond: 0.8
+
+feeding:
+  bite:
+    rangeTiles: 1.0
+    baseDurationSeconds: 2.4
+    interruptible: true
+  reward:
+    baseBloodGain: 20
+
+performance:
+  maxActiveNpcs:
+    town: 40
+    interior: 12
