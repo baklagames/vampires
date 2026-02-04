@@ -5,8 +5,8 @@
         "id": 1,
         "title": "Config Loader and YAML Integration",
         "description": "Establish the foundation for the 'No Magic Numbers' rule by implementing a robust YAML configuration loader.",
-        "details": "Implement a 'GameConfig' singleton that uses a YAML parser (like js-yaml) to load the game's tunable parameters from a local file. This task involves mapping the YAML structure provided in the PRD (v0.1) into a typed object accessible globally. Ensure that any attempt to use a hardcoded value for gameplay parameters (e.g., player speed, sun damage) is caught during development. Include a mechanism to refresh/hot-reload the config for easier balancing during development.",
-        "testStrategy": "Unit test the config loader to ensure it correctly parses strings, numbers, and nested objects from the YAML. Verify that changing a value in the YAML reflects in the loaded config object without code changes.",
+        "details": "Implement a 'GameConfig' singleton that uses a YAML parser (like js-yaml) to load the game's tunable parameters from a local file. Follow the load order: load YAML → validate schema → apply defaults → expose an immutable runtime config. This task involves mapping the YAML structure provided in the PRD (v0.1) into a typed object accessible globally. Ensure that any attempt to use a hardcoded value for gameplay parameters (e.g., player speed, sun damage) is caught during development. Include a mechanism to refresh/hot-reload the config for easier balancing during development.",
+        "testStrategy": "Unit test the config loader to ensure it correctly parses strings, numbers, and nested objects from the YAML. Verify schema validation and default application behavior. Confirm that changing a value in the YAML reflects in the loaded config object without code changes.",
         "priority": "high",
         "dependencies": [],
         "status": "pending",
@@ -133,7 +133,7 @@
     ],
     "metadata": {
       "created": "2026-02-04T13:33:30.398Z",
-      "updated": "2026-02-04T13:33:30.398Z",
+      "updated": "2026-02-04T13:35:30.398Z",
       "description": "Tasks for master context"
     }
   }
