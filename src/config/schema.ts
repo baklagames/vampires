@@ -10,7 +10,6 @@ const PlayerNameSchema = z
         length: z.number().int().min(1).default(8),
         charset: z.string().default("A-Za-z0-9"),
       })
-      .partial()
       .strict()
       .default({}),
     manualInput: z
@@ -20,11 +19,9 @@ const PlayerNameSchema = z
         onInvalid: OnInvalidSchema.default("reject"),
         replaceChar: z.string().min(1).max(1).default("_"),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -34,32 +31,27 @@ const ControlsSchema = z
       .object({
         enabled: z.boolean().default(true),
       })
-      .partial()
       .strict()
       .default({}),
     tapToTarget: z
       .object({
         enabled: z.boolean().default(true),
       })
-      .partial()
       .strict()
       .default({}),
     targetRing: z
       .object({
         flashMs: z.number().int().min(0).default(200),
       })
-      .partial()
       .strict()
       .default({}),
     tapMarker: z
       .object({
         enabled: z.boolean().default(false),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -73,7 +65,6 @@ const DayNightSchema = z
         nightSeconds: z.number().min(0).default(160),
         dawnSeconds: z.number().min(0).default(60),
       })
-      .partial()
       .strict()
       .default({}),
     npcDensity: z
@@ -81,11 +72,9 @@ const DayNightSchema = z
         dayMultiplier: z.number().min(0).default(1.0),
         nightMultiplier: z.number().min(0).default(0.45),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .superRefine((value, ctx) => {
     if (!value.cycle) {
@@ -135,11 +124,9 @@ const SunSchema = z
         indoors: z.boolean().default(true),
         castle: z.boolean().default(true),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -150,7 +137,6 @@ const PanicSchema = z
         radiusTiles: z.number().min(0).default(10),
         durationSeconds: z.number().min(0).default(25),
       })
-      .partial()
       .strict()
       .default({}),
     witness: z
@@ -158,11 +144,9 @@ const PanicSchema = z
         callPoliceDelaySeconds: z.number().min(0).default(2.0),
         panicSpreadWithinBubble: z.boolean().default(true),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -175,11 +159,9 @@ const HeatSchema = z
         secondsToStartDecay: z.number().min(0).default(6),
         decayPerSecond: z.number().min(0).default(0.6),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -190,7 +172,6 @@ const HumansSchema = z
         walkSpeed: z.number().min(0).default(1.0),
         bloodQuality: z.number().min(0).default(1.0),
       })
-      .partial()
       .strict()
       .default({}),
     variants: z
@@ -200,7 +181,6 @@ const HumansSchema = z
             speedMultiplier: z.number().min(0).default(1.0),
             bloodQualityMultiplier: z.number().min(0).default(1.0),
           })
-          .partial()
           .strict()
           .default({}),
         adultFemale: z
@@ -208,7 +188,6 @@ const HumansSchema = z
             speedMultiplier: z.number().min(0).default(1.0),
             bloodQualityMultiplier: z.number().min(0).default(1.0),
           })
-          .partial()
           .strict()
           .default({}),
         kid: z
@@ -216,7 +195,6 @@ const HumansSchema = z
             speedMultiplier: z.number().min(0).default(1.35),
             bloodQualityMultiplier: z.number().min(0).default(1.25),
           })
-          .partial()
           .strict()
           .default({}),
         grandma: z
@@ -224,7 +202,6 @@ const HumansSchema = z
             speedMultiplier: z.number().min(0).default(0.75),
             bloodQualityMultiplier: z.number().min(0).default(0.8),
           })
-          .partial()
           .strict()
           .default({}),
         grandpa: z
@@ -232,15 +209,12 @@ const HumansSchema = z
             speedMultiplier: z.number().min(0).default(0.75),
             bloodQualityMultiplier: z.number().min(0).default(0.8),
           })
-          .partial()
           .strict()
           .default({}),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -253,7 +227,6 @@ const PoliceSchema = z
         responseCountPerHeat: z.number().int().min(0).default(1),
         nightMultiplier: z.number().min(0).default(2.0),
       })
-      .partial()
       .strict()
       .default({}),
     vision: z
@@ -261,7 +234,6 @@ const PoliceSchema = z
         dayRangeTiles: z.number().min(0).default(9),
         nightRangeTiles: z.number().min(0).default(6),
       })
-      .partial()
       .strict()
       .default({}),
     damage: z
@@ -269,11 +241,9 @@ const PoliceSchema = z
         bulletDamage: z.number().min(0).default(10),
         fireRatePerSecond: z.number().min(0).default(0.8),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -285,18 +255,15 @@ const FeedingSchema = z
         baseDurationSeconds: z.number().min(0).default(2.4),
         interruptible: z.boolean().default(true),
       })
-      .partial()
       .strict()
       .default({}),
     reward: z
       .object({
         baseBloodGain: z.number().min(0).default(20),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 
@@ -307,11 +274,9 @@ const PerformanceSchema = z
         town: z.number().int().min(0).default(40),
         interior: z.number().int().min(0).default(12),
       })
-      .partial()
       .strict()
       .default({}),
   })
-  .partial()
   .strict()
   .default({});
 

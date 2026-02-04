@@ -47,11 +47,11 @@ describe("config loader integration", () => {
     expect(config.player.name.manualInput.onInvalid).toBe("reject");
   });
 
-  it("throws a friendly error for invalid YAML", async () => {
+  it("throws a friendly error for invalid config", async () => {
     globalThis.fetch = (async () => buildFetchResponse("::bad:::")) as typeof fetch;
 
     await expect(loadConfig("invalid.yaml")).rejects.toThrow(
-      "Failed to parse config YAML",
+      "Invalid config",
     );
   });
 

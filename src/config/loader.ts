@@ -45,5 +45,81 @@ export const loadConfig = async (
     throw new Error(formatZodError(validated.error));
   }
 
-  return deepFreeze(validated.data);
+  const defaults = ConfigSchema.parse(buildDefaultConfigInput());
+  const merged = mergeDefaults(defaults, validated.data);
+
+  return deepFreeze(merged);
 };
+
+const buildDefaultConfigInput = (): Record<string, unknown> => ({
+  game: {},
+  player: {
+    name: {
+      random: {},
+      manualInput: {},
+    },
+  },
+  controls: {
+    tapToMove: {},
+    tapToTarget: {},
+    targetRing: {},
+    tapMarker: {},
+  },
+  dayNight: {
+    cycle: {},
+    npcDensity: {},
+  },
+  sun: {
+    safeZones: {},
+  },
+  panic: {
+    bubble: {},
+    witness: {},
+  },
+  heat: {
+    decay: {},
+  },
+  humans: {
+    base: {},
+    variants: {
+      adultMale: {},
+      adultFemale: {},
+      kid: {},
+      grandma: {},
+      grandpa: {},
+    },
+  },
+  police: {
+    spawn: {},
+    vision: {},
+    damage: {},
+  },
+  feeding: {
+    bite: {},
+    reward: {},
+  },
+  performance: {
+    maxActiveNpcs: {},
+  },
+});
+
+const mergeDefaults = <T>(defaults: T, override: T): T => {
+  if (Array.isArray(defaults) || Array.isArray(override)) {
+    return override;
+  }
+
+  if (!isPlainObject(defaults) || !isPlainObject(override)) {
+    return override;
+  }
+
+  const result: Record<string, unknown> = { ...defaults };
+  for (const [key, value] of Object.entries(override)) {
+    const baseValue = (defaults as Record<string, unknown>)[key];
+    result[key] = mergeDefaults(baseValue, value);
+  }
+
+  return result as T;
+};
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === "object" && !Array.isArray(value);
