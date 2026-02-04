@@ -3,10 +3,10 @@
 Below is the implementation plan captured as a working backlog with priorities and expected artifacts. The plan starts with design system formation.
 
 ## P0 — Blocking (design system and rules)
-1. **Linting plan before development.**
+1. **Create linters for the program code before development.**
    - **Artifacts:**
-     - Agreed linting ruleset (style, naming, formatting, and architecture checks).
-     - Tooling plan (selected linter(s), configuration file locations, CI/local run commands).
+     - Implemented linting ruleset (style, naming, formatting, and architecture checks).
+     - Tooling setup (selected linter(s), configuration file locations, CI/local run commands).
 
 2. **Design system foundation (DS tokens + color roles).**
    - **Artifacts:**
