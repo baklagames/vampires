@@ -258,7 +258,7 @@
           "1",
           "4"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -266,9 +266,10 @@
             "description": "Create the core manager for panic bubbles, handling their creation, duration-based expiration, and spatial tracking.",
             "dependencies": [],
             "details": "Implement the PanicBubbleManager in src/controllers/panic-bubble.ts. It should store a collection of active bubbles (x, y, radius, remainingDuration) and include a cleanup loop to remove expired bubbles.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit test to verify that adding a bubble with a 5-second duration results in its removal from the active state after exactly 5 seconds.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:16:20.826Z"
           },
           {
             "id": 2,
@@ -278,9 +279,10 @@
               1
             ],
             "details": "Implement a collision or distance-check routine that iterates through active bubbles and identifies all NPCs within the radius. Trigger the 'panic' state on the NPC instances to modify their movement speed or pathing.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration test: Place an NPC at distance R-1 and another at R+1 from the bubble center; verify only the first NPC enters the panic state.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:17:13.210Z"
           },
           {
             "id": 3,
@@ -290,9 +292,10 @@
               1
             ],
             "details": "Implement src/controllers/police-response.ts. This controller must query the map for valid, walkable tiles near the panic bubble center and instantiate Police NPC objects at a rate defined by the config.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that police NPCs are instantiated at coordinates within 20% of the bubble radius and that they are placed on valid navigation tiles.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:18:31.042Z"
           },
           {
             "id": 4,
@@ -302,14 +305,16 @@
               3
             ],
             "details": "Access the global YAML configuration for base spawn rates and radius. Implement logic to double (x2) the spawn density when the current game state is set to 'Night' phase.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Manual test: Trigger a panic bubble during the Day phase and count spawns, then repeat during the Night phase to confirm the count is exactly doubled.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:19:27.908Z"
           }
         ],
         "complexity": 6,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "Detail the panic mechanics: 1. Area-of-effect (AoE) logic for panic spread. 2. Police spawn algorithm (location selection and frequency). 3. State management for active bubbles. 4. Night-time multiplier implementation."
+        "expansionPrompt": "Detail the panic mechanics: 1. Area-of-effect (AoE) logic for panic spread. 2. Police spawn algorithm (location selection and frequency). 3. State management for active bubbles. 4. Night-time multiplier implementation.",
+        "updatedAt": "2026-02-04T19:19:27.908Z"
       },
       {
         "id": "6",
@@ -626,9 +631,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-04T19:06:23.760Z",
+      "lastModified": "2026-02-04T19:19:27.908Z",
       "taskCount": 10,
-      "completedCount": 4,
+      "completedCount": 5,
       "tags": [
         "master"
       ]
