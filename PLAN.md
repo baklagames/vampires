@@ -23,12 +23,13 @@ Below is the implementation plan captured as a working backlog with priorities a
      - Rules for Primary/Secondary/Icon/ModalSheet.
      - TextField states (valid/invalid/help) and Toast error rules.
 
+## P1 — High priority (linting)
 5. **Create linters for the program code before development.**
    - **Artifacts:**
      - Implemented linting ruleset (style, naming, formatting, and architecture checks).
      - Tooling setup (selected linter(s), configuration file locations, CI/local run commands).
 
-## P1 — High priority (config and architecture)
+## P2 — High priority (config and architecture)
 6. **YAML config as the single source of balance.**
    - **Artifacts:**
      - YAML config structure (schema outline).
@@ -44,7 +45,7 @@ Below is the implementation plan captured as a working backlog with priorities a
      - Scene map (Town/Interior/Castle) and controller list (DayNight, PanicBubble, PoliceResponse, etc.).
      - Boundaries of scene/controller responsibilities.
 
-## P2 — Medium priority (screen skeletons)
+## P3 — Medium priority (screen skeletons)
 9. **Screen specifications (S0–S10) based on DS.**
    - **Artifacts:**
      - Screen wireframes mapped to DS components.
@@ -55,7 +56,7 @@ Below is the implementation plan captured as a working backlog with priorities a
      - HUD specification (TimeOfDay, Heat, blood/health, BottomActionBar).
      - Overlay list and behavior.
 
-## P3 — Production planning
+## P4 — Production planning
 11. **Development plan.**
     - **Artifacts:**
       - Phased implementation plan with milestones, dependencies, and delivery dates.
