@@ -744,15 +744,41 @@
         "description": "Align design tokens with PRD (spacing/radius/typography/color roles), add CSS variables for tokens, enforce semantic color roles.",
         "details": "Test Strategy: token enforcement tests pass; no hardcoded layout/color values in UI files.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1"
         ],
         "priority": "high",
-        "subtasks": [],
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Design Token Registry (JSON/TS)",
+            "description": "Map PRD specifications for colors, spacing, radius, and typography into a structured JSON or TypeScript configuration to serve as the single source of truth.",
+            "dependencies": [],
+            "details": "Establish a comprehensive registry containing semantic color roles (primary, secondary, feedback), spacing scales, and typography definitions. This registry must export structured objects compatible with the injection utility and component library.",
+            "status": "done",
+            "testStrategy": "Schema validation and type checks to ensure all required PRD tokens are present and formatted correctly.",
+            "updatedAt": "2026-02-05T18:49:06.831Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement CSS Variable Injection Utility",
+            "description": "Develop a utility function to transform the design token registry into CSS custom properties and inject them into the application's global stylesheet.",
+            "dependencies": [
+              1
+            ],
+            "details": "Iterate through the token registry to generate a valid CSS string for the :root selector. The utility should handle nested objects to create kebab-case variable names (e.g., --ds-color-primary-main) and append the styles to the document head.",
+            "status": "done",
+            "testStrategy": "Verify the presence of CSS variables in the DOM using browser inspector and unit test the token-to-CSS string conversion logic.",
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T18:54:18.389Z"
+          }
+        ],
         "complexity": 4,
         "recommendedSubtasks": 2,
-        "expansionPrompt": "1. Define the token registry (JSON/TS) matching the PRD values for colors, spacing, and typography.\n2. Create a utility to inject these tokens as CSS variables into the global stylesheet."
+        "expansionPrompt": "1. Define the token registry (JSON/TS) matching the PRD values for colors, spacing, and typography.\n2. Create a utility to inject these tokens as CSS variables into the global stylesheet.",
+        "updatedAt": "2026-02-05T18:54:18.389Z"
       },
       {
         "id": "3",
@@ -1335,9 +1361,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-05T17:09:28.580Z",
+      "lastModified": "2026-02-05T18:54:18.389Z",
       "taskCount": 14,
-      "completedCount": 1,
+      "completedCount": 2,
       "tags": [
         "mvp-full"
       ]

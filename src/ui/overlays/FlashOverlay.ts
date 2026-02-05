@@ -27,8 +27,8 @@ export class FlashOverlay {
   };
 
   constructor(options: FlashOverlayOptions = {}) {
-    this.panicColor = options.panicColor ?? TOKENS.colors.panic;
-    this.sunColor = options.sunColor ?? TOKENS.colors.sunDamage;
+    this.panicColor = options.panicColor ?? TOKENS.colors.danger;
+    this.sunColor = options.sunColor ?? TOKENS.colors.warning;
     this.maxAlpha = options.maxAlpha ?? 0.6;
     this.fadeMs = options.fadeMs ?? 300;
   }

@@ -9,5 +9,5 @@ export type MainMenuState = {
 export const buildMainMenuState = (): MainMenuState => ({
   title: "Main Menu",
   actions: ["Start", "Settings", "Quit"],
-  accent: TOKENS.colors.primary,
+  accent: TOKENS.colors.accent,
 });

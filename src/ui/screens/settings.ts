@@ -19,7 +19,7 @@ export const buildSettingsState = (
 
   return {
     title: "Settings",
-    accent: TOKENS.colors.primary,
+    accent: TOKENS.colors.accent,
     playerNameValid,
   };
 };

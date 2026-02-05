@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import { loadConfig } from "./config/loader";
 import { NavigationController } from "./ui/navigation-controller";
+import { applyTokensToCssVars } from "./ui/tokens-css";
 import { TOKENS } from "./ui/tokens";
 
 class BootScene extends Phaser.Scene {
@@ -14,20 +15,21 @@ class BootScene extends Phaser.Scene {
     const textStyle = {
       fontFamily: "sans-serif",
       fontSize: `${TOKENS.typography.lg}px`,
-      color: TOKENS.colors.titleText,
+      color: TOKENS.colors.textPrimary,
     };
     this.add.text(width / 2, height / 2, "Vampires Prototype", textStyle).setOrigin(0.5);
   }
 }
 
 const startGame = async () => {
+  applyTokensToCssVars();
   const config = await loadConfig("/assets/config/default.yaml");
   const navigation = new NavigationController({ initialScreen: "splash" });
 
   const gameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     parent: "app",
-    backgroundColor: TOKENS.colors.primary,
+    backgroundColor: TOKENS.colors.background,
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,

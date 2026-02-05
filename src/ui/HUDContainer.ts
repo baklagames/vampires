@@ -43,7 +43,7 @@ export const buildHUDState = (
   options: HUDContainerOptions,
 ): HUDState => {
   const padding = TOKENS.spacing.lg;
-  const gap = TOKENS.spacing.md;
+  const gap = TOKENS.spacing.sm;
   const actionBarHeight = options.actionBarHeight ?? 64;
 
   const bloodBar = getBloodBarState(playerHealth.current, playerHealth.max);

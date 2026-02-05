@@ -28,11 +28,11 @@ export const getBloodBarState = (
   const cautionThreshold = options.cautionThreshold ?? 0.5;
   const criticalThreshold = options.criticalThreshold ?? 0.25;
 
-  let color = TOKENS.colors.stealthActive;
+  let color = TOKENS.colors.success;
   if (percent <= criticalThreshold) {
     color = TOKENS.colors.danger;
   } else if (percent <= cautionThreshold) {
-    color = TOKENS.colors.sunWarning;
+    color = TOKENS.colors.warning;
   }
 
   return {
@@ -40,6 +40,6 @@ export const getBloodBarState = (
     color,
     width: options.width ?? 120,
     height: options.height ?? 12,
-    radius: TOKENS.radius.default,
+    radius: TOKENS.radius.sm,
   };
 };

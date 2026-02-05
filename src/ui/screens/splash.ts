@@ -8,6 +8,6 @@ export type SplashScreenState = {
 
 export const buildSplashState = (): SplashScreenState => ({
   title: "Vampires",
-  background: TOKENS.colors.primary,
+  background: TOKENS.colors.background,
   durationMs: 1200,
 });

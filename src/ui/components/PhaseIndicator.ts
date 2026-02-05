@@ -15,10 +15,10 @@ const PHASE_LABELS: Record<DayPhase, string> = {
 };
 
 const PHASE_COLORS: Record<DayPhase, string> = {
-  day: TOKENS.colors.stealthActive,
-  dusk: TOKENS.colors.sunWarning,
-  night: TOKENS.colors.primary,
-  dawn: TOKENS.colors.sunWarning,
+  day: TOKENS.colors.success,
+  dusk: TOKENS.colors.warning,
+  night: TOKENS.colors.accent,
+  dawn: TOKENS.colors.warning,
 };
 
 export const getPhaseIndicatorState = (phase: DayPhase): PhaseIndicatorState => ({

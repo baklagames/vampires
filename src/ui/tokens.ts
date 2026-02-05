@@ -1,31 +1,36 @@
-export interface ColorTokens {
-  primary: string;
-  sunDamage: string;
-  panic: string;
+export interface ColorRoleTokens {
+  background: string;
+  surface: string;
+  textPrimary: string;
+  textSecondary: string;
+  accent: string;
   danger: string;
-  stealthActive: string;
-  sunWarning: string;
-  titleText: string;
+  warning: string;
+  success: string;
 }
 
 export interface SpacingTokens {
+  xs: number;
   sm: number;
   md: number;
   lg: number;
+  xl: number;
 }
 
 export interface RadiusTokens {
-  default: number;
+  sm: number;
+  md: number;
 }
 
 export interface TypographyTokens {
+  xs: number;
   sm: number;
   md: number;
   lg: number;
 }
 
 export interface Tokens {
-  colors: ColorTokens;
+  colors: ColorRoleTokens;
   spacing: SpacingTokens;
   radius: RadiusTokens;
   typography: TypographyTokens;
@@ -33,26 +38,31 @@ export interface Tokens {
 
 export const TOKENS: Tokens = {
   colors: {
-    primary: "#6200ee",
-    sunDamage: "#ffeb3b",
-    panic: "#f44336",
+    background: "#0b0b12",
+    surface: "#1a1d2b",
+    textPrimary: "#f5f5f7",
+    textSecondary: "#b7bcc8",
+    accent: "#6200ee",
     danger: "#e53935",
-    stealthActive: "#4caf50",
-    sunWarning: "#ffd54f",
-    titleText: "#ffffff",
+    warning: "#ffd54f",
+    success: "#4caf50",
   },
   spacing: {
-    sm: 4,
-    md: 8,
+    xs: 4,
+    sm: 8,
+    md: 12,
     lg: 16,
+    xl: 24,
   },
   radius: {
-    default: 4,
+    sm: 8,
+    md: 12,
   },
   typography: {
-    sm: 12,
-    md: 14,
-    lg: 18,
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 20,
   },
 };
 
