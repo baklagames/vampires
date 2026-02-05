@@ -14,7 +14,7 @@ class BootScene extends Phaser.Scene {
     const textStyle = {
       fontFamily: "sans-serif",
       fontSize: `${TOKENS.typography.lg}px`,
-      color: TOKENS.colors.primary,
+      color: TOKENS.colors.titleText,
     };
     this.add.text(width / 2, height / 2, "Vampires Prototype", textStyle).setOrigin(0.5);
   }

@@ -5,6 +5,7 @@ export interface ColorTokens {
   danger: string;
   stealthActive: string;
   sunWarning: string;
+  titleText: string;
 }
 
 export interface SpacingTokens {
@@ -38,6 +39,7 @@ export const TOKENS: Tokens = {
     danger: "#e53935",
     stealthActive: "#4caf50",
     sunWarning: "#ffd54f",
+    titleText: "#ffffff",
   },
   spacing: {
     sm: 4,
