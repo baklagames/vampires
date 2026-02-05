@@ -4,6 +4,9 @@
   "description": "This repository contains the English PRD, tech rules, and design system rules for a mobile-first (PWA-friendly) vampire stealth game prototype.",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "vitest run"
   },
   "keywords": [],
@@ -11,10 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^4.1.1",
+    "phaser": "^3.90.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
+    "vite": "^7.3.1",
     "vitest": "^4.0.18"
   }
 }

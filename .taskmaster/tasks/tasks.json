@@ -662,7 +662,7 @@
         "dependencies": [
           "10"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -670,9 +670,10 @@
             "description": "Configure the local development environment and build pipeline using Vite.",
             "dependencies": [],
             "details": "Install Vite as a dev dependency. Create a root 'index.html' that includes a container element for the Phaser canvas and scripts for 'src/main.ts'. Update 'package.json' with 'dev', 'build', and 'preview' commands to facilitate rapid development and demo packaging.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that 'npm run dev' successfully launches a browser tab and 'npm run build' generates a 'dist' folder without errors.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:41:00.279Z"
           },
           {
             "id": 2,
@@ -682,9 +683,10 @@
               1
             ],
             "details": "Implement 'src/main.ts' to invoke the YAML config loader (Task 1) and register Design System Tokens (Task 2). Initialize the Phaser.Game instance with appropriate configuration (physics, scaling, rendering). Wire the first scene provided by the Navigation Controller (Task 10).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Check the browser console during startup to ensure the frozen config object is loaded and design tokens are applied to the game canvas/DOM.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:42:08.531Z"
           },
           {
             "id": 3,
@@ -694,22 +696,23 @@
               2
             ],
             "details": "Create or update 'README.md' with clear instructions on prerequisites, installation, and run/build steps. Verify that the build artifact (Vite build) correctly loads the game, navigates to the splash screen, and handles asset loading via the local harness.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run 'npm run build' followed by 'npm run preview' and manually verify the game boots to the Main Menu (S1) as per the navigation flow.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:47:52.598Z"
           }
         ],
         "complexity": 3,
         "recommendedSubtasks": 3,
         "expansionPrompt": "Break down into: 1) Add bundler/dev server + scripts. 2) Add Phaser boot entrypoint and scene wiring. 3) Document run/build instructions and smoke-test checklist.",
-        "updatedAt": "2026-02-04T19:31:10.867Z"
+        "updatedAt": "2026-02-05T08:47:52.598Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-05T08:18:07.414Z",
+      "lastModified": "2026-02-05T08:47:52.598Z",
       "taskCount": 11,
-      "completedCount": 10,
+      "completedCount": 11,
       "tags": [
         "master"
       ]
