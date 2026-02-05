@@ -786,7 +786,7 @@
         "description": "Implement DS components per PRD: PixelCard, ButtonPrimary/Secondary/Icon, BottomActionBar, HUDChip, ProgressBar, HeatIndicator, Toast, ModalSheet, ListItem, TextField, ToggleSwitch, TooltipHelp.",
         "details": "Test Strategy: component state/render tests (or UI snapshot checks) for required variants.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "2"
         ],
@@ -798,9 +798,10 @@
             "description": "Create the core interactive atomic components: Button (Primary, Secondary, Icon variants) and HUDChip.",
             "dependencies": [],
             "details": "Use Tailwind CSS to implement hover, active, and disabled states. Ensure the Button component supports loading states and icon positioning as seen in the code snippets.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests for button click handlers and snapshot tests for different variant rendering.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T18:59:50.309Z"
           },
           {
             "id": 2,
@@ -810,9 +811,10 @@
               1
             ],
             "details": "Ensure TextField supports focus states and error styling. ToggleSwitch should have smooth transitions and TooltipHelp needs absolute positioning logic.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Interaction testing for toggle state changes and focus/blur behavior for TextFields.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T19:14:11.296Z"
           },
           {
             "id": 3,
@@ -822,9 +824,10 @@
               1
             ],
             "details": "ProgressBar should handle dynamic width updates. HeatIndicator requires specific color gradients for intensity levels. Toast needs a notification queue logic.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify ProgressBar width reflects prop percentage and Toast correctly triggers/dismisses.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T19:17:09.139Z"
           },
           {
             "id": 4,
@@ -834,9 +837,10 @@
               1
             ],
             "details": "PixelCard should use the specific pixel-art border styling and shadow tokens. ListItem should handle icon slots and click interactions.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "UI layout verification to ensure padding and border consistency across different content sizes.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T19:18:09.593Z"
           },
           {
             "id": 5,
@@ -847,9 +851,10 @@
               4
             ],
             "details": "ModalSheet must include a backdrop overlay and animation for appearing. BottomActionBar should be fixed to the viewport with z-index management.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Manual verification of modal dismissal behavior and fixed positioning on different screen sizes.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T19:20:41.554Z"
           },
           {
             "id": 6,
@@ -863,14 +868,16 @@
               5
             ],
             "details": "Develop a dedicated route or Storybook config that renders every component variant and state (hover, disabled, etc.) for review.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Visual regression check of all components against design specs in the gallery environment.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T19:46:22.375Z"
           }
         ],
         "complexity": 7,
         "recommendedSubtasks": 6,
-        "expansionPrompt": "1. Implement atomic components: Button, Chip, TextField, Toggle.\n2. Implement composite components: PixelCard, ModalSheet, BottomActionBar.\n3. Implement game-specific UI: HealthBar/ProgressBar, HeatIndicator.\n4. Create a Storybook or gallery page to visualize components in isolation."
+        "expansionPrompt": "1. Implement atomic components: Button, Chip, TextField, Toggle.\n2. Implement composite components: PixelCard, ModalSheet, BottomActionBar.\n3. Implement game-specific UI: HealthBar/ProgressBar, HeatIndicator.\n4. Create a Storybook or gallery page to visualize components in isolation.",
+        "updatedAt": "2026-02-05T19:46:22.375Z"
       },
       {
         "id": "4",
@@ -1361,9 +1368,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-05T18:54:18.389Z",
+      "lastModified": "2026-02-05T19:46:22.376Z",
       "taskCount": 14,
-      "completedCount": 2,
+      "completedCount": 3,
       "tags": [
         "mvp-full"
       ]

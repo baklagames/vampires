@@ -2,6 +2,7 @@ export type ScreenId =
   | "splash"
   | "main-menu"
   | "settings"
+  | "component-gallery"
   | "town"
   | "interior"
   | "castle"
