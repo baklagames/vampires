@@ -606,7 +606,7 @@
           "1",
           "9"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -614,9 +614,10 @@
             "description": "Implement the core navigation manager to handle screen transitions, stack management, and scene switching for screens S0-S10.",
             "dependencies": [],
             "details": "Create a NavigationController class that maintains a screen stack. Implement logic to switch between Phaser scenes or UI layers, including fade-in/out transitions and state preservation for active scenes.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit test the router's stack logic to ensure push/pop operations maintain correct hierarchy and scene events are dispatched.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:16:20.984Z"
           },
           {
             "id": 2,
@@ -626,9 +627,10 @@
               1
             ],
             "details": "Build the screens using UI tokens from Task 2. Integrate the player name validation logic (Task 1) into the profile section. Ensure the Settings screen correctly interacts with the GameConfig/RuntimeConfig.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Manual visual verification against design specs and automated validation check to ensure name input rejects invalid strings.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:17:19.065Z"
           },
           {
             "id": 3,
@@ -639,14 +641,16 @@
               2
             ],
             "details": "Map hardware back-button inputs to navigation 'pop' events. Implement local storage persistence for user settings. Execute an end-to-end smoke test covering the flow: Splash -> Menu -> Settings -> Game -> Game Over.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "End-to-End test: Verify that navigating through the entire screen flow and returning to the menu works without memory leaks or state corruption.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:18:07.414Z"
           }
         ],
         "complexity": 4,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "Detail the menu flow: 1. Centralized navigation controller/router. 2. Implementation of Splash, Main, and Settings screens. 3. Validation logic for player names based on YAML config."
+        "expansionPrompt": "Detail the menu flow: 1. Centralized navigation controller/router. 2. Implementation of Splash, Main, and Settings screens. 3. Validation logic for player names based on YAML config.",
+        "updatedAt": "2026-02-05T08:18:07.414Z"
       },
       {
         "id": "11",
@@ -703,9 +707,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-05T08:04:21.167Z",
+      "lastModified": "2026-02-05T08:18:07.414Z",
       "taskCount": 11,
-      "completedCount": 9,
+      "completedCount": 10,
       "tags": [
         "master"
       ]
