@@ -13,6 +13,17 @@ player:
       regex: "^[A-Za-z0-9]{3,12}$"
       onInvalid: "reject"
       replaceChar: "_"
+  stats:
+    maxHealth: 100
+    maxBlood: 100
+    moveSpeed: 1.0
+  blood:
+    startingBlood: 50
+    loseOnDeathFraction: 0.5
+  actions:
+    biteCooldownSeconds: 0.2
+    escapeCooldownSeconds: 6
+    hideCooldownSeconds: 4
 
 controls:
   tapToMove:
@@ -53,6 +64,12 @@ panic:
 
 heat:
   levels: 6
+  increase:
+    onBite: 1
+    onKill: 2
+    onWitnessCall: 1
+    perSecondInPanic: 0.2
+    perSecondInChase: 0.3
   decay:
     enabled: true
     secondsToStartDecay: 6
@@ -79,6 +96,20 @@ humans:
       speedMultiplier: 0.75
       bloodQualityMultiplier: 0.8
 
+npc:
+  behavior:
+    idleWanderRadiusTiles: 6
+    idlePauseSeconds: 2
+    fleeSpeedMultiplier: 1.4
+    panicDurationSeconds: 8
+  detection:
+    visionRangeTiles: 7
+    visionConeDegrees: 110
+    hearingRangeTiles: 6
+    suspicionSeconds: 1.5
+    alarmDurationSeconds: 6
+    lineOfSightGraceSeconds: 0.5
+
 police:
   enabled: true
   spawn:
@@ -91,6 +122,14 @@ police:
   damage:
     bulletDamage: 10
     fireRatePerSecond: 0.8
+  behavior:
+    patrolSpeed: 1.2
+    chaseSpeed: 1.8
+    responseDelaySeconds: 3
+    searchDurationSeconds: 8
+    despawnSeconds: 20
+    spawnRadiusJitterFraction: 0.6
+    spawnMaxAttempts: 20
 
 feeding:
   bite:
@@ -104,3 +143,32 @@ performance:
   maxActiveNpcs:
     town: 40
     interior: 12
+
+ui:
+  timing:
+    splashSeconds: 1.5
+    toastSeconds: 2.5
+    phaseWarningFlashMs: 600
+    deathOverlaySeconds: 1.0
+
+upgrades:
+  enabled: true
+  slots:
+    total: 6
+    startingUnlocked: 2
+  prices:
+    baseCost: 50
+    costMultiplier: 1.35
+    refundMultiplier: 0.5
+
+maps:
+  town:
+    districts: 3
+    interiorsMin: 6
+    interiorsMax: 10
+    tileSize: 16
+  interior:
+    minRooms: 2
+    maxRooms: 6
+  castle:
+    respawnRoom: "coffin"

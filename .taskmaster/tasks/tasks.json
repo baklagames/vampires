@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": "1",
+        "id": 1,
         "title": "YAML Config Loader and Validation System",
         "description": "Implement the core configuration system to load, validate, and provide immutable runtime access to game balance parameters.",
         "details": "Create `src/config/loader.ts` and `src/config/schema.ts`. Use a library like `js-yaml` to parse the YAML file and `zod` or `ajv` for schema validation. Ensure the config object is deeply frozen (`Object.freeze`) once loaded to maintain immutability. Parameters include player name rules, NPC density, cycle timers, and bite ranges. \n\n```typescript\n// Pseudo-code snippet\nexport const loadConfig = async (path: string) => {\n  const raw = await fetch(path).then(res => res.text());\n  const data = yaml.load(raw);\n  const validated = ConfigSchema.parse(data);\n  return Object.freeze(validated);\n};\n```",
@@ -71,7 +71,7 @@
         "updatedAt": "2026-02-04T18:13:42.537Z"
       },
       {
-        "id": "2",
+        "id": 2,
         "title": "Design System Tokens and Color Roles",
         "description": "Establish the foundational UI tokens and color roles for consistent styling across all screens and components.",
         "details": "Implement `src/ui/tokens.ts` defining spacing, typography, radii, and color palettes (e.g., semantic roles like 'danger', 'stealth-active', 'sun-warning'). These tokens must be used by all subsequent UI components. \n\n```typescript\nexport const TOKENS = {\n  colors: { primary: '#6200ee', sunDamage: '#ffeb3b', panic: '#f44336' },\n  spacing: { sm: 4, md: 8, lg: 16 },\n  radius: { default: 4 }\n};\n```",
@@ -111,7 +111,7 @@
         "updatedAt": "2026-02-04T18:21:49.011Z"
       },
       {
-        "id": "3",
+        "id": 3,
         "title": "Pathfinding and Sun-Shade Map Systems",
         "description": "Implement the spatial logic for NPC/Player movement and detection of sunlit versus shaded areas.",
         "details": "Create `src/systems/pathfinding.ts` using Phaser's built-in A* or a custom grid-based pathfinder. Implement `src/systems/sun-shade-map.ts` which takes a tilemap and identifies 'safe' zones (interiors, shadows) versus 'danger' zones based on time of day. This will use the runtime config for damage intervals.",
@@ -179,7 +179,7 @@
         "updatedAt": "2026-02-04T18:41:08.763Z"
       },
       {
-        "id": "4",
+        "id": 4,
         "title": "Day/Night Cycle Controller",
         "description": "Implement the logic for transitioning between Day, Dusk, Night, and Dawn phases.",
         "details": "Create `src/controllers/day-night.ts`. It should manage a global timer and update the current 'Phase'. It triggers events that other systems (like NPC density or Police Response) listen to. Transitions should provide visual warnings (Dusk/Dawn) as per PRD.",
@@ -248,7 +248,7 @@
         "updatedAt": "2026-02-04T19:06:23.760Z"
       },
       {
-        "id": "5",
+        "id": 5,
         "title": "Panic Bubble and Police Response Logic",
         "description": "Develop the local panic mechanics and the resulting police spawning system.",
         "details": "Implement `src/controllers/panic-bubble.ts` to manage circular areas of effect around incidents. Implement `src/controllers/police-response.ts` to spawn police NPCs within or near the panic bubble. Use config for bubble radius, duration, and the 'night x2' multiplier for police response density.",
@@ -317,7 +317,7 @@
         "updatedAt": "2026-02-04T19:19:27.908Z"
       },
       {
-        "id": "6",
+        "id": 6,
         "title": "One-Handed Tap-to-Move and Stealth Interaction",
         "description": "Implement the primary mobile control scheme for movement, target selection, and feeding.",
         "details": "Create the input handling logic in a base player class. Tapping empty space moves the player. Tapping an NPC selects them as a target (showing a TargetRingFlash). Tapping the target again while in range initiates the 'Bite' (feeding) action. All timings and ranges must come from `RuntimeConfig`.",
@@ -386,7 +386,7 @@
         "updatedAt": "2026-02-04T19:24:25.824Z"
       },
       {
-        "id": "7",
+        "id": 7,
         "title": "Town Scene: Core World Implementation",
         "description": "Assemble the primary game world (Town) with NPCs, tilemaps, and active controllers.",
         "details": "Implement `src/scenes/town.ts`. Integrate the Tilemap, Player character, NPC pooling, and the DayNight/Panic/Police controllers. This scene acts as the main gameplay loop container where 'move -> bite -> panic -> escape' occurs.",
@@ -473,7 +473,7 @@
         "updatedAt": "2026-02-04T19:30:48.177Z"
       },
       {
-        "id": "8",
+        "id": 8,
         "title": "Interior and Castle Scenes with Respawn Logic",
         "description": "Implement secondary scenes and the transition logic between them, including the death/respawn flow.",
         "details": "Create `src/scenes/interior.ts` and `src/scenes/castle.ts`. The Castle serves as the safe-zone/respawn point. Use a scene manager to handle transitions. If health reaches zero in the Town or Sun, the player must respawn in the Castle scene.",
@@ -529,7 +529,7 @@
         "updatedAt": "2026-02-04T19:37:11.423Z"
       },
       {
-        "id": "9",
+        "id": 9,
         "title": "UI Components and Game Overlays (S1-S9 HUD)",
         "description": "Create the Design System-based UI components and in-game overlays like the Blood bar, Phase indicator, and Panic flash.",
         "details": "Implement components in `src/ui/components/` and `src/ui/overlays/`. Include `BottomActionBar`, `TimeOfDayIndicator`, and full-screen flashes for damage/panic. These must use the tokens defined in Task 2. Use Phaser DOM elements or React/Vue overlay if specified by the stack.",
@@ -596,7 +596,7 @@
         "updatedAt": "2026-02-05T08:04:21.167Z"
       },
       {
-        "id": "10",
+        "id": 10,
         "title": "Navigation and Screen Management (S0-S10)",
         "description": "Implement the complete set of screens (Main Menu, Settings, Game Over) and the navigation flow.",
         "details": "Implement the remaining screens (S0: Splash, S1: Main Menu, S10: Settings, etc.). Create a navigation controller that handles transitions between menus and scenes. Ensure the player name validation rules (Task 1) are applied on the profile/start screen.",
@@ -653,7 +653,7 @@
         "updatedAt": "2026-02-05T08:18:07.414Z"
       },
       {
-        "id": "11",
+        "id": 11,
         "title": "Local Run / Demo Build Harness",
         "description": "Enable local dev and demo build for running the game.",
         "details": "Add a minimal bootstrapping entrypoint (e.g., src/main.ts) that creates the Phaser game instance and wires initial scenes/navigation. Add a local dev server and build/preview scripts (e.g., Vite). Add index.html container and document run/build steps in README. Ensure config loader and design tokens are integrated at boot.",
@@ -715,6 +715,631 @@
       "completedCount": 11,
       "tags": [
         "master"
+      ],
+      "created": "2026-02-05T14:46:54.301Z",
+      "description": "Tasks for master context",
+      "updated": "2026-02-05T14:46:54.301Z"
+    }
+  },
+  "mvp-full": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "MVP-01 Config Expansion",
+        "description": "Expand GameConfig + assets/config/default.yaml to full PRD knobs. Add sections for player stats/blood/actions, NPC behavior/detection, police behavior, heat increase, UI timing, upgrades, maps. Ensure defaults in YAML and no gameplay constants in code.",
+        "details": "Test Strategy: schema parse + YAML load + unit tests covering defaults.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "complexity": 3,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "1. Create types/interfaces for the new config sections (Player, NPC, Police, UI, Upgrades).\n2. Update the default YAML file with PRD values.\n3. Implement a schema validation layer (e.g., Zod) to ensure loaded config matches types.",
+        "updatedAt": "2026-02-05T17:09:28.580Z"
+      },
+      {
+        "id": "2",
+        "title": "MVP-02 DS Tokens v2 + CSS Vars",
+        "description": "Align design tokens with PRD (spacing/radius/typography/color roles), add CSS variables for tokens, enforce semantic color roles.",
+        "details": "Test Strategy: token enforcement tests pass; no hardcoded layout/color values in UI files.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 2,
+        "expansionPrompt": "1. Define the token registry (JSON/TS) matching the PRD values for colors, spacing, and typography.\n2. Create a utility to inject these tokens as CSS variables into the global stylesheet."
+      },
+      {
+        "id": "3",
+        "title": "MVP-03 DS Components",
+        "description": "Implement DS components per PRD: PixelCard, ButtonPrimary/Secondary/Icon, BottomActionBar, HUDChip, ProgressBar, HeatIndicator, Toast, ModalSheet, ListItem, TextField, ToggleSwitch, TooltipHelp.",
+        "details": "Test Strategy: component state/render tests (or UI snapshot checks) for required variants.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "2"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Atomic Buttons and HUDChips",
+            "description": "Create the core interactive atomic components: Button (Primary, Secondary, Icon variants) and HUDChip.",
+            "dependencies": [],
+            "details": "Use Tailwind CSS to implement hover, active, and disabled states. Ensure the Button component supports loading states and icon positioning as seen in the code snippets.",
+            "status": "pending",
+            "testStrategy": "Unit tests for button click handlers and snapshot tests for different variant rendering.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Develop Input and Form Control Components",
+            "description": "Implement TextField, ToggleSwitch, and TooltipHelp components for user input and guidance.",
+            "dependencies": [
+              1
+            ],
+            "details": "Ensure TextField supports focus states and error styling. ToggleSwitch should have smooth transitions and TooltipHelp needs absolute positioning logic.",
+            "status": "pending",
+            "testStrategy": "Interaction testing for toggle state changes and focus/blur behavior for TextFields.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Build Feedback and Status Indicators",
+            "description": "Implement ProgressBar, HeatIndicator, and Toast components for game state feedback.",
+            "dependencies": [
+              1
+            ],
+            "details": "ProgressBar should handle dynamic width updates. HeatIndicator requires specific color gradients for intensity levels. Toast needs a notification queue logic.",
+            "status": "pending",
+            "testStrategy": "Verify ProgressBar width reflects prop percentage and Toast correctly triggers/dismisses.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Create Layout and Container Components",
+            "description": "Implement the PixelCard and ListItem components to structure data and menus.",
+            "dependencies": [
+              1
+            ],
+            "details": "PixelCard should use the specific pixel-art border styling and shadow tokens. ListItem should handle icon slots and click interactions.",
+            "status": "pending",
+            "testStrategy": "UI layout verification to ensure padding and border consistency across different content sizes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Implement Complex Overlay and Action Components",
+            "description": "Develop the ModalSheet and BottomActionBar components for high-level UI navigation.",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "ModalSheet must include a backdrop overlay and animation for appearing. BottomActionBar should be fixed to the viewport with z-index management.",
+            "status": "pending",
+            "testStrategy": "Manual verification of modal dismissal behavior and fixed positioning on different screen sizes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 6,
+            "title": "Establish Component Gallery and Documentation",
+            "description": "Create a gallery page or Storybook setup to visualize all DS components in isolation.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "Develop a dedicated route or Storybook config that renders every component variant and state (hover, disabled, etc.) for review.",
+            "status": "pending",
+            "testStrategy": "Visual regression check of all components against design specs in the gallery environment.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 6,
+        "expansionPrompt": "1. Implement atomic components: Button, Chip, TextField, Toggle.\n2. Implement composite components: PixelCard, ModalSheet, BottomActionBar.\n3. Implement game-specific UI: HealthBar/ProgressBar, HeatIndicator.\n4. Create a Storybook or gallery page to visualize components in isolation."
+      },
+      {
+        "id": "4",
+        "title": "MVP-04 Core Player Systems",
+        "description": "Implement PlayerController, FeedingSystem, SunDamageSystem, HeatController; all values config-driven; interruptible feeding; sun grace; heat decay.",
+        "details": "Test Strategy: unit tests for bite range, damage per second, heat decay.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement PlayerController State Machine",
+            "description": "Develop the PlayerController class to manage player states such as idle, moving, feeding, and dead using config-driven values.",
+            "dependencies": [],
+            "details": "Create a robust state machine that maps user inputs to player actions while ensuring all movement speeds and state durations are pulled from the GameConfig.",
+            "status": "pending",
+            "testStrategy": "Unit tests for state transitions and input-to-action mapping logic.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Develop Interruptible FeedingSystem",
+            "description": "Create the FeedingSystem to handle interaction radius detection, bite logic, and interruptible progress bars.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement logic to calculate bite range and manage a feeding timer that resets if the player moves or takes damage, utilizing interaction constants from the YAML config.",
+            "status": "pending",
+            "testStrategy": "Unit tests for bite range verification and interruption triggers upon state changes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement SunDamageSystem with Grace Period",
+            "description": "Build a system that applies health damage when the player is exposed to sunlight based on environmental checks.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a damage-per-second (DPS) logic that includes a 'sun grace' period before damage begins. Logic should be decoupled from the physics engine to allow for tile-based or raycast checks.",
+            "status": "pending",
+            "testStrategy": "Unit tests for damage application timing and validation of the grace period duration.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Build HeatController and Decay Logic",
+            "description": "Implement the HeatController to track global suspicion levels and apply automatic decay over time.",
+            "dependencies": [],
+            "details": "Develop a controller that tracks 'Heat' as a float value, increasing it based on events and decreasing it using a decay rate defined in the central configuration file.",
+            "status": "pending",
+            "testStrategy": "Unit tests to verify heat accumulation math and decay rates over a simulated timeline.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Integrate Core Systems into Testable Harness",
+            "description": "Wire the PlayerController, FeedingSystem, SunDamageSystem, and HeatController into a unified framework-agnostic harness.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Construct a main update loop for these systems that operates independently of Phaser's scene lifecycle, allowing for pure logic testing and easier engine integration later.",
+            "status": "pending",
+            "testStrategy": "Integration tests ensuring a single update tick correctly propagates through all four sub-systems.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 8,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "1. Implement PlayerController class managing state and input handling.\n2. Create FeedingSystem handling interaction radius and 'bite' logic.\n3. Implement SunDamageSystem with raycasting or tile-check logic.\n4. Build HeatController to track suspicion levels and decay over time.\n5. Wire these systems into a testable harness independent of Phaser scenes."
+      },
+      {
+        "id": "5",
+        "title": "MVP-05 Detection + NPC AI",
+        "description": "Implement DetectionController (LOS + distance), NPC state machine (Calm/Suspicious/Alarmed/Panic), and base wandering behavior.",
+        "details": "Test Strategy: detection transitions and LOS blocking tests.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "4"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Line-of-Sight (LOS) Utility",
+            "description": "Develop a utility class to calculate visibility between two points using the game's tilemap data.",
+            "dependencies": [],
+            "details": "Use a raycasting algorithm or Bresenham's line algorithm to check for collision tiles between the NPC and the player coordinates.",
+            "status": "pending",
+            "testStrategy": "Run unit tests with a mock tilemap to ensure walls correctly block visibility while empty space allows it.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Create NPC Finite State Machine (FSM) Base",
+            "description": "Design and implement the abstract base classes for the NPC state machine and individual states.",
+            "dependencies": [],
+            "details": "Implement a StateMachine class with methods for ChangeState, Update, and handle entry/exit logic for different NPC behaviors.",
+            "status": "pending",
+            "testStrategy": "Verify that state transitions occur correctly and that Enter/Exit hooks are called in the expected sequence.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Specific NPC States",
+            "description": "Develop logic for Idle/Wander, Suspicious (investigate), and Alarmed (flee or alert) states.",
+            "dependencies": [
+              2
+            ],
+            "details": "Wander should use random point generation; Suspicious moves toward a noise or last-seen point; Alarmed increases movement speed and alerts neighbors.",
+            "status": "pending",
+            "testStrategy": "Manual simulation of state transitions triggered by external variables like detection level or proximity.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Create DetectionController Component",
+            "description": "Build a component that manages NPC awareness using vision cones, distance, and the LOS utility.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "The controller will calculate awareness gain based on the player's proximity and angle relative to the NPC's forward vector and LOS clear path.",
+            "status": "pending",
+            "testStrategy": "Integration tests to verify awareness bar increases only when the player is inside the detection cone and LOS is not blocked.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Optimize Neighbor Lookup for AI Communication",
+            "description": "Implement a spatial partitioning or grid-based system to efficiently find nearby NPCs for behavior propagation.",
+            "dependencies": [
+              4
+            ],
+            "details": "Avoid O(N^2) checks by using a spatial hash or simple grid to let Alarmed NPCs quickly notify nearby units to change their state.",
+            "status": "pending",
+            "testStrategy": "Measure performance with high NPC counts and verify that 'Alarm' state spreads correctly within a specific radius.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 9,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "1. Implement Line-of-Sight (LOS) utility handling tilemap collisions.\n2. Create the NPC State Machine (FSM) base class.\n3. Implement specific states: Idle/Wander, Suspicious (investigate), Alarmed (flee/alert).\n4. Create DetectionController to manage awareness cones/circles for NPCs.\n5. Optimize neighbor lookups for NPC-to-NPC communication."
+      },
+      {
+        "id": "6",
+        "title": "MVP-06 Panic + Police",
+        "description": "Integrate panic bubble with NPC state changes; police response localized to bubble; night multiplier applied.",
+        "details": "Test Strategy: bubble radius affects NPCs only inside; police spawn count respects night multiplier.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "5"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Panic Bubble Propagation Logic",
+            "description": "Develop the mechanism where a panic event alerts nearby NPCs within a configurable radius.",
+            "dependencies": [],
+            "details": "Use spatial partitioning or distance checks to transition NPC states from 'Idle' to 'Flee' when within the bubble radius.",
+            "status": "pending",
+            "testStrategy": "Verify that only NPCs within the designated radius transition to panic states and that the radius matches config values.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Create PoliceSpawner and Heat-Based Logic",
+            "description": "Build a spawning system that generates police units based on the current global Heat level and applies night multipliers.",
+            "dependencies": [
+              1
+            ],
+            "details": "Calculate spawn count using Heat level and Night Multiplier from game config; ensure police spawn near active panic zones.",
+            "status": "pending",
+            "testStrategy": "Validate that the police spawn count correctly scales with the night multiplier and global heat level thresholds.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Police AI Chase Behavior",
+            "description": "Design the Police AI to track and move toward the player character, distinct from civilian flight patterns.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement pathfinding or steering behaviors that specifically target the player's coordinates when the police unit is in 'Pursuit' mode.",
+            "status": "pending",
+            "testStrategy": "Observe and confirm that police NPCs move toward the player while civilian NPCs move in the opposite direction.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "1. Implement 'Panic Bubble' propagation logic (NPCs alerting nearby NPCs).\n2. Create PoliceSpawner logic based on global Heat level.\n3. Implement basic Police AI (chase player) distinct from Civilian AI (flee)."
+      },
+      {
+        "id": "7",
+        "title": "MVP-07 Maps + Placeholder Assets",
+        "description": "Add placeholder tilemaps and sprites; 3 districts and 6–10 interiors; map list stored in config.",
+        "details": "Test Strategy: assets load without errors.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "1. Create Tiled tilemaps for Town, Interior, and Castle using placeholder tilesets.\n2. Define collision layers and spawn points in map data.\n3. Create an AssetLoader service to manage map parsing and sprite loading."
+      },
+      {
+        "id": "8",
+        "title": "MVP-08 Phaser Scene Wrappers",
+        "description": "Build Phaser scenes for Town/Interior/Castle wired to controllers, input, tilemaps, and transitions. Keep logic outside scenes.",
+        "details": "Test Strategy: scene boot + transitions + respawn.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "4",
+          "7"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create BaseScene Abstract Class",
+            "description": "Establish a foundation class that extends Phaser.Scene to centralize common functionality like input mapping and screen resizing.",
+            "dependencies": [],
+            "details": "Implement boilerplate for handling standard input events and camera resizing to ensure consistent behavior across all game environments.",
+            "status": "pending",
+            "testStrategy": "Verify that input listeners are correctly initialized and window resize events trigger appropriate camera adjustments.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Location-Specific Scenes",
+            "description": "Develop concrete subclasses for TownScene, InteriorScene, and CastleScene that utilize the BaseScene foundation.",
+            "dependencies": [
+              1
+            ],
+            "details": "Initialize tilemaps, tilesets, and layer depths for the Town, Interior, and Castle maps using external JSON configuration data.",
+            "status": "pending",
+            "testStrategy": "Perform visual verification of scene loading and ensure correct layer sorting for each specific environment.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Develop SceneTransitionManager",
+            "description": "Create a centralized manager to handle smooth camera transitions and data persistence between different game locations.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement camera fade-in/out effects and a data passing mechanism to transfer player state (HP, Blood, Heat) between scene changes.",
+            "status": "pending",
+            "testStrategy": "Execute scene swap commands and assert that transition data reaches the destination scene correctly.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Integrate Logic Controllers into Update Loops",
+            "description": "Bridge the decoupled logic controllers (Player, Heat, NPC) into the Phaser scene lifecycle for real-time execution.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Wire the Scene's update(time, delta) method to trigger the update cycles of the core systems while maintaining clear decoupling.",
+            "status": "pending",
+            "testStrategy": "Monitor controller state changes within the scene loop to ensure physics and logic updates occur every frame.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "1. Create BaseScene class to handle common setup (input, resizing).\n2. Implement TownScene, InteriorScene, CastleScene.\n3. Build a SceneTransitionManager to handle fading and data passing between scenes.\n4. Connect the Logic Controllers (Task 4/5) to the Scene update loops."
+      },
+      {
+        "id": "9",
+        "title": "MVP-09 HUD + Overlays",
+        "description": "Implement HUD and overlays (TargetRingFlash/Outline, PanicAreaIndicator, SunDangerOverlay, TapMarker, damage/panic flash) using DS tokens; config-driven timings.",
+        "details": "Test Strategy: overlay triggers and timings.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "3",
+          "4"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Establish React-Phaser Overlay Infrastructure",
+            "description": "Create the React-based DOM layer positioned over the Phaser canvas and implement the state bridge for game data synchronization.",
+            "dependencies": [],
+            "details": "Implement a high-performance event bus or store bridge to pass data from the Phaser update loop to React without triggering full app re-renders. Set up the CSS layout to ensure the HUD remains interactive while the game canvas renders underneath.",
+            "status": "pending",
+            "testStrategy": "Verify React overlay visibility over the canvas and measure latency of state updates from Phaser to the UI layer.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Bind HUD Components to Player State Stores",
+            "description": "Integrate DS components like ProgressBar and HUDChip to display real-time Health and Heat levels based on GameConfig values.",
+            "dependencies": [
+              1
+            ],
+            "details": "Connect the HUD components to the SunDamageSystem and HeatController data. Use Design System tokens for styling and ensure that bar transitions and chip updates use the config-driven UI timings defined in Task 1.",
+            "status": "pending",
+            "testStrategy": "Unit test state-to-component mapping and manually verify that health/heat bars reflect in-game changes immediately.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Visual Overlays for Environmental States",
+            "description": "Build the full-screen visual indicators for Sun Damage (red vignette), Panic (flashing borders), and UI markers.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create the SunDangerOverlay and PanicAreaIndicator using CSS animations and SVG filters. Implement the TargetRingFlash and TapMarker with configuration-driven durations and easing functions as specified in the game config.",
+            "status": "pending",
+            "testStrategy": "Trigger specific game states (sun exposure, high heat) and verify that the corresponding overlays activate and deactivate with correct timings.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "1. Create the React/HTML overlay layer sitting on top of the Phaser canvas.\n2. Bind HUD components (Health, Heat) to Game State stores.\n3. Implement visual overlays for specific states: Sun Damage (red vignette), Panic (flashing borders)."
+      },
+      {
+        "id": "10",
+        "title": "MVP-10 Screens S0–S10 + Navigation",
+        "description": "Implement full UI flow (Splash, Main, Character Select, Castle, Upgrades, Settings, Pause, Death, Credits) using DS components and NavigationController.",
+        "details": "Test Strategy: end-to-end navigation flow.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "3"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Setup NavigationController and Routing Logic",
+            "description": "Create a central hub to manage screen transitions, history stack, and deep linking for all MVP screens.",
+            "dependencies": [],
+            "details": "Implement a stack-based router that supports pushing and popping screens while handling platform-specific back button events and lifecycle hooks.",
+            "status": "pending",
+            "testStrategy": "Verify navigation stack integrity and history management through unit tests and route tracking.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Static UI Screens (Splash, Main, Credits, Settings)",
+            "description": "Develop the low-complexity informational screens using existing Design System components.",
+            "dependencies": [
+              1
+            ],
+            "details": "Construct the Splash, MainMenu, Credits, and Settings screens ensuring they utilize PixelCard and Button components from the Design System.",
+            "status": "pending",
+            "testStrategy": "UI smoke tests to ensure layout consistency across different screen sizes and button click navigation.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Interactive Data-Driven Screens (CharacterSelect, Upgrades)",
+            "description": "Build screens requiring complex data binding from GameConfig and persistent state mutation for player progression.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Integrate CharacterSelect with player stat visualization and the Upgrades screen with stateful logic that updates based on player currency/blood.",
+            "status": "pending",
+            "testStrategy": "Integration tests to verify that selections in CharacterSelect and purchases in Upgrades persist across navigation sessions.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "End-to-End Navigation Flow and Transition Refinement",
+            "description": "Finalize screen transitions for Pause, Death, and Castle screens to ensure a cohesive user experience.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Add animated transitions between states, implement the Pause overlay logic, and hook the Death screen into the core gameplay event system.",
+            "status": "pending",
+            "testStrategy": "Full end-to-end manual walkthrough of the S0 through S10 screen flow to identify any broken links or transition glitches.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "1. Set up a global Router or Screen Manager.\n2. Implement static screens: Splash, MainMenu, Credits, Settings.\n3. Implement complex screens: CharacterSelect (data binding), Upgrades (state mutation).\n4. Ensure cohesive navigation flow (back button handling, transitions)."
+      },
+      {
+        "id": "11",
+        "title": "MVP-11 Save + Upgrades",
+        "description": "Implement local save for player name, settings, upgrades; upgrades defined in config and exposed in UI.",
+        "details": "Test Strategy: persistence round-trip tests.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "10"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "1. Define the SaveData schema (JSON serializable).\n2. Implement LocalStorage adapter with save/load/delete methods.\n3. Create the UpgradeManager to apply unlocked modifiers to GameConfig at runtime."
+      },
+      {
+        "id": "12",
+        "title": "MVP-12 PWA Minimal",
+        "description": "Add manifest.json, icons, and meta tags for installability. No service worker/offline cache.",
+        "details": "Test Strategy: installability in Chrome/Safari (manual).",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "complexity": 2,
+        "recommendedSubtasks": 0,
+        "expansionPrompt": "Generate manifest and meta tags. Verify icon sizes."
+      },
+      {
+        "id": "13",
+        "title": "MVP-13 QA + Acceptance",
+        "description": "Expand tests + manual checklist for full MVP acceptance criteria.",
+        "details": "Test Strategy: full regression pass.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "8",
+          "9",
+          "10",
+          "11"
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write integration tests for critical user flows (Start Game -> Play -> Die -> Restart)",
+            "description": "Develop and implement automated integration tests covering the end-to-end gameplay loop and state transitions.",
+            "dependencies": [],
+            "details": "Focus on logic-layer state transitions and game engine lifecycle events to ensure stability of the core flow across screens without relying purely on UI rendering.",
+            "status": "pending",
+            "testStrategy": "Automated execution of Vitest/Jest integration suites simulating state changes from initialization to death and restart.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Perform manual acceptance testing against the PRD checklist",
+            "description": "Execute a comprehensive manual QA pass following the Product Requirements Document to ensure all features meet defined criteria.",
+            "dependencies": [
+              1
+            ],
+            "details": "Verify UI responsiveness, PWA installability, local save persistence, and edge-case behaviors across targeted mobile and desktop browsers.",
+            "status": "pending",
+            "testStrategy": "Cross-browser manual testing using Chrome and Safari; verification against the master PRD acceptance spreadsheet.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 2,
+        "expansionPrompt": "1. Write integration tests for critical user flows (Start Game -> Play -> Die -> Restart).\n2. Perform manual acceptance testing against the PRD checklist."
+      },
+      {
+        "id": "14",
+        "title": "MVP-AFTER Doc",
+        "description": "Create AFTER_MVP.md with deferred items (PWA offline + cloud sync).",
+        "details": "Test Strategy: file exists, content verified.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "low",
+        "subtasks": [],
+        "complexity": 1,
+        "recommendedSubtasks": 0,
+        "expansionPrompt": "Compile known tech debt and future features into markdown."
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2026-02-05T17:09:28.580Z",
+      "taskCount": 14,
+      "completedCount": 1,
+      "tags": [
+        "mvp-full"
       ]
     }
   }

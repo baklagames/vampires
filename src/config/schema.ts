@@ -2,81 +2,75 @@ import { z } from "zod";
 
 const OnInvalidSchema = z.enum(["reject", "strip", "replace"]);
 
-const PlayerNameSchema = z
-  .object({
-    random: z
-      .object({
-        enabled: z.boolean().default(true),
-        length: z.number().int().min(1).default(8),
-        charset: z.string().default("A-Za-z0-9"),
-      })
-      .strict()
-      .default({}),
-    manualInput: z
-      .object({
-        enabled: z.boolean().default(true),
-        regex: z.string().default("^[A-Za-z0-9]{3,12}$"),
-        onInvalid: OnInvalidSchema.default("reject"),
-        replaceChar: z.string().min(1).max(1).default("_"),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const withEmptyDefault = <T extends z.ZodTypeAny>(schema: T) =>
+  (schema as z.ZodTypeAny).default({}) as z.ZodDefault<T>;
 
-const ControlsSchema = z
-  .object({
-    tapToMove: z
-      .object({
-        enabled: z.boolean().default(true),
-      })
-      .strict()
-      .default({}),
-    tapToTarget: z
-      .object({
-        enabled: z.boolean().default(true),
-      })
-      .strict()
-      .default({}),
-    targetRing: z
-      .object({
-        flashMs: z.number().int().min(0).default(200),
-      })
-      .strict()
-      .default({}),
-    tapMarker: z
-      .object({
-        enabled: z.boolean().default(false),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const strictObject = <T extends z.ZodRawShape>(shape: T) =>
+  z.object(shape).strict();
 
-const DayNightSchema = z
-  .object({
-    cycle: z
-      .object({
-        totalSeconds: z.number().min(1).default(420),
-        daySeconds: z.number().min(0).default(160),
-        duskSeconds: z.number().min(0).default(40),
-        nightSeconds: z.number().min(0).default(160),
-        dawnSeconds: z.number().min(0).default(60),
-      })
-      .strict()
-      .default({}),
-    npcDensity: z
-      .object({
-        dayMultiplier: z.number().min(0).default(1.0),
-        nightMultiplier: z.number().min(0).default(0.45),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .superRefine((value, ctx) => {
+const defaultObject = <T extends z.ZodRawShape>(shape: T) =>
+  withEmptyDefault(strictObject(shape));
+
+const PlayerNameSchema = defaultObject({
+  random: defaultObject({
+    enabled: z.boolean().default(true),
+    length: z.number().int().min(1).default(8),
+    charset: z.string().default("A-Za-z0-9"),
+  }),
+  manualInput: defaultObject({
+    enabled: z.boolean().default(true),
+    regex: z.string().default("^[A-Za-z0-9]{3,12}$"),
+    onInvalid: OnInvalidSchema.default("reject"),
+    replaceChar: z.string().min(1).max(1).default("_"),
+  }),
+});
+
+const PlayerStatsSchema = defaultObject({
+  maxHealth: z.number().min(1).default(100),
+  maxBlood: z.number().min(0).default(100),
+  moveSpeed: z.number().min(0).default(1.0),
+});
+
+const PlayerBloodSchema = defaultObject({
+  startingBlood: z.number().min(0).default(50),
+  loseOnDeathFraction: z.number().min(0).max(1).default(0.5),
+});
+
+const PlayerActionsSchema = defaultObject({
+  biteCooldownSeconds: z.number().min(0).default(0.2),
+  escapeCooldownSeconds: z.number().min(0).default(6),
+  hideCooldownSeconds: z.number().min(0).default(4),
+});
+
+const ControlsSchema = defaultObject({
+  tapToMove: defaultObject({
+    enabled: z.boolean().default(true),
+  }),
+  tapToTarget: defaultObject({
+    enabled: z.boolean().default(true),
+  }),
+  targetRing: defaultObject({
+    flashMs: z.number().int().min(0).default(200),
+  }),
+  tapMarker: defaultObject({
+    enabled: z.boolean().default(false),
+  }),
+});
+
+const DayNightSchema = withEmptyDefault(
+  strictObject({
+    cycle: defaultObject({
+      totalSeconds: z.number().min(1).default(420),
+      daySeconds: z.number().min(0).default(160),
+      duskSeconds: z.number().min(0).default(40),
+      nightSeconds: z.number().min(0).default(160),
+      dawnSeconds: z.number().min(0).default(60),
+    }),
+    npcDensity: defaultObject({
+      dayMultiplier: z.number().min(0).default(1.0),
+      nightMultiplier: z.number().min(0).default(0.45),
+    }),
+  }).superRefine((value, ctx) => {
     if (!value.cycle) {
       return;
     }
@@ -111,201 +105,209 @@ const DayNightSchema = z
         path: ["cycle", "totalSeconds"],
       });
     }
-  })
-  .default({});
+  }),
+);
 
-const SunSchema = z
-  .object({
+const SunSchema = defaultObject({
+  enabled: z.boolean().default(true),
+  damagePerSecond: z.number().min(0).default(12),
+  graceMs: z.number().int().min(0).default(150),
+  safeZones: defaultObject({
+    indoors: z.boolean().default(true),
+    castle: z.boolean().default(true),
+  }),
+});
+
+const PanicSchema = defaultObject({
+  bubble: defaultObject({
+    radiusTiles: z.number().min(0).default(10),
+    durationSeconds: z.number().min(0).default(25),
+  }),
+  witness: defaultObject({
+    callPoliceDelaySeconds: z.number().min(0).default(2.0),
+    panicSpreadWithinBubble: z.boolean().default(true),
+  }),
+});
+
+const HeatSchema = defaultObject({
+  levels: z.number().int().min(1).default(6),
+  increase: defaultObject({
+    onBite: z.number().min(0).default(1),
+    onKill: z.number().min(0).default(2),
+    onWitnessCall: z.number().min(0).default(1),
+    perSecondInPanic: z.number().min(0).default(0.2),
+    perSecondInChase: z.number().min(0).default(0.3),
+  }),
+  decay: defaultObject({
     enabled: z.boolean().default(true),
-    damagePerSecond: z.number().min(0).default(12),
-    graceMs: z.number().int().min(0).default(150),
-    safeZones: z
-      .object({
-        indoors: z.boolean().default(true),
-        castle: z.boolean().default(true),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+    secondsToStartDecay: z.number().min(0).default(6),
+    decayPerSecond: z.number().min(0).default(0.6),
+  }),
+});
 
-const PanicSchema = z
-  .object({
-    bubble: z
-      .object({
-        radiusTiles: z.number().min(0).default(10),
-        durationSeconds: z.number().min(0).default(25),
-      })
-      .strict()
-      .default({}),
-    witness: z
-      .object({
-        callPoliceDelaySeconds: z.number().min(0).default(2.0),
-        panicSpreadWithinBubble: z.boolean().default(true),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const HumansSchema = defaultObject({
+  base: defaultObject({
+    walkSpeed: z.number().min(0).default(1.0),
+    bloodQuality: z.number().min(0).default(1.0),
+  }),
+  variants: defaultObject({
+    adultMale: defaultObject({
+      speedMultiplier: z.number().min(0).default(1.0),
+      bloodQualityMultiplier: z.number().min(0).default(1.0),
+    }),
+    adultFemale: defaultObject({
+      speedMultiplier: z.number().min(0).default(1.0),
+      bloodQualityMultiplier: z.number().min(0).default(1.0),
+    }),
+    kid: defaultObject({
+      speedMultiplier: z.number().min(0).default(1.35),
+      bloodQualityMultiplier: z.number().min(0).default(1.25),
+    }),
+    grandma: defaultObject({
+      speedMultiplier: z.number().min(0).default(0.75),
+      bloodQualityMultiplier: z.number().min(0).default(0.8),
+    }),
+    grandpa: defaultObject({
+      speedMultiplier: z.number().min(0).default(0.75),
+      bloodQualityMultiplier: z.number().min(0).default(0.8),
+    }),
+  }),
+});
 
-const HeatSchema = z
-  .object({
-    levels: z.number().int().min(1).default(6),
-    decay: z
-      .object({
-        enabled: z.boolean().default(true),
-        secondsToStartDecay: z.number().min(0).default(6),
-        decayPerSecond: z.number().min(0).default(0.6),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const NpcSchema = defaultObject({
+  behavior: defaultObject({
+    idleWanderRadiusTiles: z.number().min(0).default(6),
+    idlePauseSeconds: z.number().min(0).default(2),
+    fleeSpeedMultiplier: z.number().min(0).default(1.4),
+    panicDurationSeconds: z.number().min(0).default(8),
+  }),
+  detection: defaultObject({
+    visionRangeTiles: z.number().min(0).default(7),
+    visionConeDegrees: z.number().min(0).max(360).default(110),
+    hearingRangeTiles: z.number().min(0).default(6),
+    suspicionSeconds: z.number().min(0).default(1.5),
+    alarmDurationSeconds: z.number().min(0).default(6),
+    lineOfSightGraceSeconds: z.number().min(0).default(0.5),
+  }),
+});
 
-const HumansSchema = z
-  .object({
-    base: z
-      .object({
-        walkSpeed: z.number().min(0).default(1.0),
-        bloodQuality: z.number().min(0).default(1.0),
-      })
-      .strict()
-      .default({}),
-    variants: z
-      .object({
-        adultMale: z
-          .object({
-            speedMultiplier: z.number().min(0).default(1.0),
-            bloodQualityMultiplier: z.number().min(0).default(1.0),
-          })
-          .strict()
-          .default({}),
-        adultFemale: z
-          .object({
-            speedMultiplier: z.number().min(0).default(1.0),
-            bloodQualityMultiplier: z.number().min(0).default(1.0),
-          })
-          .strict()
-          .default({}),
-        kid: z
-          .object({
-            speedMultiplier: z.number().min(0).default(1.35),
-            bloodQualityMultiplier: z.number().min(0).default(1.25),
-          })
-          .strict()
-          .default({}),
-        grandma: z
-          .object({
-            speedMultiplier: z.number().min(0).default(0.75),
-            bloodQualityMultiplier: z.number().min(0).default(0.8),
-          })
-          .strict()
-          .default({}),
-        grandpa: z
-          .object({
-            speedMultiplier: z.number().min(0).default(0.75),
-            bloodQualityMultiplier: z.number().min(0).default(0.8),
-          })
-          .strict()
-          .default({}),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const PoliceSchema = defaultObject({
+  enabled: z.boolean().default(true),
+  spawn: defaultObject({
+    baseCount: z.number().int().min(0).default(2),
+    responseCountPerHeat: z.number().int().min(0).default(1),
+    nightMultiplier: z.number().min(0).default(2.0),
+  }),
+  vision: defaultObject({
+    dayRangeTiles: z.number().min(0).default(9),
+    nightRangeTiles: z.number().min(0).default(6),
+  }),
+  damage: defaultObject({
+    bulletDamage: z.number().min(0).default(10),
+    fireRatePerSecond: z.number().min(0).default(0.8),
+  }),
+  behavior: defaultObject({
+    patrolSpeed: z.number().min(0).default(1.2),
+    chaseSpeed: z.number().min(0).default(1.8),
+    responseDelaySeconds: z.number().min(0).default(3),
+    searchDurationSeconds: z.number().min(0).default(8),
+    despawnSeconds: z.number().min(0).default(20),
+    spawnRadiusJitterFraction: z.number().min(0).default(0.6),
+    spawnMaxAttempts: z.number().int().min(1).default(20),
+  }),
+});
 
-const PoliceSchema = z
-  .object({
-    enabled: z.boolean().default(true),
-    spawn: z
-      .object({
-        baseCount: z.number().int().min(0).default(2),
-        responseCountPerHeat: z.number().int().min(0).default(1),
-        nightMultiplier: z.number().min(0).default(2.0),
-      })
-      .strict()
-      .default({}),
-    vision: z
-      .object({
-        dayRangeTiles: z.number().min(0).default(9),
-        nightRangeTiles: z.number().min(0).default(6),
-      })
-      .strict()
-      .default({}),
-    damage: z
-      .object({
-        bulletDamage: z.number().min(0).default(10),
-        fireRatePerSecond: z.number().min(0).default(0.8),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const FeedingSchema = defaultObject({
+  bite: defaultObject({
+    rangeTiles: z.number().min(0).default(1.0),
+    baseDurationSeconds: z.number().min(0).default(2.4),
+    interruptible: z.boolean().default(true),
+  }),
+  reward: defaultObject({
+    baseBloodGain: z.number().min(0).default(20),
+  }),
+});
 
-const FeedingSchema = z
-  .object({
-    bite: z
-      .object({
-        rangeTiles: z.number().min(0).default(1.0),
-        baseDurationSeconds: z.number().min(0).default(2.4),
-        interruptible: z.boolean().default(true),
-      })
-      .strict()
-      .default({}),
-    reward: z
-      .object({
-        baseBloodGain: z.number().min(0).default(20),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const PerformanceSchema = defaultObject({
+  maxActiveNpcs: defaultObject({
+    town: z.number().int().min(0).default(40),
+    interior: z.number().int().min(0).default(12),
+  }),
+});
 
-const PerformanceSchema = z
-  .object({
-    maxActiveNpcs: z
-      .object({
-        town: z.number().int().min(0).default(40),
-        interior: z.number().int().min(0).default(12),
-      })
-      .strict()
-      .default({}),
-  })
-  .strict()
-  .default({});
+const UiSchema = defaultObject({
+  timing: defaultObject({
+    splashSeconds: z.number().min(0).default(1.5),
+    toastSeconds: z.number().min(0).default(2.5),
+    phaseWarningFlashMs: z.number().int().min(0).default(600),
+    deathOverlaySeconds: z.number().min(0).default(1.0),
+  }),
+});
+
+const UpgradesSchema = defaultObject({
+  enabled: z.boolean().default(true),
+  slots: defaultObject({
+    total: z.number().int().min(0).default(6),
+    startingUnlocked: z.number().int().min(0).default(2),
+  }),
+  prices: defaultObject({
+    baseCost: z.number().min(0).default(50),
+    costMultiplier: z.number().min(1).default(1.35),
+    refundMultiplier: z.number().min(0).max(1).default(0.5),
+  }),
+});
+
+const MapsSchema = defaultObject({
+  town: defaultObject({
+    districts: z.number().int().min(1).default(3),
+    interiorsMin: z.number().int().min(0).default(6),
+    interiorsMax: z.number().int().min(0).default(10),
+    tileSize: z.number().int().min(1).default(16),
+  }),
+  interior: defaultObject({
+    minRooms: z.number().int().min(1).default(2),
+    maxRooms: z.number().int().min(1).default(6),
+  }),
+  castle: defaultObject({
+    respawnRoom: z.string().default("coffin"),
+  }),
+});
 
 export const ConfigSchema = z
   .object({
-    game: z
-      .object({
-        version: z.string().default("0.1"),
-        locale: z.string().default("en"),
-      })
-      .partial()
-      .strict()
-      .default({}),
-    player: z
-      .object({
-        name: PlayerNameSchema,
-      })
-      .partial()
-      .strict()
-      .default({}),
+    game: withEmptyDefault(
+      z
+        .object({
+          version: z.string().default("0.1"),
+          locale: z.string().default("en"),
+        })
+        .partial()
+        .strict(),
+    ),
+    player: withEmptyDefault(
+      z
+        .object({
+          name: PlayerNameSchema,
+          stats: PlayerStatsSchema,
+          blood: PlayerBloodSchema,
+          actions: PlayerActionsSchema,
+        })
+        .partial()
+        .strict(),
+    ),
     controls: ControlsSchema,
     dayNight: DayNightSchema,
     sun: SunSchema,
     panic: PanicSchema,
     heat: HeatSchema,
     humans: HumansSchema,
+    npc: NpcSchema,
     police: PoliceSchema,
     feeding: FeedingSchema,
     performance: PerformanceSchema,
+    ui: UiSchema,
+    upgrades: UpgradesSchema,
+    maps: MapsSchema,
   })
   .strict();
 

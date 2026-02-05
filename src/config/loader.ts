@@ -58,6 +58,9 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
       random: {},
       manualInput: {},
     },
+    stats: {},
+    blood: {},
+    actions: {},
   },
   controls: {
     tapToMove: {},
@@ -77,6 +80,7 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
     witness: {},
   },
   heat: {
+    increase: {},
     decay: {},
   },
   humans: {
@@ -89,10 +93,15 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
       grandpa: {},
     },
   },
+  npc: {
+    behavior: {},
+    detection: {},
+  },
   police: {
     spawn: {},
     vision: {},
     damage: {},
+    behavior: {},
   },
   feeding: {
     bite: {},
@@ -100,6 +109,18 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
   },
   performance: {
     maxActiveNpcs: {},
+  },
+  ui: {
+    timing: {},
+  },
+  upgrades: {
+    slots: {},
+    prices: {},
+  },
+  maps: {
+    town: {},
+    interior: {},
+    castle: {},
   },
 });
 
