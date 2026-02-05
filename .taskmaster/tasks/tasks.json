@@ -539,7 +539,7 @@
           "2",
           "7"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -547,9 +547,10 @@
             "description": "Create a UI component that visually represents the player's current blood and health levels using design system tokens.",
             "dependencies": [],
             "details": "Implement in `src/ui/components/BloodBar.ts`. Use `TOKENS.colors` for health states (e.g., critical, caution, healthy). The component must support smooth value transitions and scale for high-density mobile displays.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit test using a mock player state; verify that the bar width and color accurately reflect percentage thresholds from 0 to 100.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:42:17.015Z"
           },
           {
             "id": 2,
@@ -557,9 +558,10 @@
             "description": "Develop the TimeOfDayIndicator component that updates based on the global game cycle phase.",
             "dependencies": [],
             "details": "Implement in `src/ui/components/PhaseIndicator.ts`. This component must subscribe to the state of the Day/Night controller from Task 4 and display the current phase (Day, Dusk, Night, Dawn) using relevant icons and labels.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration test: manually trigger phase transitions in the controller and confirm the UI label and icon update immediately.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:42:54.437Z"
           },
           {
             "id": 3,
@@ -567,9 +569,10 @@
             "description": "Develop visual feedback overlays that trigger on damage or when entering panic zones.",
             "dependencies": [],
             "details": "Create `src/ui/overlays/FlashOverlay.ts`. Implement a full-screen alpha-rect or shader that flashes 'panic' red or 'sun damage' yellow when specific events are fired from the game engine.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Visual verification: trigger the panic event in-game and ensure the screen-wide flash occurs without obstructing UI controls.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-04T19:43:29.743Z"
           },
           {
             "id": 4,
@@ -581,14 +584,16 @@
               3
             ],
             "details": "Implement the main HUD container in `src/ui/HUDContainer.ts`. Include the `BottomActionBar` and use a layout system (CSS Flexbox or Phaser DOM) to ensure components are positioned correctly within mobile safe areas.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Responsiveness check: Verify that the HUD layout scales correctly across multiple mobile device aspect ratios (e.g., iPhone SE vs iPhone 14 Pro Max).",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T08:04:21.167Z"
           }
         ],
         "complexity": 5,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "Break down the HUD: 1. Dynamic Blood Bar component. 2. Phase indicator linked to the Day/Night controller. 3. Full-screen damage/panic flash effects. 4. Responsive layout system for mobile portrait mode."
+        "expansionPrompt": "Break down the HUD: 1. Dynamic Blood Bar component. 2. Phase indicator linked to the Day/Night controller. 3. Full-screen damage/panic flash effects. 4. Responsive layout system for mobile portrait mode.",
+        "updatedAt": "2026-02-05T08:04:21.167Z"
       },
       {
         "id": "10",
@@ -698,9 +703,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-04T19:37:11.424Z",
+      "lastModified": "2026-02-05T08:04:21.167Z",
       "taskCount": 11,
-      "completedCount": 8,
+      "completedCount": 9,
       "tags": [
         "master"
       ]
