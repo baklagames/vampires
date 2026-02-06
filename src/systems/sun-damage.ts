@@ -49,12 +49,18 @@ export class SunDamageSystem {
       return { damage: 0, inSun };
     }
 
+    let remainingMs = deltaMs;
     if (this.graceRemainingMs > 0) {
-      this.graceRemainingMs = Math.max(0, this.graceRemainingMs - deltaMs);
+      const usedGrace = Math.min(this.graceRemainingMs, remainingMs);
+      this.graceRemainingMs = Math.max(0, this.graceRemainingMs - usedGrace);
+      remainingMs -= usedGrace;
+    }
+
+    if (remainingMs <= 0) {
       return { damage: 0, inSun };
     }
 
-    const damage = (deltaMs / 1000) * this.config.sun.damagePerSecond;
+    const damage = (remainingMs / 1000) * this.config.sun.damagePerSecond;
     return { damage, inSun };
   }
 }

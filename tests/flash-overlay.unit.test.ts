@@ -10,7 +10,7 @@ describe("FlashOverlay", () => {
     overlay.trigger("panic");
     let state = overlay.getState();
     expect(state.alpha).toBeCloseTo(0.5);
-    expect(state.color).toBe(TOKENS.colors.panic);
+    expect(state.color).toBe(TOKENS.colors.danger);
 
     overlay.advance(100);
     state = overlay.getState();

@@ -1048,7 +1048,7 @@
         "description": "Integrate panic bubble with NPC state changes; police response localized to bubble; night multiplier applied.",
         "details": "Test Strategy: bubble radius affects NPCs only inside; police spawn count respects night multiplier.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "5"
         ],
@@ -1060,9 +1060,10 @@
             "description": "Develop the mechanism where a panic event alerts nearby NPCs within a configurable radius.",
             "dependencies": [],
             "details": "Use spatial partitioning or distance checks to transition NPC states from 'Idle' to 'Flee' when within the bubble radius.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that only NPCs within the designated radius transition to panic states and that the radius matches config values.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T12:59:37.282Z"
           },
           {
             "id": 2,
@@ -1072,9 +1073,10 @@
               1
             ],
             "details": "Calculate spawn count using Heat level and Night Multiplier from game config; ensure police spawn near active panic zones.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Validate that the police spawn count correctly scales with the night multiplier and global heat level thresholds.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T13:00:03.040Z"
           },
           {
             "id": 3,
@@ -1084,14 +1086,16 @@
               2
             ],
             "details": "Implement pathfinding or steering behaviors that specifically target the player's coordinates when the police unit is in 'Pursuit' mode.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Observe and confirm that police NPCs move toward the player while civilian NPCs move in the opposite direction.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T13:00:31.568Z"
           }
         ],
         "complexity": 6,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "1. Implement 'Panic Bubble' propagation logic (NPCs alerting nearby NPCs).\n2. Create PoliceSpawner logic based on global Heat level.\n3. Implement basic Police AI (chase player) distinct from Civilian AI (flee)."
+        "expansionPrompt": "1. Implement 'Panic Bubble' propagation logic (NPCs alerting nearby NPCs).\n2. Create PoliceSpawner logic based on global Heat level.\n3. Implement basic Police AI (chase player) distinct from Civilian AI (flee).",
+        "updatedAt": "2026-02-06T13:00:31.568Z"
       },
       {
         "id": "7",
@@ -1380,9 +1384,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T11:54:06.293Z",
+      "lastModified": "2026-02-06T13:00:31.568Z",
       "taskCount": 14,
-      "completedCount": 5,
+      "completedCount": 6,
       "tags": [
         "mvp-full"
       ]

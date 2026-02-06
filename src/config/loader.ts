@@ -51,6 +51,9 @@ export const loadConfig = async (
   return deepFreeze(merged);
 };
 
+export const buildDefaultConfig = (): GameConfig =>
+  ConfigSchema.parse(buildDefaultConfigInput());
+
 const buildDefaultConfigInput = (): Record<string, unknown> => ({
   game: {},
   player: {

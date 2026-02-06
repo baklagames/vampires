@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ConfigSchema } from "../src/config/schema";
+import { buildDefaultConfig } from "../src/config/loader";
 import { CoreSystemsHarness } from "../src/systems/core-systems-harness";
 
 const createUnsafeMap = () => ({
@@ -12,13 +12,13 @@ const createUnsafeMap = () => ({
 
 describe("CoreSystemsHarness", () => {
   it("applies sun damage after grace period", () => {
-    const config = ConfigSchema.parse({
-      sun: {
-        enabled: true,
-        damagePerSecond: 10,
-        graceMs: 100,
-      },
-    });
+    const config = buildDefaultConfig();
+    config.sun = {
+      ...config.sun,
+      enabled: true,
+      damagePerSecond: 10,
+      graceMs: 100,
+    };
     const harness = new CoreSystemsHarness(config);
     const map = createUnsafeMap();
     const context = {
@@ -39,24 +39,17 @@ describe("CoreSystemsHarness", () => {
   });
 
   it("awards blood on feeding completion", () => {
-    const config = ConfigSchema.parse({
-      player: {
-        stats: {
-          maxBlood: 100,
-        },
-        blood: {
-          startingBlood: 0,
-        },
-      },
-      feeding: {
-        bite: {
-          baseDurationSeconds: 1,
-        },
-        reward: {
-          baseBloodGain: 20,
-        },
-      },
-    });
+    const config = buildDefaultConfig();
+    config.player = {
+      ...config.player,
+      stats: { ...config.player.stats, maxBlood: 100 },
+      blood: { ...config.player.blood, startingBlood: 0 },
+    };
+    config.feeding = {
+      ...config.feeding,
+      bite: { ...config.feeding.bite, baseDurationSeconds: 1 },
+      reward: { ...config.feeding.reward, baseBloodGain: 20 },
+    };
     const harness = new CoreSystemsHarness(config);
     const map = createUnsafeMap();
     const context = {
@@ -76,16 +69,12 @@ describe("CoreSystemsHarness", () => {
   });
 
   it("adds heat over time for panic", () => {
-    const config = ConfigSchema.parse({
-      heat: {
-        increase: {
-          perSecondInPanic: 0.5,
-        },
-        decay: {
-          secondsToStartDecay: 10,
-        },
-      },
-    });
+    const config = buildDefaultConfig();
+    config.heat = {
+      ...config.heat,
+      increase: { ...config.heat.increase, perSecondInPanic: 0.5 },
+      decay: { ...config.heat.decay, secondsToStartDecay: 10 },
+    };
     const harness = new CoreSystemsHarness(config);
     const map = createUnsafeMap();
     const context = {

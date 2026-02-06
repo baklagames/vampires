@@ -20,11 +20,13 @@
 ## Work Process (Task Master)
 - Use Task-master-ai MCP for this
 - Always work from Task Master tasks in .taskmaster/tasks/tasks.json.
-- Take exactly one subtask at a time.
-- Before starting any subtask, ask the user to confirm which subtask to take next.
-- Implement only the confirmed subtask, then stop and report results.
-- After completion, update Task Master status for that subtask and summarize what changed.
-- Do not start the next subtask without explicit user confirmation.
+- Take exactly only one task, but can perform multiple subtasks within that task.
+- Before starting any task (not subtask), ask the user to confirm move to next task
+- Implement only the confirmed task, then stop and report results.
+- After completion, update Task Master status for that task and summarize what changed.
+- After completing a task run npm test to verify the changes.
+- After completing a task, ask to create a commit message for the changes and ask the user if they want to move on to the next task .
+- Do not start the next task without explicit user confirmation.
 
 ## Task Master Commands (full list from CLI help)
 
