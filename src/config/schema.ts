@@ -263,13 +263,53 @@ const MapsSchema = defaultObject({
     interiorsMin: z.number().int().min(0).default(6),
     interiorsMax: z.number().int().min(0).default(10),
     tileSize: z.number().int().min(1).default(16),
+    tilemaps: z
+      .array(
+        defaultObject({
+          id: z.string().min(1).default("town-district-1"),
+          path: z.string().min(1).default("/assets/maps/town-district-1.json"),
+        }),
+      )
+      .default([]),
   }),
   interior: defaultObject({
     minRooms: z.number().int().min(1).default(2),
     maxRooms: z.number().int().min(1).default(6),
+    tilemaps: z
+      .array(
+        defaultObject({
+          id: z.string().min(1).default("interior-1"),
+          path: z.string().min(1).default("/assets/maps/interior-1.json"),
+        }),
+      )
+      .default([]),
   }),
   castle: defaultObject({
     respawnRoom: z.string().default("coffin"),
+    tilemap: defaultObject({
+      id: z.string().min(1).default("castle"),
+      path: z.string().min(1).default("/assets/maps/castle.json"),
+    }),
+  }),
+  assets: defaultObject({
+    tileset: defaultObject({
+      key: z.string().min(1).default("placeholder-tiles"),
+      imagePath: z.string().min(1).default("/assets/tilesets/placeholder.png"),
+      tileWidth: z.number().int().min(1).default(16),
+      tileHeight: z.number().int().min(1).default(16),
+    }),
+    playerSprite: defaultObject({
+      key: z.string().min(1).default("player"),
+      imagePath: z.string().min(1).default("/assets/sprites/player.png"),
+      frameWidth: z.number().int().min(1).default(16),
+      frameHeight: z.number().int().min(1).default(16),
+    }),
+    npcSprite: defaultObject({
+      key: z.string().min(1).default("npc"),
+      imagePath: z.string().min(1).default("/assets/sprites/npc.png"),
+      frameWidth: z.number().int().min(1).default(16),
+      frameHeight: z.number().int().min(1).default(16),
+    }),
   }),
 });
 

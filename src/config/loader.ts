@@ -124,6 +124,7 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
     town: {},
     interior: {},
     castle: {},
+    assets: {},
   },
 });
 

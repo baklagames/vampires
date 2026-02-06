@@ -167,8 +167,47 @@ maps:
     interiorsMin: 6
     interiorsMax: 10
     tileSize: 16
+    tilemaps:
+      - id: "town-district-1"
+        path: "/assets/maps/town-district-1.json"
+      - id: "town-district-2"
+        path: "/assets/maps/town-district-2.json"
+      - id: "town-district-3"
+        path: "/assets/maps/town-district-3.json"
   interior:
     minRooms: 2
     maxRooms: 6
+    tilemaps:
+      - id: "interior-1"
+        path: "/assets/maps/interior-1.json"
+      - id: "interior-2"
+        path: "/assets/maps/interior-2.json"
+      - id: "interior-3"
+        path: "/assets/maps/interior-3.json"
+      - id: "interior-4"
+        path: "/assets/maps/interior-4.json"
+      - id: "interior-5"
+        path: "/assets/maps/interior-5.json"
+      - id: "interior-6"
+        path: "/assets/maps/interior-6.json"
   castle:
     respawnRoom: "coffin"
+    tilemap:
+      id: "castle"
+      path: "/assets/maps/castle.json"
+  assets:
+    tileset:
+      key: "placeholder-tiles"
+      imagePath: "/assets/tilesets/placeholder.png"
+      tileWidth: 16
+      tileHeight: 16
+    playerSprite:
+      key: "player"
+      imagePath: "/assets/sprites/player.png"
+      frameWidth: 16
+      frameHeight: 16
+    npcSprite:
+      key: "npc"
+      imagePath: "/assets/sprites/npc.png"
+      frameWidth: 16
+      frameHeight: 16

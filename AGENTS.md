@@ -25,7 +25,7 @@
 - Implement only the confirmed task, then stop and report results.
 - After completion, update Task Master status for that task and summarize what changed.
 - After completing a task run npm test to verify the changes.
-- After completing a task, ask to create a commit message for the changes and ask the user if they want to move on to the next task .
+- After completing a task, ask to create a commit message with done task name from TM for the changes and ask the user if they want to move on to the next task .
 - Do not start the next task without explicit user confirmation.
 
 ## Task Master Commands (full list from CLI help)

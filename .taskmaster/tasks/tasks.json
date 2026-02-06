@@ -1103,13 +1103,14 @@
         "description": "Add placeholder tilemaps and sprites; 3 districts and 6–10 interiors; map list stored in config.",
         "details": "Test Strategy: assets load without errors.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [],
         "complexity": 4,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "1. Create Tiled tilemaps for Town, Interior, and Castle using placeholder tilesets.\n2. Define collision layers and spawn points in map data.\n3. Create an AssetLoader service to manage map parsing and sprite loading."
+        "expansionPrompt": "1. Create Tiled tilemaps for Town, Interior, and Castle using placeholder tilesets.\n2. Define collision layers and spawn points in map data.\n3. Create an AssetLoader service to manage map parsing and sprite loading.",
+        "updatedAt": "2026-02-06T14:10:25.249Z"
       },
       {
         "id": "8",
@@ -1384,9 +1385,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T13:00:31.568Z",
+      "lastModified": "2026-02-06T14:10:25.249Z",
       "taskCount": 14,
-      "completedCount": 6,
+      "completedCount": 7,
       "tags": [
         "mvp-full"
       ]
