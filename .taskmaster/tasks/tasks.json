@@ -885,7 +885,7 @@
         "description": "Implement PlayerController, FeedingSystem, SunDamageSystem, HeatController; all values config-driven; interruptible feeding; sun grace; heat decay.",
         "details": "Test Strategy: unit tests for bite range, damage per second, heat decay.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1"
         ],
@@ -897,9 +897,10 @@
             "description": "Develop the PlayerController class to manage player states such as idle, moving, feeding, and dead using config-driven values.",
             "dependencies": [],
             "details": "Create a robust state machine that maps user inputs to player actions while ensuring all movement speeds and state durations are pulled from the GameConfig.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests for state transitions and input-to-action mapping logic.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-05T20:43:13.895Z"
           },
           {
             "id": 2,
@@ -909,9 +910,10 @@
               1
             ],
             "details": "Implement logic to calculate bite range and manage a feeding timer that resets if the player moves or takes damage, utilizing interaction constants from the YAML config.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests for bite range verification and interruption triggers upon state changes.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T09:42:33.694Z"
           },
           {
             "id": 3,
@@ -921,9 +923,10 @@
               1
             ],
             "details": "Implement a damage-per-second (DPS) logic that includes a 'sun grace' period before damage begins. Logic should be decoupled from the physics engine to allow for tile-based or raycast checks.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests for damage application timing and validation of the grace period duration.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:00:39.751Z"
           },
           {
             "id": 4,
@@ -931,9 +934,10 @@
             "description": "Implement the HeatController to track global suspicion levels and apply automatic decay over time.",
             "dependencies": [],
             "details": "Develop a controller that tracks 'Heat' as a float value, increasing it based on events and decreasing it using a decay rate defined in the central configuration file.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests to verify heat accumulation math and decay rates over a simulated timeline.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:01:16.842Z"
           },
           {
             "id": 5,
@@ -946,14 +950,16 @@
               4
             ],
             "details": "Construct a main update loop for these systems that operates independently of Phaser's scene lifecycle, allowing for pure logic testing and easier engine integration later.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration tests ensuring a single update tick correctly propagates through all four sub-systems.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:02:46.088Z"
           }
         ],
         "complexity": 8,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "1. Implement PlayerController class managing state and input handling.\n2. Create FeedingSystem handling interaction radius and 'bite' logic.\n3. Implement SunDamageSystem with raycasting or tile-check logic.\n4. Build HeatController to track suspicion levels and decay over time.\n5. Wire these systems into a testable harness independent of Phaser scenes."
+        "expansionPrompt": "1. Implement PlayerController class managing state and input handling.\n2. Create FeedingSystem handling interaction radius and 'bite' logic.\n3. Implement SunDamageSystem with raycasting or tile-check logic.\n4. Build HeatController to track suspicion levels and decay over time.\n5. Wire these systems into a testable harness independent of Phaser scenes.",
+        "updatedAt": "2026-02-06T11:02:46.088Z"
       },
       {
         "id": "5",
@@ -1368,9 +1374,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-05T19:46:22.376Z",
+      "lastModified": "2026-02-06T11:02:46.088Z",
       "taskCount": 14,
-      "completedCount": 3,
+      "completedCount": 4,
       "tags": [
         "mvp-full"
       ]
