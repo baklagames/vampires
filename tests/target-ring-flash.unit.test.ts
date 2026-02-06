@@ -1,17 +1,18 @@
 import { describe, expect, it } from "vitest";
 
-import { ConfigSchema } from "../src/config/schema";
+import { buildDefaultConfig } from "../src/config/loader";
 import { TargetRingFlash } from "../src/ui/target-ring-flash";
 
 describe("TargetRingFlash", () => {
   it("attaches to a target and flashes for config duration", () => {
-    const config = ConfigSchema.parse({
-      controls: {
-        targetRing: {
-          flashMs: 200,
-        },
+    const config = buildDefaultConfig();
+    config.controls = {
+      ...config.controls,
+      targetRing: {
+        ...config.controls.targetRing,
+        flashMs: 200,
       },
-    });
+    };
     const ring = new TargetRingFlash(config);
 
     ring.attach("npc-1");

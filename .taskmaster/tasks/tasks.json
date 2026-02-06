@@ -1188,7 +1188,7 @@
         "description": "Implement HUD and overlays (TargetRingFlash/Outline, PanicAreaIndicator, SunDangerOverlay, TapMarker, damage/panic flash) using DS tokens; config-driven timings.",
         "details": "Test Strategy: overlay triggers and timings.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "3",
           "4"
@@ -1201,9 +1201,10 @@
             "description": "Create the React-based DOM layer positioned over the Phaser canvas and implement the state bridge for game data synchronization.",
             "dependencies": [],
             "details": "Implement a high-performance event bus or store bridge to pass data from the Phaser update loop to React without triggering full app re-renders. Set up the CSS layout to ensure the HUD remains interactive while the game canvas renders underneath.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify React overlay visibility over the canvas and measure latency of state updates from Phaser to the UI layer.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:31:31.457Z"
           },
           {
             "id": 2,
@@ -1213,9 +1214,10 @@
               1
             ],
             "details": "Connect the HUD components to the SunDamageSystem and HeatController data. Use Design System tokens for styling and ensure that bar transitions and chip updates use the config-driven UI timings defined in Task 1.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit test state-to-component mapping and manually verify that health/heat bars reflect in-game changes immediately.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:32:04.541Z"
           },
           {
             "id": 3,
@@ -1226,14 +1228,16 @@
               2
             ],
             "details": "Create the SunDangerOverlay and PanicAreaIndicator using CSS animations and SVG filters. Implement the TargetRingFlash and TapMarker with configuration-driven durations and easing functions as specified in the game config.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Trigger specific game states (sun exposure, high heat) and verify that the corresponding overlays activate and deactivate with correct timings.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:32:39.301Z"
           }
         ],
         "complexity": 5,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "1. Create the React/HTML overlay layer sitting on top of the Phaser canvas.\n2. Bind HUD components (Health, Heat) to Game State stores.\n3. Implement visual overlays for specific states: Sun Damage (red vignette), Panic (flashing borders)."
+        "expansionPrompt": "1. Create the React/HTML overlay layer sitting on top of the Phaser canvas.\n2. Bind HUD components (Health, Heat) to Game State stores.\n3. Implement visual overlays for specific states: Sun Damage (red vignette), Panic (flashing borders).",
+        "updatedAt": "2026-02-06T16:32:39.301Z"
       },
       {
         "id": "10",
@@ -1395,9 +1399,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T16:24:03.746Z",
+      "lastModified": "2026-02-06T16:32:39.301Z",
       "taskCount": 14,
-      "completedCount": 9,
+      "completedCount": 10,
       "tags": [
         "mvp-full"
       ]
