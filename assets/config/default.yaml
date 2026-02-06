@@ -28,6 +28,7 @@ player:
 controls:
   tapToMove:
     enabled: true
+    arrivalThresholdTiles: 0.1
   tapToTarget:
     enabled: true
   targetRing:

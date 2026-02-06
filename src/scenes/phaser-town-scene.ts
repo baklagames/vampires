@@ -3,6 +3,8 @@ import Phaser from "phaser";
 import type { GameConfig } from "../config/schema";
 import { DayNightController } from "../controllers/day-night";
 import { PanicBubbleController } from "../controllers/panic-bubble";
+import { formatSecondsMMSS } from "../ui/format-time";
+import { TOKENS } from "../ui/tokens";
 import { TownScene } from "./town";
 import { PhaserBaseScene } from "./phaser-base-scene";
 
@@ -16,6 +18,9 @@ export class PhaserTownScene extends PhaserBaseScene {
   private readonly logic: TownScene;
   private readonly adapters: SceneAdapters;
   private mapIndex: number;
+  private playerSprite: Phaser.GameObjects.Sprite | null = null;
+  private moveTarget: Phaser.Math.Vector2 | null = null;
+  private hudText: Phaser.GameObjects.Text | null = null;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -59,6 +64,7 @@ export class PhaserTownScene extends PhaserBaseScene {
 
   create(): void {
     const player = this.add.sprite(0, 0, this.resolveAssets().playerSprite.key);
+    this.playerSprite = player;
     const mapFactory = (key: string) => this.make.tilemap({ key });
     const tilesetFactory = (map: Phaser.Tilemaps.Tilemap, tilesetKey: string) =>
       map.addTilesetImage(tilesetKey);
@@ -82,6 +88,9 @@ export class PhaserTownScene extends PhaserBaseScene {
         police: this.adapters.police,
       },
     });
+
+    this.setupInput();
+    this.setupHud();
   }
 
   update(_time: number, delta: number): void {
@@ -93,5 +102,75 @@ export class PhaserTownScene extends PhaserBaseScene {
         police: this.adapters.police,
       },
     });
+    this.updateMovement(deltaSeconds);
+    this.updateHud();
+  }
+
+  private setupInput(): void {
+    if (!this.config.controls.tapToMove.enabled) {
+      return;
+    }
+
+    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+      const worldPoint = pointer.positionToCamera(this.cameras.main) as Phaser.Math.Vector2;
+      this.moveTarget = new Phaser.Math.Vector2(worldPoint.x, worldPoint.y);
+    });
+  }
+
+  private setupHud(): void {
+    const padding = TOKENS.spacing.sm;
+    this.hudText = this.add
+      .text(padding, padding, "", {
+        fontFamily: "sans-serif",
+        fontSize: `${TOKENS.typography.sm}px`,
+        color: TOKENS.colors.textPrimary,
+      })
+      .setScrollFactor(0)
+      .setDepth(1000);
+  }
+
+  private updateMovement(deltaSeconds: number): void {
+    if (!this.playerSprite || !this.moveTarget) {
+      return;
+    }
+
+    const tileSize = this.config.maps.town.tileSize;
+    const speedPixelsPerSecond = this.config.player.stats.moveSpeed * tileSize;
+    const arrivalThreshold = this.config.controls.tapToMove.arrivalThresholdTiles * tileSize;
+
+    const dx = this.moveTarget.x - this.playerSprite.x;
+    const dy = this.moveTarget.y - this.playerSprite.y;
+    const distance = Math.hypot(dx, dy);
+
+    if (distance <= arrivalThreshold) {
+      this.moveTarget = null;
+      return;
+    }
+
+    const step = Math.min(distance, speedPixelsPerSecond * deltaSeconds);
+    const ratio = step / distance;
+    this.playerSprite.setPosition(
+      this.playerSprite.x + dx * ratio,
+      this.playerSprite.y + dy * ratio,
+    );
+  }
+
+  private updateHud(): void {
+    if (!this.hudText) {
+      return;
+    }
+
+    const phase = this.adapters.dayNight.getPhase();
+    const phaseElapsed = this.adapters.dayNight.getPhaseElapsedSeconds();
+    const phaseTimeLabel = formatSecondsMMSS(phaseElapsed);
+    const health = this.config.player.stats.maxHealth;
+    const blood = this.config.player.stats.maxBlood;
+    const heatMax = this.config.heat.levels;
+
+    this.hudText.setText([
+      `Phase: ${phase.toUpperCase()} ${phaseTimeLabel}`,
+      `HP ${health}/${health}  Blood ${blood}/${blood}`,
+      `Heat 0/${heatMax}`,
+    ]);
   }
 }

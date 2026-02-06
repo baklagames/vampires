@@ -45,6 +45,7 @@ const PlayerActionsSchema = defaultObject({
 const ControlsSchema = defaultObject({
   tapToMove: defaultObject({
     enabled: z.boolean().default(true),
+    arrivalThresholdTiles: z.number().min(0).default(0.1),
   }),
   tapToTarget: defaultObject({
     enabled: z.boolean().default(true),
