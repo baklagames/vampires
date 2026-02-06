@@ -967,7 +967,7 @@
         "description": "Implement DetectionController (LOS + distance), NPC state machine (Calm/Suspicious/Alarmed/Panic), and base wandering behavior.",
         "details": "Test Strategy: detection transitions and LOS blocking tests.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "4"
         ],
@@ -979,9 +979,10 @@
             "description": "Develop a utility class to calculate visibility between two points using the game's tilemap data.",
             "dependencies": [],
             "details": "Use a raycasting algorithm or Bresenham's line algorithm to check for collision tiles between the NPC and the player coordinates.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run unit tests with a mock tilemap to ensure walls correctly block visibility while empty space allows it.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:40:16.157Z"
           },
           {
             "id": 2,
@@ -989,9 +990,10 @@
             "description": "Design and implement the abstract base classes for the NPC state machine and individual states.",
             "dependencies": [],
             "details": "Implement a StateMachine class with methods for ChangeState, Update, and handle entry/exit logic for different NPC behaviors.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that state transitions occur correctly and that Enter/Exit hooks are called in the expected sequence.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:41:50.899Z"
           },
           {
             "id": 3,
@@ -1001,9 +1003,10 @@
               2
             ],
             "details": "Wander should use random point generation; Suspicious moves toward a noise or last-seen point; Alarmed increases movement speed and alerts neighbors.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Manual simulation of state transitions triggered by external variables like detection level or proximity.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:43:28.656Z"
           },
           {
             "id": 4,
@@ -1015,9 +1018,10 @@
               3
             ],
             "details": "The controller will calculate awareness gain based on the player's proximity and angle relative to the NPC's forward vector and LOS clear path.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration tests to verify awareness bar increases only when the player is inside the detection cone and LOS is not blocked.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:51:48.633Z"
           },
           {
             "id": 5,
@@ -1027,14 +1031,16 @@
               4
             ],
             "details": "Avoid O(N^2) checks by using a spatial hash or simple grid to let Alarmed NPCs quickly notify nearby units to change their state.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Measure performance with high NPC counts and verify that 'Alarm' state spreads correctly within a specific radius.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T11:54:06.293Z"
           }
         ],
         "complexity": 9,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "1. Implement Line-of-Sight (LOS) utility handling tilemap collisions.\n2. Create the NPC State Machine (FSM) base class.\n3. Implement specific states: Idle/Wander, Suspicious (investigate), Alarmed (flee/alert).\n4. Create DetectionController to manage awareness cones/circles for NPCs.\n5. Optimize neighbor lookups for NPC-to-NPC communication."
+        "expansionPrompt": "1. Implement Line-of-Sight (LOS) utility handling tilemap collisions.\n2. Create the NPC State Machine (FSM) base class.\n3. Implement specific states: Idle/Wander, Suspicious (investigate), Alarmed (flee/alert).\n4. Create DetectionController to manage awareness cones/circles for NPCs.\n5. Optimize neighbor lookups for NPC-to-NPC communication.",
+        "updatedAt": "2026-02-06T11:54:06.293Z"
       },
       {
         "id": "6",
@@ -1374,9 +1380,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T11:02:46.088Z",
+      "lastModified": "2026-02-06T11:54:06.293Z",
       "taskCount": 14,
-      "completedCount": 4,
+      "completedCount": 5,
       "tags": [
         "mvp-full"
       ]
