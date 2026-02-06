@@ -1118,7 +1118,7 @@
         "description": "Build Phaser scenes for Town/Interior/Castle wired to controllers, input, tilemaps, and transitions. Keep logic outside scenes.",
         "details": "Test Strategy: scene boot + transitions + respawn.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "4",
           "7"
@@ -1131,9 +1131,10 @@
             "description": "Establish a foundation class that extends Phaser.Scene to centralize common functionality like input mapping and screen resizing.",
             "dependencies": [],
             "details": "Implement boilerplate for handling standard input events and camera resizing to ensure consistent behavior across all game environments.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that input listeners are correctly initialized and window resize events trigger appropriate camera adjustments.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:23:37.971Z"
           },
           {
             "id": 2,
@@ -1143,9 +1144,10 @@
               1
             ],
             "details": "Initialize tilemaps, tilesets, and layer depths for the Town, Interior, and Castle maps using external JSON configuration data.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Perform visual verification of scene loading and ensure correct layer sorting for each specific environment.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:23:46.103Z"
           },
           {
             "id": 3,
@@ -1155,9 +1157,10 @@
               2
             ],
             "details": "Implement camera fade-in/out effects and a data passing mechanism to transfer player state (HP, Blood, Heat) between scene changes.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Execute scene swap commands and assert that transition data reaches the destination scene correctly.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:23:54.388Z"
           },
           {
             "id": 4,
@@ -1168,14 +1171,16 @@
               2
             ],
             "details": "Wire the Scene's update(time, delta) method to trigger the update cycles of the core systems while maintaining clear decoupling.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Monitor controller state changes within the scene loop to ensure physics and logic updates occur every frame.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:24:03.746Z"
           }
         ],
         "complexity": 6,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "1. Create BaseScene class to handle common setup (input, resizing).\n2. Implement TownScene, InteriorScene, CastleScene.\n3. Build a SceneTransitionManager to handle fading and data passing between scenes.\n4. Connect the Logic Controllers (Task 4/5) to the Scene update loops."
+        "expansionPrompt": "1. Create BaseScene class to handle common setup (input, resizing).\n2. Implement TownScene, InteriorScene, CastleScene.\n3. Build a SceneTransitionManager to handle fading and data passing between scenes.\n4. Connect the Logic Controllers (Task 4/5) to the Scene update loops.",
+        "updatedAt": "2026-02-06T16:24:03.746Z"
       },
       {
         "id": "9",
@@ -1390,9 +1395,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T14:21:13.492Z",
+      "lastModified": "2026-02-06T16:24:03.746Z",
       "taskCount": 14,
-      "completedCount": 8,
+      "completedCount": 9,
       "tags": [
         "mvp-full"
       ]

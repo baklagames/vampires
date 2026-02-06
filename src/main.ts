@@ -1,6 +1,9 @@
 import Phaser from "phaser";
 
 import { loadConfig } from "./config/loader";
+import { PhaserCastleScene } from "./scenes/phaser-castle-scene";
+import { PhaserInteriorScene } from "./scenes/phaser-interior-scene";
+import { PhaserTownScene } from "./scenes/phaser-town-scene";
 import { NavigationController } from "./ui/navigation-controller";
 import { applyTokensToCssVars } from "./ui/tokens-css";
 import { TOKENS } from "./ui/tokens";
@@ -25,6 +28,9 @@ const startGame = async () => {
   applyTokensToCssVars();
   const config = await loadConfig("/assets/config/default.yaml");
   const navigation = new NavigationController({ initialScreen: "splash" });
+  const townScene = new PhaserTownScene(config, 0);
+  const interiorScene = new PhaserInteriorScene(config, 0);
+  const castleScene = new PhaserCastleScene(config);
 
   const gameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
@@ -36,7 +42,7 @@ const startGame = async () => {
       width: TOKENS.spacing.lg * 22.5,
       height: TOKENS.spacing.lg * 40,
     },
-    scene: [BootScene],
+    scene: [BootScene, townScene, interiorScene, castleScene],
   };
 
   const game = new Phaser.Game(gameConfig);
