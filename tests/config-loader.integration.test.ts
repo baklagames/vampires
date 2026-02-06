@@ -25,7 +25,7 @@ describe("config loader integration", () => {
   });
 
   it("loads the default config file", async () => {
-    const filePath = path.resolve("assets/config/default.yaml");
+    const filePath = path.resolve("src/config/default.yaml");
     const raw = await readFile(filePath, "utf-8");
 
     globalThis.fetch = (async () => buildFetchResponse(raw)) as typeof fetch;

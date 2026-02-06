@@ -25,4 +25,4 @@ npm run preview
 
 ## Notes
 
-- The game bootstraps from `src/main.ts` and loads config from `assets/config/default.yaml`.
+- The game bootstraps from `src/main.ts` and loads config from `src/config/default.yaml`.

@@ -1,10 +1,12 @@
 import Phaser from "phaser";
 
-import { loadConfig } from "./config/loader";
+import { parseConfigYaml } from "./config/loader";
+import defaultConfigYaml from "./config/default.yaml?raw";
 import { PhaserCastleScene } from "./scenes/phaser-castle-scene";
 import { PhaserInteriorScene } from "./scenes/phaser-interior-scene";
 import { PhaserTownScene } from "./scenes/phaser-town-scene";
 import { NavigationController } from "./ui/navigation-controller";
+import { getSplashDelayMs } from "./ui/splash-timing";
 import { applyTokensToCssVars } from "./ui/tokens-css";
 import { TOKENS } from "./ui/tokens";
 
@@ -29,7 +31,8 @@ class BootScene extends Phaser.Scene {
     };
     this.add.text(width / 2, height / 2, "Vampires Prototype", textStyle).setOrigin(0.5);
 
-    this.time.delayedCall(activeConfig.ui.splashSeconds * 1000, () => {
+    const splashMs = getSplashDelayMs(activeConfig);
+    this.time.delayedCall(splashMs, () => {
       this.scene.start("town");
       this.scene.stop("boot");
     });
@@ -38,7 +41,7 @@ class BootScene extends Phaser.Scene {
 
 const startGame = async () => {
   applyTokensToCssVars();
-  const config = await loadConfig("/assets/config/default.yaml");
+  const config = parseConfigYaml(defaultConfigYaml);
   const navigation = new NavigationController({ initialScreen: "splash" });
   const bootScene = new BootScene(config);
   const townScene = new PhaserTownScene(config, 0);

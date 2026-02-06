@@ -1,0 +1,227 @@
+game:
+  version: "0.1"
+  locale: "en"
+
+player:
+  name:
+    random:
+      enabled: true
+      length: 8
+      charset: "A-Za-z0-9"
+    manualInput:
+      enabled: true
+      regex: "^[A-Za-z0-9]{3,12}$"
+      onInvalid: "reject"
+      replaceChar: "_"
+  stats:
+    maxHealth: 100
+    maxBlood: 100
+    moveSpeed: 1.0
+  blood:
+    startingBlood: 50
+    loseOnDeathFraction: 0.5
+  actions:
+    biteCooldownSeconds: 0.2
+    escapeCooldownSeconds: 6
+    hideCooldownSeconds: 4
+
+controls:
+  tapToMove:
+    enabled: true
+    arrivalThresholdTiles: 0.1
+  tapToTarget:
+    enabled: true
+  targetRing:
+    flashMs: 200
+  tapMarker:
+    enabled: false
+
+dayNight:
+  cycle:
+    totalSeconds: 420
+    daySeconds: 160
+    duskSeconds: 40
+    nightSeconds: 160
+    dawnSeconds: 60
+  npcDensity:
+    dayMultiplier: 1.0
+    nightMultiplier: 0.45
+
+sun:
+  enabled: true
+  damagePerSecond: 12
+  graceMs: 150
+  safeZones:
+    indoors: true
+    castle: true
+
+panic:
+  bubble:
+    radiusTiles: 10
+    durationSeconds: 25
+  witness:
+    callPoliceDelaySeconds: 2.0
+    panicSpreadWithinBubble: true
+
+heat:
+  levels: 6
+  increase:
+    onBite: 1
+    onKill: 2
+    onWitnessCall: 1
+    perSecondInPanic: 0.2
+    perSecondInChase: 0.3
+  decay:
+    enabled: true
+    secondsToStartDecay: 6
+    decayPerSecond: 0.6
+
+humans:
+  base:
+    walkSpeed: 1.0
+    bloodQuality: 1.0
+  variants:
+    adultMale:
+      speedMultiplier: 1.0
+      bloodQualityMultiplier: 1.0
+    adultFemale:
+      speedMultiplier: 1.0
+      bloodQualityMultiplier: 1.0
+    kid:
+      speedMultiplier: 1.35
+      bloodQualityMultiplier: 1.25
+    grandma:
+      speedMultiplier: 0.75
+      bloodQualityMultiplier: 0.8
+    grandpa:
+      speedMultiplier: 0.75
+      bloodQualityMultiplier: 0.8
+
+npc:
+  behavior:
+    idleWanderRadiusTiles: 6
+    idlePauseSeconds: 2
+    fleeSpeedMultiplier: 1.4
+    panicDurationSeconds: 8
+  detection:
+    visionRangeTiles: 7
+    visionConeDegrees: 110
+    hearingRangeTiles: 6
+    suspicionSeconds: 1.5
+    alarmDurationSeconds: 6
+    lineOfSightGraceSeconds: 0.5
+
+police:
+  enabled: true
+  spawn:
+    baseCount: 2
+    responseCountPerHeat: 1
+    nightMultiplier: 2.0
+  vision:
+    dayRangeTiles: 9
+    nightRangeTiles: 6
+  damage:
+    bulletDamage: 10
+    fireRatePerSecond: 0.8
+  behavior:
+    patrolSpeed: 1.2
+    chaseSpeed: 1.8
+    responseDelaySeconds: 3
+    searchDurationSeconds: 8
+    despawnSeconds: 20
+    spawnRadiusJitterFraction: 0.6
+    spawnMaxAttempts: 20
+
+feeding:
+  bite:
+    rangeTiles: 1.0
+    baseDurationSeconds: 2.4
+    interruptible: true
+  reward:
+    baseBloodGain: 20
+
+performance:
+  maxActiveNpcs:
+    town: 40
+    interior: 12
+
+ui:
+  timing:
+    splashSeconds: 1.5
+    toastSeconds: 2.5
+    phaseWarningFlashMs: 600
+    deathOverlaySeconds: 1.0
+
+upgrades:
+  enabled: true
+  items:
+    - id: "upgrade-1"
+      name: "Shadow Step"
+      description: "Short dash to evade"
+      cost: 50
+    - id: "upgrade-2"
+      name: "Blood Pact"
+      description: "Increase max blood"
+      cost: 75
+    - id: "upgrade-3"
+      name: "Mist Form"
+      description: "Brief invulnerability"
+      cost: 100
+  slots:
+    total: 6
+    startingUnlocked: 2
+  prices:
+    baseCost: 50
+    costMultiplier: 1.35
+    refundMultiplier: 0.5
+
+maps:
+  town:
+    districts: 3
+    interiorsMin: 6
+    interiorsMax: 10
+    tileSize: 16
+    tilemaps:
+      - id: "town-district-1"
+        path: "/assets/maps/town-district-1.json"
+      - id: "town-district-2"
+        path: "/assets/maps/town-district-2.json"
+      - id: "town-district-3"
+        path: "/assets/maps/town-district-3.json"
+  interior:
+    minRooms: 2
+    maxRooms: 6
+    tilemaps:
+      - id: "interior-1"
+        path: "/assets/maps/interior-1.json"
+      - id: "interior-2"
+        path: "/assets/maps/interior-2.json"
+      - id: "interior-3"
+        path: "/assets/maps/interior-3.json"
+      - id: "interior-4"
+        path: "/assets/maps/interior-4.json"
+      - id: "interior-5"
+        path: "/assets/maps/interior-5.json"
+      - id: "interior-6"
+        path: "/assets/maps/interior-6.json"
+  castle:
+    respawnRoom: "coffin"
+    tilemap:
+      id: "castle"
+      path: "/assets/maps/castle.json"
+  assets:
+    tileset:
+      key: "placeholder-tiles"
+      imagePath: "/assets/tilesets/placeholder.png"
+      tileWidth: 16
+      tileHeight: 16
+    playerSprite:
+      key: "player"
+      imagePath: "/assets/sprites/player.png"
+      frameWidth: 16
+      frameHeight: 16
+    npcSprite:
+      key: "npc"
+      imagePath: "/assets/sprites/npc.png"
+      frameWidth: 16
+      frameHeight: 16

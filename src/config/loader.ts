@@ -22,15 +22,7 @@ const deepFreeze = <T>(value: T): T => {
   return value;
 };
 
-export const loadConfig = async (
-  path: string,
-): Promise<Readonly<GameConfig>> => {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`Failed to load config: ${response.status} ${response.statusText}`);
-  }
-
-  const raw = await response.text();
+export const parseConfigYaml = (raw: string): Readonly<GameConfig> => {
   let parsed: unknown;
   try {
     parsed = yaml.load(raw);
@@ -49,6 +41,18 @@ export const loadConfig = async (
   const merged = mergeDefaults(defaults, validated.data);
 
   return deepFreeze(merged);
+};
+
+export const loadConfig = async (
+  path: string,
+): Promise<Readonly<GameConfig>> => {
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Failed to load config: ${response.status} ${response.statusText}`);
+  }
+
+  const raw = await response.text();
+  return parseConfigYaml(raw);
 };
 
 export const buildDefaultConfig = (): GameConfig =>
