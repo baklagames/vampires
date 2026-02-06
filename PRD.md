@@ -5,6 +5,7 @@
 2. Config format: local YAML (MVP).
 3. No gameplay magic numbers in code (only DS tokens allowed for layout/spacing).
 4. Any balance change must be done by editing YAML only, without code changes.
+5. Create a full game, not only system and configs
 
 ## 1) Executive Summary
 - Platform: mobile-first web (responsive), PWA-friendly.

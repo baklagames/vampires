@@ -1393,20 +1393,73 @@
         "description": "Create AFTER_MVP.md with deferred items (PWA offline + cloud sync).",
         "details": "Test Strategy: file exists, content verified.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "low",
         "subtasks": [],
         "complexity": 1,
         "recommendedSubtasks": 0,
-        "expansionPrompt": "Compile known tech debt and future features into markdown."
+        "expansionPrompt": "Compile known tech debt and future features into markdown.",
+        "updatedAt": "2026-02-06T17:47:13.546Z"
+      },
+      {
+        "id": "15",
+        "title": "MVP-14 Playable Loop: Phaser Town Scene & Interaction",
+        "description": "Integrate the core Phaser gameplay loop by implementing the Town scene with tap-to-move mechanics and a minimal HUD overlay.",
+        "details": "This task bridges the UI systems and the Phaser engine to create a functional game loop. \n\n1. **Phaser Scene Implementation**: Create `TownScene` in `src/game/scenes/`. Use `GameConfig` (Task 1) to load map dimensions and tile assets. \n2. **Navigation Integration**: Update the `NavigationController` (Task 10) to initiate the Phaser instance and switch to the `TownScene` when the user enters the game from the Castle or Character Select screens.\n3. **Tap-to-Move Mechanics**: Extend the `PlayerController` (Task 4) to support target-based movement. Register a pointer-down listener in Phaser that calculates the path/direction toward the clicked coordinate and moves the player sprite until the destination is reached.\n4. **HUD Overlay**: Implement a minimal HUD using DS components (Task 3) like `HUDChip` and `ProgressBar`. This HUD should be a React layer rendered over the Phaser canvas, subscribing to state updates from `PlayerController` (Blood levels) and `HeatController` (Heat/Police status).\n5. **Camera System**: Configure the Phaser camera to follow the player with appropriate lerp/deadzone settings defined in the config.\n6. **Auto-Start**: For development/MVP testing, ensure the game can optionally skip the splash screen and boot directly into the Town scene via a config flag.",
+        "testStrategy": "1. Functional Test: Click/tap on various points in the Town scene and verify the player sprite moves to the correct location.\n2. Integration Test: Navigate from the Main Menu to the Town scene and confirm the Phaser engine initializes without errors.\n3. UI Test: Manually trigger Blood loss and Heat gain via dev console and verify the HUD components (HUDChip/ProgressBar) reflect the changes immediately.\n4. Performance Test: Ensure the overlay HUD does not cause frame drops during player movement.",
+        "status": "pending",
+        "dependencies": [
+          "1",
+          "3",
+          "4",
+          "10"
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": "16",
+        "title": "MVP-14 Playable Loop Integration",
+        "description": "Auto-start Town scene, enable tap-to-move, and add minimal HUD so the game is immediately playable.",
+        "details": "Implementation: start Town from Boot immediately; wire pointer input in PhaserTownScene to move player toward target using config-based speed; render minimal HUD text with phase/time, HP/Blood, Heat. Add small time-format helper + unit test. Run npm test.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-06T17:20:44.007Z"
+      },
+      {
+        "id": "17",
+        "title": "MVP-15 Placeholder Visuals",
+        "description": "Replace transparent placeholder assets with visible 16x16 PNGs and align map tileset metadata so Town renders visibly.",
+        "details": "Generate solid-color 16x16 PNGs for tileset/player/npc; update tileset imagewidth/imageheight in map JSONs to 16; verify Town renders; run npm test.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-06T17:29:51.193Z"
+      },
+      {
+        "id": "18",
+        "title": "Static Assets Relocation + Config Import",
+        "description": "Move assets into public for Vite serving and import config YAML via ?raw; update loader and tests.",
+        "details": "Move assets/* (maps/sprites/tilesets/icons) to public/assets. Move assets/config/default.yaml to src/config/default.yaml. Add parseConfigYaml helper, use in loadConfig and main bootstrap via ?raw import. Add vite-env.d.ts for raw import typing. Update config-loader test path. Run npm test.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-06T17:43:33.542Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T16:59:29.753Z",
-      "taskCount": 14,
-      "completedCount": 13,
+      "lastModified": "2026-02-06T17:47:13.546Z",
+      "taskCount": 18,
+      "completedCount": 17,
       "tags": [
         "mvp-full"
       ]
