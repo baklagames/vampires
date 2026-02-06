@@ -1348,7 +1348,7 @@
         "description": "Expand tests + manual checklist for full MVP acceptance criteria.",
         "details": "Test Strategy: full regression pass.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "8",
           "9",
@@ -1363,9 +1363,10 @@
             "description": "Develop and implement automated integration tests covering the end-to-end gameplay loop and state transitions.",
             "dependencies": [],
             "details": "Focus on logic-layer state transitions and game engine lifecycle events to ensure stability of the core flow across screens without relying purely on UI rendering.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Automated execution of Vitest/Jest integration suites simulating state changes from initialization to death and restart.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:59:23.456Z"
           },
           {
             "id": 2,
@@ -1375,14 +1376,16 @@
               1
             ],
             "details": "Verify UI responsiveness, PWA installability, local save persistence, and edge-case behaviors across targeted mobile and desktop browsers.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Cross-browser manual testing using Chrome and Safari; verification against the master PRD acceptance spreadsheet.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T16:59:29.753Z"
           }
         ],
         "complexity": 5,
         "recommendedSubtasks": 2,
-        "expansionPrompt": "1. Write integration tests for critical user flows (Start Game -> Play -> Die -> Restart).\n2. Perform manual acceptance testing against the PRD checklist."
+        "expansionPrompt": "1. Write integration tests for critical user flows (Start Game -> Play -> Die -> Restart).\n2. Perform manual acceptance testing against the PRD checklist.",
+        "updatedAt": "2026-02-06T16:59:29.753Z"
       },
       {
         "id": "14",
@@ -1401,9 +1404,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T16:51:14.291Z",
+      "lastModified": "2026-02-06T16:59:29.753Z",
       "taskCount": 14,
-      "completedCount": 12,
+      "completedCount": 13,
       "tags": [
         "mvp-full"
       ]
