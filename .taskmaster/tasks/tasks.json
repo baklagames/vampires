@@ -1236,7 +1236,7 @@
         "description": "Implement full UI flow (Splash, Main, Character Select, Castle, Upgrades, Settings, Pause, Death, Credits) using DS components and NavigationController.",
         "details": "Test Strategy: end-to-end navigation flow.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "3"
         ],
@@ -1248,9 +1248,10 @@
             "description": "Create a central hub to manage screen transitions, history stack, and deep linking for all MVP screens.",
             "dependencies": [],
             "details": "Implement a stack-based router that supports pushing and popping screens while handling platform-specific back button events and lifecycle hooks.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify navigation stack integrity and history management through unit tests and route tracking.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T14:20:53.558Z"
           },
           {
             "id": 2,
@@ -1260,9 +1261,10 @@
               1
             ],
             "details": "Construct the Splash, MainMenu, Credits, and Settings screens ensuring they utilize PixelCard and Button components from the Design System.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "UI smoke tests to ensure layout consistency across different screen sizes and button click navigation.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T14:20:59.668Z"
           },
           {
             "id": 3,
@@ -1273,9 +1275,10 @@
               2
             ],
             "details": "Integrate CharacterSelect with player stat visualization and the Upgrades screen with stateful logic that updates based on player currency/blood.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Integration tests to verify that selections in CharacterSelect and purchases in Upgrades persist across navigation sessions.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T14:21:05.605Z"
           },
           {
             "id": 4,
@@ -1287,14 +1290,16 @@
               3
             ],
             "details": "Add animated transitions between states, implement the Pause overlay logic, and hook the Death screen into the core gameplay event system.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Full end-to-end manual walkthrough of the S0 through S10 screen flow to identify any broken links or transition glitches.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2026-02-06T14:21:13.492Z"
           }
         ],
         "complexity": 5,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "1. Set up a global Router or Screen Manager.\n2. Implement static screens: Splash, MainMenu, Credits, Settings.\n3. Implement complex screens: CharacterSelect (data binding), Upgrades (state mutation).\n4. Ensure cohesive navigation flow (back button handling, transitions)."
+        "expansionPrompt": "1. Set up a global Router or Screen Manager.\n2. Implement static screens: Splash, MainMenu, Credits, Settings.\n3. Implement complex screens: CharacterSelect (data binding), Upgrades (state mutation).\n4. Ensure cohesive navigation flow (back button handling, transitions).",
+        "updatedAt": "2026-02-06T14:21:13.492Z"
       },
       {
         "id": "11",
@@ -1385,9 +1390,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T14:10:25.249Z",
+      "lastModified": "2026-02-06T14:21:13.492Z",
       "taskCount": 14,
-      "completedCount": 7,
+      "completedCount": 8,
       "tags": [
         "mvp-full"
       ]

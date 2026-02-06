@@ -1,11 +1,16 @@
 export type ScreenId =
   | "splash"
   | "main-menu"
+  | "character-select"
+  | "castle"
+  | "upgrades"
   | "settings"
+  | "pause"
+  | "death"
+  | "credits"
   | "component-gallery"
   | "town"
   | "interior"
-  | "castle"
   | "game-over";
 
 export type ScreenTransition = {
