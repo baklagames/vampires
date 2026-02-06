@@ -1,3 +1,5 @@
+import type { GameConfig } from "../../config/schema";
+import type { SaveState } from "../save-storage";
 import { buildButtonPrimaryState, buildButtonSecondaryState } from "../components/Buttons";
 import { buildListItemState } from "../components/ListItem";
 import { buildPixelCardState } from "../components/PixelCard";
@@ -20,32 +22,29 @@ export type UpgradesState = {
   accent: string;
 };
 
-export const buildUpgradesState = (): UpgradesState => {
-  const items: UpgradeItem[] = [
-    {
-      id: "upgrade-1",
-      name: "Shadow Step",
-      description: "Short dash to evade",
-      cost: 50,
-      card: buildPixelCardState({ title: "Shadow Step", subtitle: "Dash to evade" }),
-      action: buildButtonPrimaryState("Buy 50"),
-    },
-    {
-      id: "upgrade-2",
-      name: "Blood Pact",
-      description: "Increase max blood",
-      cost: 75,
-      card: buildPixelCardState({ title: "Blood Pact", subtitle: "+10 Max Blood" }),
-      action: buildButtonPrimaryState("Buy 75"),
-    },
-  ];
+export const buildUpgradesState = (
+  config: Readonly<GameConfig>,
+  save: SaveState,
+): UpgradesState => {
+  const owned = new Set(save.upgrades.owned);
+  const items: UpgradeItem[] = config.upgrades.items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    cost: item.cost,
+    card: buildPixelCardState({ title: item.name, subtitle: item.description }),
+    action: buildButtonPrimaryState(owned.has(item.id) ? "Owned" : `Buy ${item.cost}`),
+  }));
 
   return {
     title: "Upgrades",
     items,
     backButton: buildButtonSecondaryState("Back"),
     listItems: items.map((item) =>
-      buildListItemState(item.name, { description: item.description, accessory: `${item.cost}` }),
+      buildListItemState(item.name, {
+        description: item.description,
+        accessory: owned.has(item.id) ? "Owned" : `${item.cost}`,
+      }),
     ),
     accent: TOKENS.colors.accent,
   };

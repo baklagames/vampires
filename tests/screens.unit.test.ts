@@ -7,6 +7,7 @@ import { buildSplashState } from "../src/ui/screens/splash";
 import { buildCharacterSelectState } from "../src/ui/screens/character-select";
 import { buildCastleBaseState } from "../src/ui/screens/castle-base";
 import { buildUpgradesState } from "../src/ui/screens/upgrades";
+import { createSaveStorage } from "../src/ui/save-storage";
 import { buildPauseMenuState } from "../src/ui/screens/pause";
 import { buildDeathScreenState } from "../src/ui/screens/death";
 import { buildCreditsState } from "../src/ui/screens/credits";
@@ -47,7 +48,32 @@ describe("Screens", () => {
     const config = buildDefaultConfig();
     expect(buildCharacterSelectState(config, "Ada").cards).toHaveLength(6);
     expect(buildCastleBaseState().title).toBe("Castle");
-    expect(buildUpgradesState().items.length).toBeGreaterThan(0);
+    const configWithUpgrades = {
+      ...config,
+      upgrades: {
+        ...config.upgrades,
+        items: [
+          {
+            id: "upgrade-1",
+            name: "Shadow Step",
+            description: "Short dash to evade",
+            cost: 50,
+          },
+        ],
+      },
+    };
+    const save = createSaveStorage(
+      {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+        clear: () => {},
+        key: () => null,
+        length: 0,
+      },
+      configWithUpgrades,
+    ).load();
+    expect(buildUpgradesState(configWithUpgrades, save).items.length).toBeGreaterThan(0);
     expect(buildPauseMenuState().sheet.open).toBe(true);
     expect(buildDeathScreenState("sun").title).toBe("You Died");
     expect(buildCreditsState().title).toBe("Credits");

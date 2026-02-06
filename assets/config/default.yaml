@@ -153,6 +153,19 @@ ui:
 
 upgrades:
   enabled: true
+  items:
+    - id: "upgrade-1"
+      name: "Shadow Step"
+      description: "Short dash to evade"
+      cost: 50
+    - id: "upgrade-2"
+      name: "Blood Pact"
+      description: "Increase max blood"
+      cost: 75
+    - id: "upgrade-3"
+      name: "Mist Form"
+      description: "Brief invulnerability"
+      cost: 100
   slots:
     total: 6
     startingUnlocked: 2

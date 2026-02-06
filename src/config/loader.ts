@@ -117,6 +117,7 @@ const buildDefaultConfigInput = (): Record<string, unknown> => ({
     timing: {},
   },
   upgrades: {
+    items: [],
     slots: {},
     prices: {},
   },

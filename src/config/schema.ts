@@ -246,6 +246,16 @@ const UiSchema = defaultObject({
 
 const UpgradesSchema = defaultObject({
   enabled: z.boolean().default(true),
+  items: z
+    .array(
+      defaultObject({
+        id: z.string().min(1).default("upgrade-1"),
+        name: z.string().min(1).default("Shadow Step"),
+        description: z.string().min(1).default("Short dash to evade"),
+        cost: z.number().min(0).default(50),
+      }),
+    )
+    .default([]),
   slots: defaultObject({
     total: z.number().int().min(0).default(6),
     startingUnlocked: z.number().int().min(0).default(2),
