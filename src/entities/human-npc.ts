@@ -17,12 +17,15 @@ export type HumanNpcOptions = {
 };
 
 export class HumanNpc extends Phaser.GameObjects.Sprite {
+  private static nextId = 1;
+  private readonly id: string;
   private readonly config: Readonly<GameConfig>;
   private readonly worldGrid: WorldGrid;
   private npcType: HumanNpcType;
   private speed: number;
   private destination: { x: number; y: number } | null = null;
   private nextDecisionAtMs = 0;
+  private panicUntilMs = 0;
 
   constructor(
     scene: Phaser.Scene,
@@ -32,10 +35,19 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
     options: HumanNpcOptions,
   ) {
     super(scene, x, y, texture);
+    this.id = `npc-${HumanNpc.nextId++}`;
     this.config = options.config;
     this.worldGrid = options.worldGrid;
     this.npcType = options.npcType;
     this.speed = this.resolveSpeed(options.npcType);
+  }
+
+  getId(): string {
+    return this.id;
+  }
+
+  getPosition(): { x: number; y: number } {
+    return { x: this.x, y: this.y };
   }
 
   setNpcType(type: HumanNpcType): void {
@@ -43,8 +55,18 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
     this.speed = this.resolveSpeed(type);
   }
 
+  panic(nowMs: number): void {
+    const durationMs = this.config.npc.behavior.panicDurationSeconds * 1000;
+    this.panicUntilMs = Math.max(this.panicUntilMs, nowMs + durationMs);
+  }
+
   update(time: number, delta: number): void {
     const nowMs = time;
+    if (nowMs <= this.panicUntilMs) {
+      this.speed = this.resolveSpeed(this.npcType) * this.config.npc.behavior.fleeSpeedMultiplier;
+    } else {
+      this.speed = this.resolveSpeed(this.npcType);
+    }
     if (nowMs < this.nextDecisionAtMs) {
       this.advanceMovement(delta);
       return;

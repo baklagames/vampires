@@ -6,6 +6,7 @@ export type SceneAssets = {
   tileset: { key: string; imagePath: string };
   playerSprite: { key: string; imagePath: string; frameWidth: number; frameHeight: number };
   npcSprite: { key: string; imagePath: string; frameWidth: number; frameHeight: number };
+  policeSprite: { key: string; imagePath: string; frameWidth: number; frameHeight: number };
 };
 
 export type TilemapEntry = { id: string; path: string };
@@ -27,6 +28,10 @@ export abstract class PhaserBaseScene extends Phaser.Scene {
     this.load.spritesheet(assets.npcSprite.key, assets.npcSprite.imagePath, {
       frameWidth: assets.npcSprite.frameWidth,
       frameHeight: assets.npcSprite.frameHeight,
+    });
+    this.load.spritesheet(assets.policeSprite.key, assets.policeSprite.imagePath, {
+      frameWidth: assets.policeSprite.frameWidth,
+      frameHeight: assets.policeSprite.frameHeight,
     });
   }
 
@@ -72,6 +77,12 @@ export abstract class PhaserBaseScene extends Phaser.Scene {
         imagePath: this.config.maps.assets.npcSprite.imagePath,
         frameWidth: this.config.maps.assets.npcSprite.frameWidth,
         frameHeight: this.config.maps.assets.npcSprite.frameHeight,
+      },
+      policeSprite: {
+        key: this.config.maps.assets.policeSprite.key,
+        imagePath: this.config.maps.assets.policeSprite.imagePath,
+        frameWidth: this.config.maps.assets.policeSprite.frameWidth,
+        frameHeight: this.config.maps.assets.policeSprite.frameHeight,
       },
     };
   }

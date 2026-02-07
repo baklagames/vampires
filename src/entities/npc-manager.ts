@@ -33,6 +33,10 @@ export class NpcManager {
     return this.active.length;
   }
 
+  getActive(): HumanNpc[] {
+    return [...this.active];
+  }
+
   ensurePopulation(densityMultiplier: number): void {
     const maxActive = this.config.performance.maxActiveNpcs.town;
     const desired = Math.floor(maxActive * densityMultiplier);

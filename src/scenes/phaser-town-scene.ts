@@ -3,11 +3,14 @@ import Phaser from "phaser";
 import type { GameConfig } from "../config/schema";
 import { DayNightController } from "../controllers/day-night";
 import { PanicBubbleController } from "../controllers/panic-bubble";
+import { PanicPropagationController } from "../controllers/panic-propagation";
+import { PoliceSpawner } from "../controllers/police-spawner";
 import { CoreSystemsHarness, type CoreSystemsSnapshot } from "../systems/core-systems-harness";
 import { createGridFromMatrix } from "../systems/pathfinding";
 import { createWorldGrid, type WorldGrid } from "../systems/world-grid";
 import { OverlayManager } from "../ui/overlays/OverlayManager";
 import { NpcManager, type NpcSpawnPoint } from "../entities/npc-manager";
+import { PoliceManager } from "../entities/police-manager";
 import { formatSecondsMMSS } from "../ui/format-time";
 import { TOKENS } from "../ui/tokens";
 import { TownScene } from "./town";
@@ -37,6 +40,9 @@ export class PhaserTownScene extends PhaserBaseScene {
   private coreSnapshot: CoreSystemsSnapshot | null = null;
   private sunMap: { width: number; height: number; isSafe: (x: number, y: number) => boolean } | null = null;
   private npcManager: NpcManager | null = null;
+  private policeManager: PoliceManager | null = null;
+  private policeSpawner: PoliceSpawner;
+  private panicPropagation: PanicPropagationController;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -71,6 +77,8 @@ export class PhaserTownScene extends PhaserBaseScene {
     };
     this.overlayManager = new OverlayManager(config);
     this.coreSystems = new CoreSystemsHarness(config);
+    this.policeSpawner = new PoliceSpawner(config);
+    this.panicPropagation = new PanicPropagationController(config);
   }
 
   preload(): void {
@@ -137,6 +145,7 @@ export class PhaserTownScene extends PhaserBaseScene {
     });
     this.updateMovement(deltaSeconds);
     this.advanceCoreSystems(delta);
+    this.updatePolice(delta);
     this.updateHud();
     this.updateOverlays(delta);
   }
@@ -254,6 +263,14 @@ export class PhaserTownScene extends PhaserBaseScene {
       spawnPoints,
     );
     this.npcManager.ensurePopulation(this.adapters.dayNight.getNpcDensityMultiplier());
+    this.registerPanicTargets();
+
+    this.policeManager = new PoliceManager(
+      this,
+      this.config,
+      this.worldGrid,
+      this.resolveAssets().policeSprite.key,
+    );
   }
 
   private setupOverlays(): void {
@@ -389,5 +406,67 @@ export class PhaserTownScene extends PhaserBaseScene {
     return layer.objects
       .filter((obj) => obj.name === "npc_spawn")
       .map((obj) => ({ x: obj.x ?? 0, y: obj.y ?? 0 }));
+  }
+
+  private registerPanicTargets(): void {
+    if (!this.npcManager) {
+      return;
+    }
+    for (const npc of this.npcManager.getActive()) {
+      this.panicPropagation.upsertTarget({
+        id: npc.getId(),
+        position: npc.getPosition(),
+        panic: () => npc.panic(this.time.now),
+      });
+    }
+  }
+
+  private updatePolice(deltaMs: number): void {
+    if (!this.worldGrid || !this.policeManager) {
+      return;
+    }
+
+    const bubbles = this.adapters.panic.getBubbles();
+    this.panicPropagation.propagate(
+      bubbles.map((bubble) => ({
+        id: bubble.id,
+        x: bubble.x,
+        y: bubble.y,
+        radius: bubble.radius,
+      })),
+    );
+
+    if (bubbles.length === 0) {
+      return;
+    }
+
+    const heatLevel = this.coreSnapshot?.heat.heat ?? 0;
+    const phaseMultiplier = this.adapters.dayNight.getPhase() === "night"
+      ? this.config.police.spawn.nightMultiplier
+      : 1;
+    const nowMs = this.time.now;
+
+    for (const bubble of bubbles) {
+      const plan = this.policeSpawner.createSpawnPlan(
+        bubble,
+        heatLevel,
+        phaseMultiplier,
+        nowMs,
+        (x, y) => {
+          const tile = this.worldGrid?.worldToTile(x, y);
+          return tile ? this.worldGrid?.isWalkable(tile.x, tile.y) : false;
+        },
+        Math.random,
+      );
+
+      if (plan.points.length > 0) {
+        this.policeManager.spawn(plan.points);
+      }
+    }
+
+    this.policeManager.updateTarget(
+      this.playerSprite ? { x: this.playerSprite.x, y: this.playerSprite.y } : null,
+      nowMs,
+    );
   }
 }

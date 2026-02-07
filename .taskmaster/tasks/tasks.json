@@ -1661,7 +1661,7 @@
         "description": "Implement the panic mechanics and police AI response system, including bubble-based propagation, police entity spawning, and player chase behaviors.",
         "details": "1. **Panic System Controllers**: Implement `PanicBubbleController` to create localized spheres of alarm triggered by 'bite', 'kill', or 'witness' events. Develop `PanicPropagationController` to manage state transitions for `HumanNpc` entities within these bubbles, moving them from WANDER to a new PANIC state (faster, erratic movement).\n2. **Police Entities**: Create a `PoliceNpc` class in `src/entities/police.ts` extending the base NPC class. Use the 'Police' sprite sheet from Task 2. \n3. **Police Spawner**: Implement a `PoliceSpawner` that triggers when 'Heat' levels (from Task 4) cross thresholds or when a Panic Bubble persists. Police should spawn at the edge of the active bubble or just off-screen near the incident site.\n4. **Chase AI**: Develop `PoliceChaseController`. This should utilize the `WorldGrid` (Task 3) to pathfind toward the player's current tile. Implement a simple line-of-sight check; if LOS is broken, police should move to the player's last known position before returning to a search/patrol state.\n5. **Incident Integration**: Wire the 'Bite' action in the main gameplay loop to emit an `IncidentEvent` which the `PanicBubbleController` listens for.\n\nDefinition of Done:\n- Panic bubbles are created for incidents and propagate to nearby NPCs.\n- Police spawn locally from panic bubbles and chase player.\n- Police behavior uses world grid/LOS and remains local to incident.",
         "testStrategy": "1. **Panic Propagation Test**: Trigger a 'bite' incident near a group of NPCs and verify that all NPCs within the defined radius transition to the PANIC state and flee from the incident point.\n2. **Spawn Verification**: Increase 'Heat' through debug commands and confirm that `PoliceNpc` entities are correctly instantiated by the `PoliceSpawner` near the player.\n3. **Chase Behavior Audit**: Confirm that spawned police correctly navigate the `WorldGrid` to intercept the player and update their pathing when the player moves. Verify they stop at 'Obstacles' defined in Task 3.\n4. **UI Integration**: Ensure the 'Heat' bar in the `UIScene` (Task 4) accurately reflects the intensity and duration of active panic bubbles.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "2",
           "3",
@@ -1672,7 +1672,8 @@
         "subtasks": [],
         "complexity": 9,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "Generate subtasks for the PanicBubbleController logic, the PoliceNpc entity class, the Heat-based spawning system, and the pathfinding-integrated chase AI."
+        "expansionPrompt": "Generate subtasks for the PanicBubbleController logic, the PoliceNpc entity class, the Heat-based spawning system, and the pathfinding-integrated chase AI.",
+        "updatedAt": "2026-02-07T08:40:20.595Z"
       },
       {
         "id": "7",
@@ -1799,9 +1800,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-07T08:38:10.068Z",
+      "lastModified": "2026-02-07T08:40:20.596Z",
       "taskCount": 8,
-      "completedCount": 5,
+      "completedCount": 6,
       "tags": [
         "full-game-alpha"
       ]
