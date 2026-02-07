@@ -1593,7 +1593,7 @@
         "description": "Implement the HumanNpc entity class and a management system to handle sprite pooling, randomized behaviors, and attribute variants based on district density.",
         "details": "1. **Entity Architecture**: Create a HumanNpc class in `src/entities/npc.ts` that extends Phaser.GameObjects.Sprite. Integrate a simple state machine to manage IDLE and WANDER states. 2. **Configurable Variants**: Define an NPC_TYPE_CONFIG object with multipliers for 'child', 'adult', and 'old'. Properties should include `moveSpeed` (e.g., child: 1.2, old: 0.7) and `bloodQuality` (e.g., child: 0.5, old: 1.5). 3. **NPC Manager & Pooling**: Develop an NpcManager to handle spawning. Use a `Phaser.GameObjects.Group` with `classType: HumanNpc` and `runChildUpdate: true` for efficient sprite pooling. 4. **Spawning Logic**: Parse 'npc_spawn' object points from the Tiled maps (Task 1). Implement a spawn clock that respects `performance.maxActiveNpcs` and adjusts frequency based on the current district's density settings. 5. **AI Movement**: In the WANDER state, use the `WorldGrid` from Task 3 to pick a random neighbor tile that is marked as `WALKABLE`. Implement a simple lerp or velocity-based movement to the target tile.\n\nDefinition of Done:\n- Human NPC entities spawn from npc_spawn points and are pooled.\n- NPCs wander on walkable tiles and pause; behavior is visible.\n- Child/adult/old variants differ by speed and blood quality via config.\n- maxActiveNpcs limit respected.",
         "testStrategy": "1. **Behavioral Audit**: Observe NPCs in the game; verify they move to a random nearby tile, wait for a random duration (1-3s), and then move again. 2. **Constraint Testing**: Set `maxActiveNpcs` to a low number (e.g., 10) and verify that the NpcManager stops spawning once the limit is reached. 3. **Spatial Validation**: Use the debug overlay from Task 3 to ensure NPCs never step on tiles marked as non-walkable (Buildings/Obstacles). 4. **Variant Verification**: Confirm via console logs that spawned NPCs are assigned a random type (child/adult/old) and that their movement speed matches the configured multiplier.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1",
           "2",
@@ -1652,7 +1652,8 @@
         ],
         "complexity": 6,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "Outline subtasks for the HumanNpc class, the variant configuration system, the NpcManager with object pooling, and the random-wander AI state logic."
+        "expansionPrompt": "Outline subtasks for the HumanNpc class, the variant configuration system, the NpcManager with object pooling, and the random-wander AI state logic.",
+        "updatedAt": "2026-02-07T08:38:10.067Z"
       },
       {
         "id": "6",
@@ -1798,9 +1799,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-07T08:36:06.939Z",
+      "lastModified": "2026-02-07T08:38:10.068Z",
       "taskCount": 8,
-      "completedCount": 4,
+      "completedCount": 5,
       "tags": [
         "full-game-alpha"
       ]

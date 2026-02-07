@@ -7,6 +7,7 @@ import { CoreSystemsHarness, type CoreSystemsSnapshot } from "../systems/core-sy
 import { createGridFromMatrix } from "../systems/pathfinding";
 import { createWorldGrid, type WorldGrid } from "../systems/world-grid";
 import { OverlayManager } from "../ui/overlays/OverlayManager";
+import { NpcManager, type NpcSpawnPoint } from "../entities/npc-manager";
 import { formatSecondsMMSS } from "../ui/format-time";
 import { TOKENS } from "../ui/tokens";
 import { TownScene } from "./town";
@@ -35,6 +36,7 @@ export class PhaserTownScene extends PhaserBaseScene {
   private coreSystems: CoreSystemsHarness;
   private coreSnapshot: CoreSystemsSnapshot | null = null;
   private sunMap: { width: number; height: number; isSafe: (x: number, y: number) => boolean } | null = null;
+  private npcManager: NpcManager | null = null;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -242,6 +244,16 @@ export class PhaserTownScene extends PhaserBaseScene {
       height: this.worldGrid.height,
       isSafe: (x, y) => this.worldGrid?.isSunSafe(x, y) ?? false,
     };
+
+    const spawnPoints = this.extractNpcSpawnPoints(mapData);
+    this.npcManager = new NpcManager(
+      this,
+      this.config,
+      this.worldGrid,
+      this.resolveAssets().npcSprite.key,
+      spawnPoints,
+    );
+    this.npcManager.ensurePopulation(this.adapters.dayNight.getNpcDensityMultiplier());
   }
 
   private setupOverlays(): void {
@@ -367,5 +379,15 @@ export class PhaserTownScene extends PhaserBaseScene {
   private isPointerOnHud(pointer: Phaser.Input.Pointer): boolean {
     const worldPoint = pointer.positionToCamera(this.cameras.main) as Phaser.Math.Vector2;
     return this.actionButtons.some((button) => button.getBounds().contains(worldPoint.x, worldPoint.y));
+  }
+
+  private extractNpcSpawnPoints(mapData: { layers?: Array<{ name?: string; type?: string; objects?: Array<{ name?: string; x?: number; y?: number }> }> }): NpcSpawnPoint[] {
+    const layer = mapData.layers?.find((entry) => entry.name === "Spawns" && entry.type === "objectgroup");
+    if (!layer?.objects) {
+      return [];
+    }
+    return layer.objects
+      .filter((obj) => obj.name === "npc_spawn")
+      .map((obj) => ({ x: obj.x ?? 0, y: obj.y ?? 0 }));
   }
 }

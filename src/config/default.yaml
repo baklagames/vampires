@@ -101,6 +101,7 @@ npc:
   behavior:
     idleWanderRadiusTiles: 6
     idlePauseSeconds: 2
+    wanderPickAttempts: 8
     fleeSpeedMultiplier: 1.4
     panicDurationSeconds: 8
   detection:

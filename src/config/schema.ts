@@ -179,6 +179,7 @@ const NpcSchema = defaultObject({
   behavior: defaultObject({
     idleWanderRadiusTiles: z.number().min(0).default(6),
     idlePauseSeconds: z.number().min(0).default(2),
+    wanderPickAttempts: z.number().int().min(1).default(8),
     fleeSpeedMultiplier: z.number().min(0).default(1.4),
     panicDurationSeconds: z.number().min(0).default(8),
   }),
