@@ -52,6 +52,12 @@ export class NpcManager {
     }
   }
 
+  setPhaseSpeedMultiplier(multiplier: number): void {
+    for (const npc of this.active) {
+      npc.setPhaseSpeedMultiplier(multiplier);
+    }
+  }
+
   private spawnNpc(x: number, y: number): void {
     const type = this.randomNpcType();
     const npc = this.pool.pop() ?? new HumanNpc(this.scene, x, y, this.textureKey, {

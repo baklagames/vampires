@@ -46,6 +46,9 @@ dayNight:
   npcDensity:
     dayMultiplier: 1.0
     nightMultiplier: 0.45
+  npcSpeed:
+    dayMultiplier: 1.1
+    nightMultiplier: 0.9
 
 sun:
   enabled: true

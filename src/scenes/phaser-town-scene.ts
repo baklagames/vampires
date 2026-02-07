@@ -43,6 +43,8 @@ export class PhaserTownScene extends PhaserBaseScene {
   private policeManager: PoliceManager | null = null;
   private policeSpawner: PoliceSpawner;
   private panicPropagation: PanicPropagationController;
+  private phaseUnsubscribe: (() => void) | null = null;
+  private warningUnsubscribe: (() => void) | null = null;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -132,6 +134,12 @@ export class PhaserTownScene extends PhaserBaseScene {
     this.setupHud();
     this.buildWorldGrid();
     this.setupOverlays();
+    this.events.once("shutdown", () => {
+      this.phaseUnsubscribe?.();
+      this.warningUnsubscribe?.();
+      this.phaseUnsubscribe = null;
+      this.warningUnsubscribe = null;
+    });
   }
 
   update(_time: number, delta: number): void {
@@ -263,6 +271,7 @@ export class PhaserTownScene extends PhaserBaseScene {
       spawnPoints,
     );
     this.npcManager.ensurePopulation(this.adapters.dayNight.getNpcDensityMultiplier());
+    this.npcManager.setPhaseSpeedMultiplier(this.getNpcSpeedMultiplier());
     this.registerPanicTargets();
 
     this.policeManager = new PoliceManager(
@@ -271,6 +280,14 @@ export class PhaserTownScene extends PhaserBaseScene {
       this.worldGrid,
       this.resolveAssets().policeSprite.key,
     );
+
+    this.phaseUnsubscribe = this.adapters.dayNight.onPhaseChange(() => {
+      this.npcManager?.ensurePopulation(this.adapters.dayNight.getNpcDensityMultiplier());
+      this.npcManager?.setPhaseSpeedMultiplier(this.getNpcSpeedMultiplier());
+    });
+    this.warningUnsubscribe = this.adapters.dayNight.onPhaseWarning(() => {
+      this.overlayManager.flash.trigger("sun");
+    });
   }
 
   private setupOverlays(): void {
@@ -321,6 +338,12 @@ export class PhaserTownScene extends PhaserBaseScene {
     const sunState = this.overlayManager.sunDanger.getState();
     if (sunState.visible) {
       g.fillStyle(Phaser.Display.Color.HexStringToColor(sunState.color).color, sunState.intensity * 0.25);
+      g.fillRect(0, 0, this.scale.width, this.scale.height);
+    }
+
+    const flash = this.overlayManager.flash.getState();
+    if (flash.alpha > 0 && flash.color) {
+      g.fillStyle(Phaser.Display.Color.HexStringToColor(flash.color).color, flash.alpha);
       g.fillRect(0, 0, this.scale.width, this.scale.height);
     }
   }
@@ -468,5 +491,11 @@ export class PhaserTownScene extends PhaserBaseScene {
       this.playerSprite ? { x: this.playerSprite.x, y: this.playerSprite.y } : null,
       nowMs,
     );
+  }
+
+  private getNpcSpeedMultiplier(): number {
+    return this.adapters.dayNight.getPhase() === "night"
+      ? this.config.dayNight.npcSpeed.nightMultiplier
+      : this.config.dayNight.npcSpeed.dayMultiplier;
   }
 }

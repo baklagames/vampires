@@ -23,6 +23,7 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
   private readonly worldGrid: WorldGrid;
   private npcType: HumanNpcType;
   private speed: number;
+  private phaseSpeedMultiplier = 1;
   private destination: { x: number; y: number } | null = null;
   private nextDecisionAtMs = 0;
   private panicUntilMs = 0;
@@ -55,6 +56,11 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
     this.speed = this.resolveSpeed(type);
   }
 
+  setPhaseSpeedMultiplier(multiplier: number): void {
+    this.phaseSpeedMultiplier = Math.max(0, multiplier);
+    this.speed = this.resolveSpeed(this.npcType);
+  }
+
   panic(nowMs: number): void {
     const durationMs = this.config.npc.behavior.panicDurationSeconds * 1000;
     this.panicUntilMs = Math.max(this.panicUntilMs, nowMs + durationMs);
@@ -84,7 +90,7 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
   private resolveSpeed(type: HumanNpcType): number {
     const base = this.config.humans.base.walkSpeed;
     const variant = this.config.humans.variants[type];
-    return base * variant.speedMultiplier;
+    return base * variant.speedMultiplier * this.phaseSpeedMultiplier;
   }
 
   private pickDestination(): void {

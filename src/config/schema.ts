@@ -71,6 +71,10 @@ const DayNightSchema = withEmptyDefault(
       dayMultiplier: z.number().min(0).default(1.0),
       nightMultiplier: z.number().min(0).default(0.45),
     }),
+    npcSpeed: defaultObject({
+      dayMultiplier: z.number().min(0).default(1.1),
+      nightMultiplier: z.number().min(0).default(0.9),
+    }),
   }).superRefine((value, ctx) => {
     if (!value.cycle) {
       return;
