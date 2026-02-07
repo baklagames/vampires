@@ -44,7 +44,7 @@ export class PhaserTownScene extends PhaserBaseScene {
           frameHeight: assets.npcSprite.frameHeight,
         },
       },
-      layerNames: ["Ground", "Obstacles"],
+      layerNames: ["Ground", "Roads", "Parks", "Buildings", "Trees", "Obstacles", "Shadow"],
       config,
     });
 
@@ -63,7 +63,7 @@ export class PhaserTownScene extends PhaserBaseScene {
   }
 
   create(): void {
-    const player = this.add.sprite(0, 0, this.resolveAssets().playerSprite.key);
+    const player = this.physics.add.sprite(0, 0, this.resolveAssets().playerSprite.key);
     this.playerSprite = player;
     const mapFactory = (key: string) => this.make.tilemap({ key });
     const tilesetFactory = (map: Phaser.Tilemaps.Tilemap, tilesetKey: string) =>
@@ -87,6 +87,19 @@ export class PhaserTownScene extends PhaserBaseScene {
         panic: this.adapters.panic,
         police: this.adapters.police,
       },
+      physics: {
+        setCollision: (layer, collides) => {
+          if (!collides) {
+            return;
+          }
+          const tileLayer = layer as Phaser.Tilemaps.TilemapLayer;
+          tileLayer.setCollisionByExclusion([-1]);
+        },
+        addCollider: (a, b) => {
+          this.physics.add.collider(a as Phaser.GameObjects.GameObject, b as Phaser.GameObjects.GameObject);
+        },
+      },
+      collisionLayerName: "Obstacles",
     });
 
     this.setupInput();

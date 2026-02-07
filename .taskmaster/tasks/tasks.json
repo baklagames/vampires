@@ -1471,113 +1471,131 @@
   "full-game-alpha": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "FGA-01 Town Tilemap Districts and Tileset Integration",
         "description": "Design and integrate three functional town districts (Residential, Main, and Industrial) using Tiled, incorporating multi-layered tile structures and gameplay-essential object spawns.",
         "details": "This task involves creating three distinct map files (residential.tmx/json, main.tmx/json, and industrial.tmx/json) that follow a standardized architectural pattern for the game engine. \n\n1. **Layer Hierarchy**: Each map must contain exactly these tile layers in the following order: 'Ground' (z:0), 'Roads' (z:1), 'Parks' (z:2), 'Buildings' (z:3), 'Trees' (z:4), 'Obstacles' (z:5), and 'Shadow' (z:6). \n2. **Collision Logic**: Define collision shapes within the 'Obstacles' and 'Buildings' layers. Ensure that the tileset used is correctly linked and named to match the project's internal asset manifest (e.g., 'town_tileset').\n3. **Object Layer 'Spawns'**: Create an object layer containing specific markers:\n    - 'player_spawn': The initial coordinate for the player.\n    - 'npc_spawn': Generic locations for ambient AI.\n    - 'police_spawn': Locations specifically for security units.\n    - 'interior_exit': Triggers for map transitions.\n4. **Asset Alignment**: Verify that the tileset embedding uses relative paths and that the JSON exports are saved to the 'assets/maps/' directory.\n\nDefinition of Done:\n- Three Tiled district maps exist: public/assets/maps/town-district-1.json, town-district-2.json, town-district-3.json.\n- Each map contains layers Ground, Roads, Buildings, Parks, Trees, Obstacles, Shadow (case-sensitive).\n- Each map contains object layer Spawns with objects named player_spawn, npc_spawn, police_spawn, interior_exit.\n- Tileset name in map JSON matches config tileset key; addTilesetImage succeeds.\n- Phaser Town renders layers (no black screen) and collision layer is active.",
         "testStrategy": "1. Render Verification: Load each of the three districts in the game engine and verify that all 7 layers are visible and correctly ordered (e.g., shadows appearing over the ground).\n2. Collision Check: Navigate the player character across the map; confirm that movement is physically blocked by tiles on the 'Obstacles' and 'Buildings' layers.\n3. Spawn Point Validation: Verify that the player successfully initializes at the 'player_spawn' coordinates and that NPC entities are correctly instantiated at 'npc_spawn' markers.\n4. Boundary Testing: Walk to an 'interior_exit' object to ensure the trigger detection system recognizes the object boundaries.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [
           {
             "id": 1,
-            "title": "Create Tiled Template and Residential District Map",
-            "description": "Establish a master TMX template containing the required 7-layer hierarchy and design the Residential district (town-district-1).",
+            "title": "Generate residential district JSON map",
+            "description": "Create town-district-1.json with required layers and Spawns object layer via script (not Tiled).",
             "dependencies": [],
             "details": "Initialize layers: Ground (z:0), Roads (z:1), Parks (z:2), Buildings (z:3), Trees (z:4), Obstacles (z:5), and Shadow (z:6). Link the 'town_tileset' using relative asset paths.",
-            "status": "pending",
-            "testStrategy": "Open the TMX file in Tiled and verify that all 7 layers exist in the specific order and the tileset renders without missing image errors."
+            "status": "done",
+            "testStrategy": "Open the TMX file in Tiled and verify that all 7 layers exist in the specific order and the tileset renders without missing image errors.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
-            "title": "Design Main and Industrial District Maps",
-            "description": "Utilize the master template to design the Main (town-district-2) and Industrial (town-district-3) district maps with appropriate thematic tile placement.",
+            "title": "Generate main + industrial district JSON maps",
+            "description": "Create town-district-2.json and town-district-3.json with required layers and Spawns object layer via script (not Tiled).",
             "dependencies": [
               1
             ],
             "details": "Draft main.tmx and industrial.tmx. Ensure architectural consistency across districts while maintaining the identical 7-layer structure and layer naming conventions.",
-            "status": "pending",
-            "testStrategy": "Visual inspection in Tiled to ensure the Main and Industrial districts follow the same layer hierarchy as the Residential district."
+            "status": "done",
+            "testStrategy": "Visual inspection in Tiled to ensure the Main and Industrial districts follow the same layer hierarchy as the Residential district.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
-            "title": "Configure Collision Shapes and Spawn Object Markers",
-            "description": "Define collision polygons within the tileset for 'Obstacles' and 'Buildings' and place essential gameplay markers in the 'Spawns' object layer.",
+            "title": "Add spawn objects and collision layer config",
+            "description": "Ensure player/npc/police/exit objects exist and Town scene configures collision for Obstacles.",
             "dependencies": [
               1,
               2
             ],
             "details": "In the 'Spawns' object layer for each map, place 'player_spawn', 'npc_spawn', 'police_spawn', and 'interior_exit' markers with correct naming for engine compatibility.",
-            "status": "pending",
-            "testStrategy": "Verify in Tiled's 'Object' panel that all spawns are named correctly and collision shapes are visible on relevant tiles in the tile collision editor."
+            "status": "done",
+            "testStrategy": "Verify in Tiled's 'Object' panel that all spawns are named correctly and collision shapes are visible on relevant tiles in the tile collision editor.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
-            "title": "Export JSON Maps and Implement Phaser Asset Loader",
-            "description": "Export TMX files to JSON format in the target directory and wire the Phaser scene loader to import maps and verify layer visibility.",
+            "title": "Wire Town scene to render full layer stack",
+            "description": "Town scene renders Ground/Roads/Parks/Buildings/Trees/Obstacles/Shadow and uses Arcade physics.",
             "dependencies": [
               3
             ],
             "details": "Save JSON exports to 'public/assets/maps/'. Update the game's preloader to use this.load.tilemapTiledJSON and check that addTilesetImage correctly maps the 'town_tileset' key.",
-            "status": "pending",
-            "testStrategy": "Run the Phaser application; confirm through the console that maps load successfully and use a debug render to verify that all 7 layers and collisions are active."
+            "status": "done",
+            "testStrategy": "Run the Phaser application; confirm through the console that maps load successfully and use a debug render to verify that all 7 layers and collisions are active.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Provide subtasks for designing the Residential, Main, and Industrial TMX files, defining collision shapes in Tiled, and implementing the Phaser loader to verify the 7-layer hierarchy.",
+        "updatedAt": "2026-02-07T08:03:41.249Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Placeholder Asset Pack and Configuration Wiring",
         "description": "Create 16x16 pixel art placeholder assets for tilesets and character sprites, and integrate them into the game's asset loading configuration.",
         "details": "1. Asset Creation: Generate a 16x16 pixel tileset (placeholder_tiles.png) covering ground, roads, and building basics to match the layers defined in the town districts. 2. Sprite Sheets: Create character sprite sheets for 'Player', 'Police', and 'Humans' (with variants for child, adult, and old). Each frame must be exactly 16x16 pixels. 3. Config Schema: Update the global asset configuration (e.g., src/config/assets.ts) to define sprite keys, frame dimensions, and basic animation sequences (idle, walk). 4. Asset Loader: Update the Phaser Preloader scene to load these PNGs and associate them with the keys used in the Tilemap integration. 5. Alignment: Ensure that the 16x16 grid matches the Figma design specs and the Tiled map grid size to prevent bleed-through or misalignment during rendering.\n\nDefinition of Done:\n- Placeholder assets created: tileset and sprite sheets (player, humans, police) in public/assets/tilesets and public/assets/sprites.\n- Config schema + default YAML updated with new asset entries and dimensions.\n- Phaser loads assets with correct frame sizes and renders sprites on scene.",
         "testStrategy": "1. Asset Load Verification: Confirm through the browser network tab and Phaser debug logs that all textures load without errors. 2. Visual Audit: Render each character type in a test scene to verify correct frame slicing (no partial sprites). 3. Tile Alignment: Load a district map from Task 1 and verify that tiles align perfectly to the 16x16 grid without gaps. 4. Config Validation: Verify that the asset configuration correctly identifies the 'Human' variants (child/adult/old) by rendering different colors/shapes for each placeholder.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
-          1
+          "1"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 3,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Create subtasks for generating 16x16 PNGs for tiles and sprites, updating the global asset configuration file, and extending the Phaser Preloader to map these assets to game keys.",
+        "updatedAt": "2026-02-07T08:27:53.413Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "World Grid System and Spatial Masks",
         "description": "Develop a grid-based module to manage walkability, line-of-sight blocking, and sun-safety data derived from Tiled map layers and coordinate conversion helpers.",
         "details": "1. **Grid Data Structure**: Create a `WorldGrid` class in `src/core/grid.ts` that processes the Tiled JSON data from Task 1. Use TypedArrays (e.g., `Uint8Array`) to store bitmasks for each tile coordinate: bit 0 for WALKABLE, bit 1 for LOS_BLOCK, and bit 2 for SUN_SAFE.\n2. **Mask Derivation Logic**: \n   - **WALKABLE**: True if tile is in 'Ground' or 'Roads' and NOT in 'Buildings' or 'Obstacles'.\n   - **LOS_BLOCK**: True if tile contains data in 'Buildings' or 'Trees' layers.\n   - **SUN_SAFE**: True if tile contains data in the 'Shadow' layer.\n3. **Coordinate Helpers**: Implement `worldToTile(x, y)` and `tileToWorld(tx, ty)` methods, enforcing the 16x16 pixel alignment defined in Task 2. Ensure these handle floating point inputs by flooring values.\n4. **System Integration**: \n   - **Pathfinding**: Provide a grid getter that returns a 2D array representation for EasyStar.js or a custom A* implementation.\n   - **Sun/Shade**: Create a `isSunSafe(worldX, worldY)` helper for the character state machine to trigger 'burning' status.\n   - **Collisions**: Use the grid data to populate a static collision layer in the Phaser Town scene for physical blocking.\n\nDefinition of Done:\n- world-grid module outputs walkable/losBlocked/sunSafe masks from Tiled layers/properties.\n- worldToTile/tileToWorld helpers added and used by pathfinding/LOS/sun systems.\n- Phaser Town uses masks for collisions/pathfinding.\n- Tests validate mask correctness and pathfinding works.",
         "testStrategy": "1. Coordinate Accuracy: Run unit tests to verify that world coordinates (e.g., 35, 40) correctly map to tile (2, 2) in a 16px grid.\n2. Mask Verification: Create a debug overlay in the Phaser scene that tints walkable tiles green, LOS-blocked tiles red, and sun-safe tiles blue to visually confirm they match the Tiled source.\n3. Pathfinding Stress Test: Command an NPC to move across a complex building layout; verify that the path strictly adheres to the 'WALKABLE' mask and avoids 'Obstacles'.",
         "status": "pending",
         "dependencies": [
-          1,
-          2
+          "1",
+          "2"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Define subtasks for the WorldGrid class development, the bitmask derivation logic from Tiled data, coordinate conversion helpers, and the debug overlay for mask visualization."
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Phaser HUD, Overlays, and Playable Gameplay Loop Integration",
         "description": "Implement a Phaser-based HUD and visual overlays while wiring the core gameplay loop from movement and targeting to feeding and police evasion.",
         "details": "1. **HUD Implementation**: Create a `UIScene` to render persistent status bars for HP, Blood (energy), and Heat (suspicion), along with a clock displaying the day/night cycle. 2. **Visual Overlays**: Integrate a 'Target Ring' using Phaser Graphics that follows the currently selected NPC. Implement a 'Sun Danger' overlay that uses the `SUN_SAFE` bitmask from the `WorldGrid` (Task 3) to tint dangerous tiles red during daylight. 3. **Input & Interaction**: Map pointer clicks to `tap-to-move` logic and `tap-to-target`. Implement buttons for 'Bite' (starts feeding sequence), 'Escape' (breaks contact), and 'Hide'. 4. **Gameplay Loop Controller**: Develop a state machine to manage transitions: Idle -> Moving -> Targeting -> Feeding -> Panic (if spotted) -> Police Chase -> Death/Respawn. Use the grid logic to determine if the player is in LOS of NPCs or Police during the loop.\n\nDefinition of Done:\n- Phaser-only HUD shows time, HP, blood, heat; action buttons visible.\n- Overlays render: target ring/outline, panic area, sun danger.\n- Inputs wired: tap-to-move, tap-to-target, bite/escape/hide.\n- End-to-end loop is playable in Town and npm test passes.",
         "testStrategy": "1. UI Verification: Manually verify that HP, Blood, and Heat bars decrement/increment correctly in response to game events. 2. Integration Test: Execute a complete 'Bite' loop—target an NPC, initiate feeding, trigger a 'Panic' event, and verify police sprites spawn and path toward the player. 3. Overlay Alignment: Confirm the 'Sun Danger' overlay accurately highlights tiles marked as non-SUN_SAFE in the WorldGrid. 4. Regression: Run 'npm test' to ensure existing grid and map loading functionalities remain intact.",
         "status": "pending",
         "dependencies": [
-          1,
-          2,
-          3
+          "1",
+          "2",
+          "3"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 8,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break this down into the UI Scene implementation, status bar logic, visual targeting/danger overlays, input handler mapping, and the core gameplay state machine."
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "NPC Entity System and Human Behavior Implementation",
         "description": "Implement the HumanNpc entity class and a management system to handle sprite pooling, randomized behaviors, and attribute variants based on district density.",
         "details": "1. **Entity Architecture**: Create a HumanNpc class in `src/entities/npc.ts` that extends Phaser.GameObjects.Sprite. Integrate a simple state machine to manage IDLE and WANDER states. 2. **Configurable Variants**: Define an NPC_TYPE_CONFIG object with multipliers for 'child', 'adult', and 'old'. Properties should include `moveSpeed` (e.g., child: 1.2, old: 0.7) and `bloodQuality` (e.g., child: 0.5, old: 1.5). 3. **NPC Manager & Pooling**: Develop an NpcManager to handle spawning. Use a `Phaser.GameObjects.Group` with `classType: HumanNpc` and `runChildUpdate: true` for efficient sprite pooling. 4. **Spawning Logic**: Parse 'npc_spawn' object points from the Tiled maps (Task 1). Implement a spawn clock that respects `performance.maxActiveNpcs` and adjusts frequency based on the current district's density settings. 5. **AI Movement**: In the WANDER state, use the `WorldGrid` from Task 3 to pick a random neighbor tile that is marked as `WALKABLE`. Implement a simple lerp or velocity-based movement to the target tile.\n\nDefinition of Done:\n- Human NPC entities spawn from npc_spawn points and are pooled.\n- NPCs wander on walkable tiles and pause; behavior is visible.\n- Child/adult/old variants differ by speed and blood quality via config.\n- maxActiveNpcs limit respected.",
         "testStrategy": "1. **Behavioral Audit**: Observe NPCs in the game; verify they move to a random nearby tile, wait for a random duration (1-3s), and then move again. 2. **Constraint Testing**: Set `maxActiveNpcs` to a low number (e.g., 10) and verify that the NpcManager stops spawning once the limit is reached. 3. **Spatial Validation**: Use the debug overlay from Task 3 to ensure NPCs never step on tiles marked as non-walkable (Buildings/Obstacles). 4. **Variant Verification**: Confirm via console logs that spawned NPCs are assigned a random type (child/adult/old) and that their movement speed matches the configured multiplier.",
         "status": "pending",
         "dependencies": [
-          1,
-          2,
-          3
+          "1",
+          "2",
+          "3"
         ],
         "priority": "high",
         "subtasks": [
@@ -1588,7 +1606,8 @@
             "dependencies": [],
             "details": "Define NPC_TYPE_CONFIG in src/config/npc.ts with moveSpeed (child: 1.2, adult: 1.0, old: 0.7) and bloodQuality (child: 0.5, adult: 1.0, old: 1.5) multipliers.",
             "status": "pending",
-            "testStrategy": "Unit test to verify that the config object is immutable and returns the correct multipliers for each age string key."
+            "testStrategy": "Unit test to verify that the config object is immutable and returns the correct multipliers for each age string key.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -1599,7 +1618,8 @@
             ],
             "details": "Implement src/entities/npc.ts. The class should store its current state (IDLE or WANDER) and apply the configuration multipliers defined in Subtask 1 to its base attributes.",
             "status": "pending",
-            "testStrategy": "Verify the NPC class correctly inherits from Phaser.GameObjects.Sprite and logs a console message when transitioning from IDLE to WANDER."
+            "testStrategy": "Verify the NPC class correctly inherits from Phaser.GameObjects.Sprite and logs a console message when transitioning from IDLE to WANDER.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -1611,7 +1631,8 @@
             ],
             "details": "Create NpcManager in src/core/npcManager.ts using a Phaser.GameObjects.Group. Implement logic to parse 'npc_spawn' points from the Tiled JSON and manage the maxActiveNpcs limit.",
             "status": "pending",
-            "testStrategy": "Visual confirmation that NPCs spawn at specific map markers and that the group size does not exceed the maxActiveNpcs variable."
+            "testStrategy": "Visual confirmation that NPCs spawn at specific map markers and that the group size does not exceed the maxActiveNpcs variable.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -1623,51 +1644,61 @@
             ],
             "details": "In the WANDER state, query the WorldGrid for a random neighboring tile with the WALKABLE bit set. Use Phaser velocity or a lerp to move the NPC to the center of the target tile.",
             "status": "pending",
-            "testStrategy": "Behavioral audit to ensure NPCs never move into non-walkable tiles (Buildings/Obstacles) and successfully navigate to adjacent walkable tiles."
+            "testStrategy": "Behavioral audit to ensure NPCs never move into non-walkable tiles (Buildings/Obstacles) and successfully navigate to adjacent walkable tiles.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Outline subtasks for the HumanNpc class, the variant configuration system, the NpcManager with object pooling, and the random-wander AI state logic."
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Police Response and Panic Propagation Loop",
         "description": "Implement the panic mechanics and police AI response system, including bubble-based propagation, police entity spawning, and player chase behaviors.",
         "details": "1. **Panic System Controllers**: Implement `PanicBubbleController` to create localized spheres of alarm triggered by 'bite', 'kill', or 'witness' events. Develop `PanicPropagationController` to manage state transitions for `HumanNpc` entities within these bubbles, moving them from WANDER to a new PANIC state (faster, erratic movement).\n2. **Police Entities**: Create a `PoliceNpc` class in `src/entities/police.ts` extending the base NPC class. Use the 'Police' sprite sheet from Task 2. \n3. **Police Spawner**: Implement a `PoliceSpawner` that triggers when 'Heat' levels (from Task 4) cross thresholds or when a Panic Bubble persists. Police should spawn at the edge of the active bubble or just off-screen near the incident site.\n4. **Chase AI**: Develop `PoliceChaseController`. This should utilize the `WorldGrid` (Task 3) to pathfind toward the player's current tile. Implement a simple line-of-sight check; if LOS is broken, police should move to the player's last known position before returning to a search/patrol state.\n5. **Incident Integration**: Wire the 'Bite' action in the main gameplay loop to emit an `IncidentEvent` which the `PanicBubbleController` listens for.\n\nDefinition of Done:\n- Panic bubbles are created for incidents and propagate to nearby NPCs.\n- Police spawn locally from panic bubbles and chase player.\n- Police behavior uses world grid/LOS and remains local to incident.",
         "testStrategy": "1. **Panic Propagation Test**: Trigger a 'bite' incident near a group of NPCs and verify that all NPCs within the defined radius transition to the PANIC state and flee from the incident point.\n2. **Spawn Verification**: Increase 'Heat' through debug commands and confirm that `PoliceNpc` entities are correctly instantiated by the `PoliceSpawner` near the player.\n3. **Chase Behavior Audit**: Confirm that spawned police correctly navigate the `WorldGrid` to intercept the player and update their pathing when the player moves. Verify they stop at 'Obstacles' defined in Task 3.\n4. **UI Integration**: Ensure the 'Heat' bar in the `UIScene` (Task 4) accurately reflects the intensity and duration of active panic bubbles.",
         "status": "pending",
         "dependencies": [
-          2,
-          3,
-          4,
-          5
+          "2",
+          "3",
+          "4",
+          "5"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 9,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Generate subtasks for the PanicBubbleController logic, the PoliceNpc entity class, the Heat-based spawning system, and the pathfinding-integrated chase AI."
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Day/Night Cycle and Sun Damage System Integration",
         "description": "Implement the core temporal cycle managing game time, adjusting NPC behavior via multipliers, and integrating sun damage mechanics based on spatial safety masks.",
         "details": "1. **DayNightController**: Develop a central time manager in `src/core/time.ts` that tracks a 24-hour cycle. Implement configurable time-scale (e.g., 1 real second = 1 game minute). Define phases: DAWN (05:00-07:00), DAY (07:00-17:00), DUSK (17:00-19:00), and NIGHT (19:00-05:00).\n2. **NPC & District Scaling**: Modify the `NpcManager` from Task 5 to apply `densityMultiplier` and `speedMultiplier` based on the active phase. For example, 'Industrial' districts should have near-zero density at NIGHT, while 'Main' districts peak during DAY.\n3. **Sun Damage System**: Create a `SunDamageSystem` that runs during the Scene update. It must query the `WorldGrid` (Task 3) for the `SUN_SAFE` bitmask (bit 2). If the player is in a tile where `SUN_SAFE` is false and the global phase is DAY, apply health reduction. During DAWN/DUSK, apply reduced 'singe' damage.\n4. **HUD & Warning Integration**: Wire the `DayNightController` to the `UIScene` (Task 4). Implement specific 'Dusk' and 'Dawn' warning events that trigger screen tints and UI text warnings ('The sun rises soon...') to signal players to find cover.\n5. **Dynamic Shade Map**: Implement `createDynamicSunShadeMap` which interacts with the 'Shadow' layer from Task 1, adjusting its opacity or tile-tints to visually represent the sun's position and the lethality of the environment.\n\nDefinition of Done:\n- Day/Night controller runs in scene loop with phase changes.\n- NPC density/speed multipliers apply by district and phase.\n- Sun damage applies in day/dusk and safe zones prevent damage.\n- Dusk/Dawn warnings are visible.",
         "testStrategy": "1. **Temporal Logic Test**: Use debug commands to set time to 04:59 and 06:59 to verify phase transitions (NIGHT -> DAWN -> DAY).\n2. **Sun Safety Verification**: Place the player on a 'Ground' tile vs a 'Building' tile at 12:00. Confirm HP loss only occurs on the 'Ground' tile.\n3. **Density Audit**: Verify through the NPC debugger that the active NPC count decreases significantly as the game transitions from DAY to NIGHT in residential areas.\n4. **Visual Alert Test**: Confirm the HUD displays the correct phase-specific warnings 1 game hour before phase changes.",
         "status": "pending",
         "dependencies": [
-          1,
-          3,
-          4,
-          5
+          "1",
+          "3",
+          "4",
+          "5"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Specify subtasks for the central DayNightController, the NPC behavior scaling logic, the spatial sun damage system, and the HUD phase transition alerts."
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "FGA-08 Pixellab AI Graphics Generation",
         "description": "Generate splash background and pixel art assets via Pixellab MCP; store token safely and integrate assets into the game.",
         "details": "Use Pixellab MCP to generate production-ready pixel art assets that replace placeholders. Assets must follow 16x16 grid specs for tiles and sprite sheets. Save files into public/assets and update config if needed.\n\nDefinition of Done:\n- Pixellab token stored in a non-git env file (e.g., .env.pixellab) and gitignore updated.\n- Splash background generated and saved as public/assets/ui/splash-bg.png (portrait 1080x1920).\n- Tileset generated at public/assets/tilesets/town-tiles.png (256x256, 16x16 grid).\n- Player sprite sheet generated at public/assets/sprites/player.png (48x64, 3x4).\n- Humans sprite sheet generated at public/assets/sprites/humans.png (48x320, 5 variants).\n- Police sprite sheet generated at public/assets/sprites/police.png (48x64, 3x4).\n- Phaser loads and renders these assets correctly.",
         "testStrategy": "1. Open the game and confirm splash background shows.\n2. Verify tileset and sprites load without Phaser errors.\n3. Visual check that sprites align to 16x16 grid and animate correctly.",
         "status": "pending",
         "dependencies": [
-          2
+          "2"
         ],
         "priority": "medium",
         "subtasks": [
@@ -1757,13 +1788,20 @@
             "testStrategy": "No Phaser asset load errors; visuals appear.",
             "parentId": "9"
           }
-        ]
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 0,
+        "expansionPrompt": "Task is already well-defined with subtasks; no further expansion needed."
       }
     ],
     "metadata": {
-      "created": "2026-02-06T18:19:16.947Z",
-      "updated": "2026-02-07T07:51:35.094Z",
-      "description": "Tag created on 2/6/2026"
+      "version": "1.0.0",
+      "lastModified": "2026-02-07T08:27:53.413Z",
+      "taskCount": 8,
+      "completedCount": 2,
+      "tags": [
+        "full-game-alpha"
+      ]
     }
   }
 }

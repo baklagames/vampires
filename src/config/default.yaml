@@ -212,7 +212,7 @@ maps:
   assets:
     tileset:
       key: "placeholder-tiles"
-      imagePath: "/assets/tilesets/placeholder.png"
+      imagePath: "/assets/tilesets/town-tiles.png"
       tileWidth: 16
       tileHeight: 16
     playerSprite:
@@ -222,6 +222,16 @@ maps:
       frameHeight: 16
     npcSprite:
       key: "npc"
-      imagePath: "/assets/sprites/npc.png"
+      imagePath: "/assets/sprites/humans.png"
+      frameWidth: 16
+      frameHeight: 16
+    humanSprite:
+      key: "humans"
+      imagePath: "/assets/sprites/humans.png"
+      frameWidth: 16
+      frameHeight: 16
+    policeSprite:
+      key: "police"
+      imagePath: "/assets/sprites/police.png"
       frameWidth: 16
       frameHeight: 16

@@ -305,7 +305,7 @@ const MapsSchema = defaultObject({
   assets: defaultObject({
     tileset: defaultObject({
       key: z.string().min(1).default("placeholder-tiles"),
-      imagePath: z.string().min(1).default("/assets/tilesets/placeholder.png"),
+      imagePath: z.string().min(1).default("/assets/tilesets/town-tiles.png"),
       tileWidth: z.number().int().min(1).default(16),
       tileHeight: z.number().int().min(1).default(16),
     }),
@@ -317,7 +317,19 @@ const MapsSchema = defaultObject({
     }),
     npcSprite: defaultObject({
       key: z.string().min(1).default("npc"),
-      imagePath: z.string().min(1).default("/assets/sprites/npc.png"),
+      imagePath: z.string().min(1).default("/assets/sprites/humans.png"),
+      frameWidth: z.number().int().min(1).default(16),
+      frameHeight: z.number().int().min(1).default(16),
+    }),
+    humanSprite: defaultObject({
+      key: z.string().min(1).default("humans"),
+      imagePath: z.string().min(1).default("/assets/sprites/humans.png"),
+      frameWidth: z.number().int().min(1).default(16),
+      frameHeight: z.number().int().min(1).default(16),
+    }),
+    policeSprite: defaultObject({
+      key: z.string().min(1).default("police"),
+      imagePath: z.string().min(1).default("/assets/sprites/police.png"),
       frameWidth: z.number().int().min(1).default(16),
       frameHeight: z.number().int().min(1).default(16),
     }),
