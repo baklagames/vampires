@@ -3,6 +3,8 @@ import Phaser from "phaser";
 import type { GameConfig } from "../config/schema";
 import { DayNightController } from "../controllers/day-night";
 import { PanicBubbleController } from "../controllers/panic-bubble";
+import { createGridFromMatrix } from "../systems/pathfinding";
+import { createWorldGrid, type WorldGrid } from "../systems/world-grid";
 import { formatSecondsMMSS } from "../ui/format-time";
 import { TOKENS } from "../ui/tokens";
 import { TownScene } from "./town";
@@ -21,6 +23,8 @@ export class PhaserTownScene extends PhaserBaseScene {
   private playerSprite: Phaser.GameObjects.Sprite | null = null;
   private moveTarget: Phaser.Math.Vector2 | null = null;
   private hudText: Phaser.GameObjects.Text | null = null;
+  private worldGrid: WorldGrid | null = null;
+  private pathfindingGrid: ReturnType<typeof createGridFromMatrix> | null = null;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -104,6 +108,7 @@ export class PhaserTownScene extends PhaserBaseScene {
 
     this.setupInput();
     this.setupHud();
+    this.buildWorldGrid();
   }
 
   update(_time: number, delta: number): void {
@@ -185,5 +190,20 @@ export class PhaserTownScene extends PhaserBaseScene {
       `HP ${health}/${health}  Blood ${blood}/${blood}`,
       `Heat 0/${heatMax}`,
     ]);
+  }
+
+  private buildWorldGrid(): void {
+    const mapData = this.cache.tilemap.get(this.resolveTownTilemap(this.mapIndex).id)?.data;
+    if (!mapData) {
+      return;
+    }
+    this.worldGrid = createWorldGrid(mapData, {
+      walkableLayers: ["Ground", "Roads", "Parks"],
+      blockedLayers: ["Buildings", "Obstacles", "Trees"],
+      losBlockedLayers: ["Buildings", "Obstacles", "Trees"],
+      sunSafeLayers: ["Shadow"],
+      sunSafeLayerProps: ["shadow", "safeZone"],
+    });
+    this.pathfindingGrid = createGridFromMatrix(this.worldGrid.walkableMask);
   }
 }

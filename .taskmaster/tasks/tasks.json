@@ -1556,7 +1556,7 @@
         "description": "Develop a grid-based module to manage walkability, line-of-sight blocking, and sun-safety data derived from Tiled map layers and coordinate conversion helpers.",
         "details": "1. **Grid Data Structure**: Create a `WorldGrid` class in `src/core/grid.ts` that processes the Tiled JSON data from Task 1. Use TypedArrays (e.g., `Uint8Array`) to store bitmasks for each tile coordinate: bit 0 for WALKABLE, bit 1 for LOS_BLOCK, and bit 2 for SUN_SAFE.\n2. **Mask Derivation Logic**: \n   - **WALKABLE**: True if tile is in 'Ground' or 'Roads' and NOT in 'Buildings' or 'Obstacles'.\n   - **LOS_BLOCK**: True if tile contains data in 'Buildings' or 'Trees' layers.\n   - **SUN_SAFE**: True if tile contains data in the 'Shadow' layer.\n3. **Coordinate Helpers**: Implement `worldToTile(x, y)` and `tileToWorld(tx, ty)` methods, enforcing the 16x16 pixel alignment defined in Task 2. Ensure these handle floating point inputs by flooring values.\n4. **System Integration**: \n   - **Pathfinding**: Provide a grid getter that returns a 2D array representation for EasyStar.js or a custom A* implementation.\n   - **Sun/Shade**: Create a `isSunSafe(worldX, worldY)` helper for the character state machine to trigger 'burning' status.\n   - **Collisions**: Use the grid data to populate a static collision layer in the Phaser Town scene for physical blocking.\n\nDefinition of Done:\n- world-grid module outputs walkable/losBlocked/sunSafe masks from Tiled layers/properties.\n- worldToTile/tileToWorld helpers added and used by pathfinding/LOS/sun systems.\n- Phaser Town uses masks for collisions/pathfinding.\n- Tests validate mask correctness and pathfinding works.",
         "testStrategy": "1. Coordinate Accuracy: Run unit tests to verify that world coordinates (e.g., 35, 40) correctly map to tile (2, 2) in a 16px grid.\n2. Mask Verification: Create a debug overlay in the Phaser scene that tints walkable tiles green, LOS-blocked tiles red, and sun-safe tiles blue to visually confirm they match the Tiled source.\n3. Pathfinding Stress Test: Command an NPC to move across a complex building layout; verify that the path strictly adheres to the 'WALKABLE' mask and avoids 'Obstacles'.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1",
           "2"
@@ -1565,7 +1565,8 @@
         "subtasks": [],
         "complexity": 7,
         "recommendedSubtasks": 4,
-        "expansionPrompt": "Define subtasks for the WorldGrid class development, the bitmask derivation logic from Tiled data, coordinate conversion helpers, and the debug overlay for mask visualization."
+        "expansionPrompt": "Define subtasks for the WorldGrid class development, the bitmask derivation logic from Tiled data, coordinate conversion helpers, and the debug overlay for mask visualization.",
+        "updatedAt": "2026-02-07T08:33:39.993Z"
       },
       {
         "id": "4",
@@ -1796,9 +1797,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-07T08:27:53.413Z",
+      "lastModified": "2026-02-07T08:33:39.993Z",
       "taskCount": 8,
-      "completedCount": 2,
+      "completedCount": 3,
       "tags": [
         "full-game-alpha"
       ]
