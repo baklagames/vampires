@@ -1574,7 +1574,7 @@
         "description": "Implement a Phaser-based HUD and visual overlays while wiring the core gameplay loop from movement and targeting to feeding and police evasion.",
         "details": "1. **HUD Implementation**: Create a `UIScene` to render persistent status bars for HP, Blood (energy), and Heat (suspicion), along with a clock displaying the day/night cycle. 2. **Visual Overlays**: Integrate a 'Target Ring' using Phaser Graphics that follows the currently selected NPC. Implement a 'Sun Danger' overlay that uses the `SUN_SAFE` bitmask from the `WorldGrid` (Task 3) to tint dangerous tiles red during daylight. 3. **Input & Interaction**: Map pointer clicks to `tap-to-move` logic and `tap-to-target`. Implement buttons for 'Bite' (starts feeding sequence), 'Escape' (breaks contact), and 'Hide'. 4. **Gameplay Loop Controller**: Develop a state machine to manage transitions: Idle -> Moving -> Targeting -> Feeding -> Panic (if spotted) -> Police Chase -> Death/Respawn. Use the grid logic to determine if the player is in LOS of NPCs or Police during the loop.\n\nDefinition of Done:\n- Phaser-only HUD shows time, HP, blood, heat; action buttons visible.\n- Overlays render: target ring/outline, panic area, sun danger.\n- Inputs wired: tap-to-move, tap-to-target, bite/escape/hide.\n- End-to-end loop is playable in Town and npm test passes.",
         "testStrategy": "1. UI Verification: Manually verify that HP, Blood, and Heat bars decrement/increment correctly in response to game events. 2. Integration Test: Execute a complete 'Bite' loop—target an NPC, initiate feeding, trigger a 'Panic' event, and verify police sprites spawn and path toward the player. 3. Overlay Alignment: Confirm the 'Sun Danger' overlay accurately highlights tiles marked as non-SUN_SAFE in the WorldGrid. 4. Regression: Run 'npm test' to ensure existing grid and map loading functionalities remain intact.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1",
           "2",
@@ -1584,7 +1584,8 @@
         "subtasks": [],
         "complexity": 8,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "Break this down into the UI Scene implementation, status bar logic, visual targeting/danger overlays, input handler mapping, and the core gameplay state machine."
+        "expansionPrompt": "Break this down into the UI Scene implementation, status bar logic, visual targeting/danger overlays, input handler mapping, and the core gameplay state machine.",
+        "updatedAt": "2026-02-07T08:36:06.938Z"
       },
       {
         "id": "5",
@@ -1797,9 +1798,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-07T08:33:39.993Z",
+      "lastModified": "2026-02-07T08:36:06.939Z",
       "taskCount": 8,
-      "completedCount": 3,
+      "completedCount": 4,
       "tags": [
         "full-game-alpha"
       ]
