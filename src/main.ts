@@ -18,12 +18,20 @@ class BootScene extends Phaser.Scene {
     this.config = config;
   }
 
+  preload() {
+    this.load.image("splash-bg", "/assets/ui/splash-bg.png");
+  }
+
   create() {
     const registryConfig = this.registry.get("config") as
       | Readonly<import("./config/schema").GameConfig>
       | undefined;
     const activeConfig = registryConfig ?? this.config;
     const { width, height } = this.scale;
+    this.add
+      .image(width / 2, height / 2, "splash-bg")
+      .setDisplaySize(width, height)
+      .setOrigin(0.5);
     const textStyle = {
       fontFamily: "sans-serif",
       fontSize: `${TOKENS.typography.lg}px`,

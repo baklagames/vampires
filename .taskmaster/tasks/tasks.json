@@ -1701,7 +1701,7 @@
         "description": "Generate splash background and pixel art assets via Pixellab MCP; store token safely and integrate assets into the game.",
         "details": "Use Pixellab MCP to generate production-ready pixel art assets that replace placeholders. Assets must follow 16x16 grid specs for tiles and sprite sheets. Save files into public/assets and update config if needed.\n\nDefinition of Done:\n- Pixellab token stored in a non-git env file (e.g., .env.pixellab) and gitignore updated.\n- Splash background generated and saved as public/assets/ui/splash-bg.png (portrait 1080x1920).\n- Tileset generated at public/assets/tilesets/town-tiles.png (256x256, 16x16 grid).\n- Player sprite sheet generated at public/assets/sprites/player.png (48x64, 3x4).\n- Humans sprite sheet generated at public/assets/sprites/humans.png (48x320, 5 variants).\n- Police sprite sheet generated at public/assets/sprites/police.png (48x64, 3x4).\n- Phaser loads and renders these assets correctly.",
         "testStrategy": "1. Open the game and confirm splash background shows.\n2. Verify tileset and sprites load without Phaser errors.\n3. Visual check that sprites align to 16x16 grid and animate correctly.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "2"
         ],
@@ -1713,7 +1713,7 @@
             "description": "Add .env.pixellab (AUTH_HEADER) and ensure .gitignore excludes it; add placeholder to .env.example.",
             "dependencies": [],
             "details": "Token must be stored in project but excluded from git.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify .env.pixellab is present and git status does not track it.",
             "parentId": "9"
           },
@@ -1725,7 +1725,7 @@
               1
             ],
             "details": "Output: public/assets/ui/splash-bg.png, 1080x1920 portrait.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Open app; splash screen shows background.",
             "parentId": "9"
           },
@@ -1737,7 +1737,7 @@
               1
             ],
             "details": "Output: public/assets/tilesets/town-tiles.png.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Load a map using tileset; tiles render correctly.",
             "parentId": "9"
           },
@@ -1749,7 +1749,7 @@
               1
             ],
             "details": "Output: public/assets/sprites/player.png.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Player sprite renders at 16x16 frame size.",
             "parentId": "9"
           },
@@ -1761,7 +1761,7 @@
               1
             ],
             "details": "Output: public/assets/sprites/humans.png, 48x320.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Spawn different NPC types; frames align.",
             "parentId": "9"
           },
@@ -1773,7 +1773,7 @@
               1
             ],
             "details": "Output: public/assets/sprites/police.png.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Police sprite renders and animates.",
             "parentId": "9"
           },
@@ -1789,19 +1789,20 @@
               6
             ],
             "details": "Update config paths if needed and validate in Town scene.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "No Phaser asset load errors; visuals appear.",
             "parentId": "9"
           }
         ],
         "complexity": 4,
         "recommendedSubtasks": 0,
-        "expansionPrompt": "Task is already well-defined with subtasks; no further expansion needed."
+        "expansionPrompt": "Task is already well-defined with subtasks; no further expansion needed.",
+        "updatedAt": "2026-02-08T19:49:43.875Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-07T08:42:01.593Z",
+      "lastModified": "2026-02-07T08:42:35.290Z",
       "taskCount": 8,
       "completedCount": 7,
       "tags": [
