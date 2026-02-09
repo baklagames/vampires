@@ -724,7 +724,7 @@
   "mvp-full": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "MVP-01 Config Expansion",
         "description": "Expand GameConfig + assets/config/default.yaml to full PRD knobs. Add sections for player stats/blood/actions, NPC behavior/detection, police behavior, heat increase, UI timing, upgrades, maps. Ensure defaults in YAML and no gameplay constants in code.",
         "details": "Test Strategy: schema parse + YAML load + unit tests covering defaults.",
@@ -739,7 +739,7 @@
         "updatedAt": "2026-02-05T17:09:28.580Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "MVP-02 DS Tokens v2 + CSS Vars",
         "description": "Align design tokens with PRD (spacing/radius/typography/color roles), add CSS variables for tokens, enforce semantic color roles.",
         "details": "Test Strategy: token enforcement tests pass; no hardcoded layout/color values in UI files.",
@@ -781,7 +781,7 @@
         "updatedAt": "2026-02-05T18:54:18.389Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "MVP-03 DS Components",
         "description": "Implement DS components per PRD: PixelCard, ButtonPrimary/Secondary/Icon, BottomActionBar, HUDChip, ProgressBar, HeatIndicator, Toast, ModalSheet, ListItem, TextField, ToggleSwitch, TooltipHelp.",
         "details": "Test Strategy: component state/render tests (or UI snapshot checks) for required variants.",
@@ -880,7 +880,7 @@
         "updatedAt": "2026-02-05T19:46:22.375Z"
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "MVP-04 Core Player Systems",
         "description": "Implement PlayerController, FeedingSystem, SunDamageSystem, HeatController; all values config-driven; interruptible feeding; sun grace; heat decay.",
         "details": "Test Strategy: unit tests for bite range, damage per second, heat decay.",
@@ -962,7 +962,7 @@
         "updatedAt": "2026-02-06T11:02:46.088Z"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "MVP-05 Detection + NPC AI",
         "description": "Implement DetectionController (LOS + distance), NPC state machine (Calm/Suspicious/Alarmed/Panic), and base wandering behavior.",
         "details": "Test Strategy: detection transitions and LOS blocking tests.",
@@ -1043,7 +1043,7 @@
         "updatedAt": "2026-02-06T11:54:06.293Z"
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "MVP-06 Panic + Police",
         "description": "Integrate panic bubble with NPC state changes; police response localized to bubble; night multiplier applied.",
         "details": "Test Strategy: bubble radius affects NPCs only inside; police spawn count respects night multiplier.",
@@ -1098,7 +1098,7 @@
         "updatedAt": "2026-02-06T13:00:31.568Z"
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "MVP-07 Maps + Placeholder Assets",
         "description": "Add placeholder tilemaps and sprites; 3 districts and 6–10 interiors; map list stored in config.",
         "details": "Test Strategy: assets load without errors.",
@@ -1113,7 +1113,7 @@
         "updatedAt": "2026-02-06T14:10:25.249Z"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "MVP-08 Phaser Scene Wrappers",
         "description": "Build Phaser scenes for Town/Interior/Castle wired to controllers, input, tilemaps, and transitions. Keep logic outside scenes.",
         "details": "Test Strategy: scene boot + transitions + respawn.",
@@ -1183,7 +1183,7 @@
         "updatedAt": "2026-02-06T16:24:03.746Z"
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "MVP-09 HUD + Overlays",
         "description": "Implement HUD and overlays (TargetRingFlash/Outline, PanicAreaIndicator, SunDangerOverlay, TapMarker, damage/panic flash) using DS tokens; config-driven timings.",
         "details": "Test Strategy: overlay triggers and timings.",
@@ -1240,7 +1240,7 @@
         "updatedAt": "2026-02-06T16:32:39.301Z"
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "MVP-10 Screens S0–S10 + Navigation",
         "description": "Implement full UI flow (Splash, Main, Character Select, Castle, Upgrades, Settings, Pause, Death, Credits) using DS components and NavigationController.",
         "details": "Test Strategy: end-to-end navigation flow.",
@@ -1311,7 +1311,7 @@
         "updatedAt": "2026-02-06T14:21:13.492Z"
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "MVP-11 Save + Upgrades",
         "description": "Implement local save for player name, settings, upgrades; upgrades defined in config and exposed in UI.",
         "details": "Test Strategy: persistence round-trip tests.",
@@ -1328,7 +1328,7 @@
         "updatedAt": "2026-02-06T16:45:09.862Z"
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "MVP-12 PWA Minimal",
         "description": "Add manifest.json, icons, and meta tags for installability. No service worker/offline cache.",
         "details": "Test Strategy: installability in Chrome/Safari (manual).",
@@ -1343,7 +1343,7 @@
         "updatedAt": "2026-02-06T16:51:14.291Z"
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "MVP-13 QA + Acceptance",
         "description": "Expand tests + manual checklist for full MVP acceptance criteria.",
         "details": "Test Strategy: full regression pass.",
@@ -1388,7 +1388,7 @@
         "updatedAt": "2026-02-06T16:59:29.753Z"
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "MVP-AFTER Doc",
         "description": "Create AFTER_MVP.md with deferred items (PWA offline + cloud sync).",
         "details": "Test Strategy: file exists, content verified.",
@@ -1403,12 +1403,12 @@
         "updatedAt": "2026-02-06T17:47:13.546Z"
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "MVP-14 Playable Loop: Phaser Town Scene & Interaction",
         "description": "Integrate the core Phaser gameplay loop by implementing the Town scene with tap-to-move mechanics and a minimal HUD overlay.",
         "details": "This task bridges the UI systems and the Phaser engine to create a functional game loop. \n\n1. **Phaser Scene Implementation**: Create `TownScene` in `src/game/scenes/`. Use `GameConfig` (Task 1) to load map dimensions and tile assets. \n2. **Navigation Integration**: Update the `NavigationController` (Task 10) to initiate the Phaser instance and switch to the `TownScene` when the user enters the game from the Castle or Character Select screens.\n3. **Tap-to-Move Mechanics**: Extend the `PlayerController` (Task 4) to support target-based movement. Register a pointer-down listener in Phaser that calculates the path/direction toward the clicked coordinate and moves the player sprite until the destination is reached.\n4. **HUD Overlay**: Implement a minimal HUD using DS components (Task 3) like `HUDChip` and `ProgressBar`. This HUD should be a React layer rendered over the Phaser canvas, subscribing to state updates from `PlayerController` (Blood levels) and `HeatController` (Heat/Police status).\n5. **Camera System**: Configure the Phaser camera to follow the player with appropriate lerp/deadzone settings defined in the config.\n6. **Auto-Start**: For development/MVP testing, ensure the game can optionally skip the splash screen and boot directly into the Town scene via a config flag.",
         "testStrategy": "1. Functional Test: Click/tap on various points in the Town scene and verify the player sprite moves to the correct location.\n2. Integration Test: Navigate from the Main Menu to the Town scene and confirm the Phaser engine initializes without errors.\n3. UI Test: Manually trigger Blood loss and Heat gain via dev console and verify the HUD components (HUDChip/ProgressBar) reflect the changes immediately.\n4. Performance Test: Ensure the overlay HUD does not cause frame drops during player movement.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "1",
           "3",
@@ -1416,10 +1416,11 @@
           "10"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2026-02-09T06:42:57.431Z"
       },
       {
-        "id": 16,
+        "id": "16",
         "title": "MVP-14 Playable Loop Integration",
         "description": "Auto-start Town scene, enable tap-to-move, and add minimal HUD so the game is immediately playable.",
         "details": "Implementation: start Town from Boot immediately; wire pointer input in PhaserTownScene to move player toward target using config-based speed; render minimal HUD text with phase/time, HP/Blood, Heat. Add small time-format helper + unit test. Run npm test.",
@@ -1431,7 +1432,7 @@
         "updatedAt": "2026-02-06T17:20:44.007Z"
       },
       {
-        "id": 17,
+        "id": "17",
         "title": "MVP-15 Placeholder Visuals",
         "description": "Replace transparent placeholder assets with visible 16x16 PNGs and align map tileset metadata so Town renders visibly.",
         "details": "Generate solid-color 16x16 PNGs for tileset/player/npc; update tileset imagewidth/imageheight in map JSONs to 16; verify Town renders; run npm test.",
@@ -1443,7 +1444,7 @@
         "updatedAt": "2026-02-06T17:29:51.193Z"
       },
       {
-        "id": 18,
+        "id": "18",
         "title": "Static Assets Relocation + Config Import",
         "description": "Move assets into public for Vite serving and import config YAML via ?raw; update loader and tests.",
         "details": "Move assets/* (maps/sprites/tilesets/icons) to public/assets. Move assets/config/default.yaml to src/config/default.yaml. Add parseConfigYaml helper, use in loadConfig and main bootstrap via ?raw import. Add vite-env.d.ts for raw import typing. Update config-loader test path. Run npm test.",
@@ -1457,21 +1458,18 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-02-06T17:47:13.546Z",
+      "lastModified": "2026-02-09T06:42:57.431Z",
       "taskCount": 18,
-      "completedCount": 17,
+      "completedCount": 18,
       "tags": [
         "mvp-full"
-      ],
-      "created": "2026-02-06T18:19:16.947Z",
-      "description": "Tasks for mvp-full context",
-      "updated": "2026-02-06T18:19:16.947Z"
+      ]
     }
   },
   "full-game-alpha": {
     "tasks": [
       {
-        "id": "1",
+        "id": 1,
         "title": "FGA-01 Town Tilemap Districts and Tileset Integration",
         "description": "Design and integrate three functional town districts (Residential, Main, and Industrial) using Tiled, incorporating multi-layered tile structures and gameplay-essential object spawns.",
         "details": "This task involves creating three distinct map files (residential.tmx/json, main.tmx/json, and industrial.tmx/json) that follow a standardized architectural pattern for the game engine. \n\n1. **Layer Hierarchy**: Each map must contain exactly these tile layers in the following order: 'Ground' (z:0), 'Roads' (z:1), 'Parks' (z:2), 'Buildings' (z:3), 'Trees' (z:4), 'Obstacles' (z:5), and 'Shadow' (z:6). \n2. **Collision Logic**: Define collision shapes within the 'Obstacles' and 'Buildings' layers. Ensure that the tileset used is correctly linked and named to match the project's internal asset manifest (e.g., 'town_tileset').\n3. **Object Layer 'Spawns'**: Create an object layer containing specific markers:\n    - 'player_spawn': The initial coordinate for the player.\n    - 'npc_spawn': Generic locations for ambient AI.\n    - 'police_spawn': Locations specifically for security units.\n    - 'interior_exit': Triggers for map transitions.\n4. **Asset Alignment**: Verify that the tileset embedding uses relative paths and that the JSON exports are saved to the 'assets/maps/' directory.\n\nDefinition of Done:\n- Three Tiled district maps exist: public/assets/maps/town-district-1.json, town-district-2.json, town-district-3.json.\n- Each map contains layers Ground, Roads, Buildings, Parks, Trees, Obstacles, Shadow (case-sensitive).\n- Each map contains object layer Spawns with objects named player_spawn, npc_spawn, police_spawn, interior_exit.\n- Tileset name in map JSON matches config tileset key; addTilesetImage succeeds.\n- Phaser Town renders layers (no black screen) and collision layer is active.",
@@ -1534,7 +1532,7 @@
         "updatedAt": "2026-02-07T08:03:41.249Z"
       },
       {
-        "id": "2",
+        "id": 2,
         "title": "Placeholder Asset Pack and Configuration Wiring",
         "description": "Create 16x16 pixel art placeholder assets for tilesets and character sprites, and integrate them into the game's asset loading configuration.",
         "details": "1. Asset Creation: Generate a 16x16 pixel tileset (placeholder_tiles.png) covering ground, roads, and building basics to match the layers defined in the town districts. 2. Sprite Sheets: Create character sprite sheets for 'Player', 'Police', and 'Humans' (with variants for child, adult, and old). Each frame must be exactly 16x16 pixels. 3. Config Schema: Update the global asset configuration (e.g., src/config/assets.ts) to define sprite keys, frame dimensions, and basic animation sequences (idle, walk). 4. Asset Loader: Update the Phaser Preloader scene to load these PNGs and associate them with the keys used in the Tilemap integration. 5. Alignment: Ensure that the 16x16 grid matches the Figma design specs and the Tiled map grid size to prevent bleed-through or misalignment during rendering.\n\nDefinition of Done:\n- Placeholder assets created: tileset and sprite sheets (player, humans, police) in public/assets/tilesets and public/assets/sprites.\n- Config schema + default YAML updated with new asset entries and dimensions.\n- Phaser loads assets with correct frame sizes and renders sprites on scene.",
@@ -1551,7 +1549,7 @@
         "updatedAt": "2026-02-07T08:27:53.413Z"
       },
       {
-        "id": "3",
+        "id": 3,
         "title": "World Grid System and Spatial Masks",
         "description": "Develop a grid-based module to manage walkability, line-of-sight blocking, and sun-safety data derived from Tiled map layers and coordinate conversion helpers.",
         "details": "1. **Grid Data Structure**: Create a `WorldGrid` class in `src/core/grid.ts` that processes the Tiled JSON data from Task 1. Use TypedArrays (e.g., `Uint8Array`) to store bitmasks for each tile coordinate: bit 0 for WALKABLE, bit 1 for LOS_BLOCK, and bit 2 for SUN_SAFE.\n2. **Mask Derivation Logic**: \n   - **WALKABLE**: True if tile is in 'Ground' or 'Roads' and NOT in 'Buildings' or 'Obstacles'.\n   - **LOS_BLOCK**: True if tile contains data in 'Buildings' or 'Trees' layers.\n   - **SUN_SAFE**: True if tile contains data in the 'Shadow' layer.\n3. **Coordinate Helpers**: Implement `worldToTile(x, y)` and `tileToWorld(tx, ty)` methods, enforcing the 16x16 pixel alignment defined in Task 2. Ensure these handle floating point inputs by flooring values.\n4. **System Integration**: \n   - **Pathfinding**: Provide a grid getter that returns a 2D array representation for EasyStar.js or a custom A* implementation.\n   - **Sun/Shade**: Create a `isSunSafe(worldX, worldY)` helper for the character state machine to trigger 'burning' status.\n   - **Collisions**: Use the grid data to populate a static collision layer in the Phaser Town scene for physical blocking.\n\nDefinition of Done:\n- world-grid module outputs walkable/losBlocked/sunSafe masks from Tiled layers/properties.\n- worldToTile/tileToWorld helpers added and used by pathfinding/LOS/sun systems.\n- Phaser Town uses masks for collisions/pathfinding.\n- Tests validate mask correctness and pathfinding works.",
@@ -1569,7 +1567,7 @@
         "updatedAt": "2026-02-07T08:33:39.993Z"
       },
       {
-        "id": "4",
+        "id": 4,
         "title": "Phaser HUD, Overlays, and Playable Gameplay Loop Integration",
         "description": "Implement a Phaser-based HUD and visual overlays while wiring the core gameplay loop from movement and targeting to feeding and police evasion.",
         "details": "1. **HUD Implementation**: Create a `UIScene` to render persistent status bars for HP, Blood (energy), and Heat (suspicion), along with a clock displaying the day/night cycle. 2. **Visual Overlays**: Integrate a 'Target Ring' using Phaser Graphics that follows the currently selected NPC. Implement a 'Sun Danger' overlay that uses the `SUN_SAFE` bitmask from the `WorldGrid` (Task 3) to tint dangerous tiles red during daylight. 3. **Input & Interaction**: Map pointer clicks to `tap-to-move` logic and `tap-to-target`. Implement buttons for 'Bite' (starts feeding sequence), 'Escape' (breaks contact), and 'Hide'. 4. **Gameplay Loop Controller**: Develop a state machine to manage transitions: Idle -> Moving -> Targeting -> Feeding -> Panic (if spotted) -> Police Chase -> Death/Respawn. Use the grid logic to determine if the player is in LOS of NPCs or Police during the loop.\n\nDefinition of Done:\n- Phaser-only HUD shows time, HP, blood, heat; action buttons visible.\n- Overlays render: target ring/outline, panic area, sun danger.\n- Inputs wired: tap-to-move, tap-to-target, bite/escape/hide.\n- End-to-end loop is playable in Town and npm test passes.",
@@ -1588,7 +1586,7 @@
         "updatedAt": "2026-02-07T08:36:06.938Z"
       },
       {
-        "id": "5",
+        "id": 5,
         "title": "NPC Entity System and Human Behavior Implementation",
         "description": "Implement the HumanNpc entity class and a management system to handle sprite pooling, randomized behaviors, and attribute variants based on district density.",
         "details": "1. **Entity Architecture**: Create a HumanNpc class in `src/entities/npc.ts` that extends Phaser.GameObjects.Sprite. Integrate a simple state machine to manage IDLE and WANDER states. 2. **Configurable Variants**: Define an NPC_TYPE_CONFIG object with multipliers for 'child', 'adult', and 'old'. Properties should include `moveSpeed` (e.g., child: 1.2, old: 0.7) and `bloodQuality` (e.g., child: 0.5, old: 1.5). 3. **NPC Manager & Pooling**: Develop an NpcManager to handle spawning. Use a `Phaser.GameObjects.Group` with `classType: HumanNpc` and `runChildUpdate: true` for efficient sprite pooling. 4. **Spawning Logic**: Parse 'npc_spawn' object points from the Tiled maps (Task 1). Implement a spawn clock that respects `performance.maxActiveNpcs` and adjusts frequency based on the current district's density settings. 5. **AI Movement**: In the WANDER state, use the `WorldGrid` from Task 3 to pick a random neighbor tile that is marked as `WALKABLE`. Implement a simple lerp or velocity-based movement to the target tile.\n\nDefinition of Done:\n- Human NPC entities spawn from npc_spawn points and are pooled.\n- NPCs wander on walkable tiles and pause; behavior is visible.\n- Child/adult/old variants differ by speed and blood quality via config.\n- maxActiveNpcs limit respected.",
@@ -1656,7 +1654,7 @@
         "updatedAt": "2026-02-07T08:38:10.067Z"
       },
       {
-        "id": "6",
+        "id": 6,
         "title": "Police Response and Panic Propagation Loop",
         "description": "Implement the panic mechanics and police AI response system, including bubble-based propagation, police entity spawning, and player chase behaviors.",
         "details": "1. **Panic System Controllers**: Implement `PanicBubbleController` to create localized spheres of alarm triggered by 'bite', 'kill', or 'witness' events. Develop `PanicPropagationController` to manage state transitions for `HumanNpc` entities within these bubbles, moving them from WANDER to a new PANIC state (faster, erratic movement).\n2. **Police Entities**: Create a `PoliceNpc` class in `src/entities/police.ts` extending the base NPC class. Use the 'Police' sprite sheet from Task 2. \n3. **Police Spawner**: Implement a `PoliceSpawner` that triggers when 'Heat' levels (from Task 4) cross thresholds or when a Panic Bubble persists. Police should spawn at the edge of the active bubble or just off-screen near the incident site.\n4. **Chase AI**: Develop `PoliceChaseController`. This should utilize the `WorldGrid` (Task 3) to pathfind toward the player's current tile. Implement a simple line-of-sight check; if LOS is broken, police should move to the player's last known position before returning to a search/patrol state.\n5. **Incident Integration**: Wire the 'Bite' action in the main gameplay loop to emit an `IncidentEvent` which the `PanicBubbleController` listens for.\n\nDefinition of Done:\n- Panic bubbles are created for incidents and propagate to nearby NPCs.\n- Police spawn locally from panic bubbles and chase player.\n- Police behavior uses world grid/LOS and remains local to incident.",
@@ -1676,7 +1674,7 @@
         "updatedAt": "2026-02-07T08:40:20.595Z"
       },
       {
-        "id": "7",
+        "id": 7,
         "title": "Day/Night Cycle and Sun Damage System Integration",
         "description": "Implement the core temporal cycle managing game time, adjusting NPC behavior via multipliers, and integrating sun damage mechanics based on spatial safety masks.",
         "details": "1. **DayNightController**: Develop a central time manager in `src/core/time.ts` that tracks a 24-hour cycle. Implement configurable time-scale (e.g., 1 real second = 1 game minute). Define phases: DAWN (05:00-07:00), DAY (07:00-17:00), DUSK (17:00-19:00), and NIGHT (19:00-05:00).\n2. **NPC & District Scaling**: Modify the `NpcManager` from Task 5 to apply `densityMultiplier` and `speedMultiplier` based on the active phase. For example, 'Industrial' districts should have near-zero density at NIGHT, while 'Main' districts peak during DAY.\n3. **Sun Damage System**: Create a `SunDamageSystem` that runs during the Scene update. It must query the `WorldGrid` (Task 3) for the `SUN_SAFE` bitmask (bit 2). If the player is in a tile where `SUN_SAFE` is false and the global phase is DAY, apply health reduction. During DAWN/DUSK, apply reduced 'singe' damage.\n4. **HUD & Warning Integration**: Wire the `DayNightController` to the `UIScene` (Task 4). Implement specific 'Dusk' and 'Dawn' warning events that trigger screen tints and UI text warnings ('The sun rises soon...') to signal players to find cover.\n5. **Dynamic Shade Map**: Implement `createDynamicSunShadeMap` which interacts with the 'Shadow' layer from Task 1, adjusting its opacity or tile-tints to visually represent the sun's position and the lethality of the environment.\n\nDefinition of Done:\n- Day/Night controller runs in scene loop with phase changes.\n- NPC density/speed multipliers apply by district and phase.\n- Sun damage applies in day/dusk and safe zones prevent damage.\n- Dusk/Dawn warnings are visible.",
@@ -1696,7 +1694,7 @@
         "updatedAt": "2026-02-07T08:42:01.593Z"
       },
       {
-        "id": "9",
+        "id": 9,
         "title": "FGA-08 Pixellab AI Graphics Generation",
         "description": "Generate splash background and pixel art assets via Pixellab MCP; store token safely and integrate assets into the game.",
         "details": "Use Pixellab MCP to generate production-ready pixel art assets that replace placeholders. Assets must follow 16x16 grid specs for tiles and sprite sheets. Save files into public/assets and update config if needed.\n\nDefinition of Done:\n- Pixellab token stored in a non-git env file (e.g., .env.pixellab) and gitignore updated.\n- Splash background generated and saved as public/assets/ui/splash-bg.png (portrait 1080x1920).\n- Tileset generated at public/assets/tilesets/town-tiles.png (256x256, 16x16 grid).\n- Player sprite sheet generated at public/assets/sprites/player.png (48x64, 3x4).\n- Humans sprite sheet generated at public/assets/sprites/humans.png (48x320, 5 variants).\n- Police sprite sheet generated at public/assets/sprites/police.png (48x64, 3x4).\n- Phaser loads and renders these assets correctly.",
@@ -1807,7 +1805,10 @@
       "completedCount": 7,
       "tags": [
         "full-game-alpha"
-      ]
+      ],
+      "created": "2026-02-09T06:41:50.964Z",
+      "description": "Tasks for full-game-alpha context",
+      "updated": "2026-02-09T06:41:50.964Z"
     }
   }
 }
