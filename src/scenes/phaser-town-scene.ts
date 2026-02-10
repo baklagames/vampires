@@ -56,6 +56,7 @@ export class PhaserTownScene extends PhaserBaseScene {
   private selectedNpcId: string | null = null;
   private policeSpawnPoints: Array<{ x: number; y: number }> = [];
   private playerIndicator: Phaser.GameObjects.Graphics | null = null;
+  private respawnAtMs: number | null = null;
 
   constructor(config: Readonly<GameConfig>, mapIndex = 0) {
     super("town", config);
@@ -296,12 +297,12 @@ export class PhaserTownScene extends PhaserBaseScene {
 
     const snapshot = this.coreSnapshot;
     const phase = this.adapters.dayNight.getPhase();
-    const phaseElapsed = this.adapters.dayNight.getPhaseElapsedSeconds();
+    const phaseElapsed = Math.ceil(this.adapters.dayNight.getPhaseElapsedSeconds());
     const phaseTimeLabel = formatSecondsMMSS(phaseElapsed);
-    const health = snapshot?.player.health ?? this.config.player.stats.maxHealth;
-    const blood = snapshot?.player.blood ?? this.config.player.stats.maxBlood;
+    const health = Math.max(0, Math.round(snapshot?.player.health ?? this.config.player.stats.maxHealth));
+    const blood = Math.max(0, Math.round(snapshot?.player.blood ?? this.config.player.stats.maxBlood));
     const heatMax = snapshot?.heat.levels ?? this.config.heat.levels;
-    const heat = snapshot?.heat.heat ?? 0;
+    const heat = Math.max(0, Math.round(snapshot?.heat.heat ?? 0));
 
     this.hudText.setText([
       `Phase: ${phase.toUpperCase()} ${phaseTimeLabel}`,
@@ -478,6 +479,7 @@ export class PhaserTownScene extends PhaserBaseScene {
       inChase: false,
     });
     this.coreSnapshot = snapshot;
+    this.handleRespawn(snapshot, nowMs);
     if (feedingEvent?.type === "completed" || feedingEvent?.type === "interrupted") {
       this.biteAction.stop();
     }
@@ -540,6 +542,10 @@ export class PhaserTownScene extends PhaserBaseScene {
     const phaseMultiplier = this.adapters.dayNight.getPhase() === "night"
       ? this.config.police.spawn.nightMultiplier
       : 1;
+    const tileSize = this.config.maps.town.tileSize;
+    const escapeDistance = this.config.police.behavior.escapeDistanceTiles * tileSize;
+    const playerPosition = this.playerSprite ? { x: this.playerSprite.x, y: this.playerSprite.y } : null;
+    const shouldChase = Boolean(playerPosition) && bubbles.length > 0 && this.isPlayerNearPanic(playerPosition, bubbles, escapeDistance);
 
     if (bubbles.length > 0) {
       for (const bubble of bubbles) {
@@ -562,7 +568,7 @@ export class PhaserTownScene extends PhaserBaseScene {
     }
 
     this.policeManager.updateTarget(
-      this.playerSprite ? { x: this.playerSprite.x, y: this.playerSprite.y } : null,
+      shouldChase && playerPosition ? playerPosition : null,
       nowMs,
     );
   }
@@ -799,6 +805,54 @@ export class PhaserTownScene extends PhaserBaseScene {
     indicator.fillCircle(this.playerSprite.x, this.playerSprite.y, TOKENS.spacing.xl * 1.5);
     indicator.lineStyle(TOKENS.spacing.xs, 0xff3b3b, 0.9);
     indicator.strokeCircle(this.playerSprite.x, this.playerSprite.y, TOKENS.spacing.xl * 1.5);
+  }
+
+  private handleRespawn(snapshot: CoreSystemsSnapshot, nowMs: number): void {
+    if (!this.playerSprite || !this.worldGrid) {
+      return;
+    }
+    if (snapshot.player.health > 0) {
+      this.respawnAtMs = null;
+      return;
+    }
+    if (this.respawnAtMs === null) {
+      this.respawnAtMs = nowMs + this.config.player.respawn.delaySeconds * 1000;
+      return;
+    }
+    if (nowMs < this.respawnAtMs) {
+      return;
+    }
+    const respawnTile = this.findNearestTile(
+      Math.floor(this.worldGrid.width / 2),
+      Math.floor(this.worldGrid.height / 2),
+      (x, y) => this.worldGrid?.isSunSafe(x, y) ?? false,
+    ) ?? this.findNearestTile(
+      Math.floor(this.worldGrid.width / 2),
+      Math.floor(this.worldGrid.height / 2),
+      (x, y) => this.worldGrid?.isWalkable(x, y) ?? false,
+    );
+    if (!respawnTile) {
+      return;
+    }
+    const world = this.worldGrid.tileToWorld(respawnTile.x, respawnTile.y);
+    this.playerSprite.setPosition(world.x, world.y);
+    this.coreSystems.respawn({ x: respawnTile.x, y: respawnTile.y });
+    this.respawnAtMs = null;
+  }
+
+  private isPlayerNearPanic(
+    player: { x: number; y: number },
+    bubbles: Array<{ x: number; y: number }>,
+    maxDistance: number,
+  ): boolean {
+    for (const bubble of bubbles) {
+      const dx = player.x - bubble.x;
+      const dy = player.y - bubble.y;
+      if (Math.hypot(dx, dy) <= maxDistance) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private renderDistrictBackdrop(mapData: {

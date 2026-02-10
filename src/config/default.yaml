@@ -16,7 +16,7 @@ player:
   stats:
     maxHealth: 100
     maxBlood: 100
-    moveSpeed: 1.0
+    moveSpeed: 1.6
   blood:
     startingBlood: 50
     loseOnDeathFraction: 0.5
@@ -24,6 +24,8 @@ player:
     biteCooldownSeconds: 0.2
     escapeCooldownSeconds: 6
     hideCooldownSeconds: 4
+  respawn:
+    delaySeconds: 5
 
 controls:
   tapToMove:
@@ -122,23 +124,24 @@ npc:
 police:
   enabled: true
   spawn:
-    baseCount: 2
-    responseCountPerHeat: 1
-    nightMultiplier: 2.0
+    baseCount: 1
+    responseCountPerHeat: 0
+    nightMultiplier: 1.4
     nearPlayerCount: 1
-    nearPlayerRadiusTiles: 8
+    nearPlayerRadiusTiles: 12
   vision:
-    dayRangeTiles: 9
-    nightRangeTiles: 6
+    dayRangeTiles: 7
+    nightRangeTiles: 5
   damage:
     bulletDamage: 10
     fireRatePerSecond: 0.8
   behavior:
-    patrolSpeed: 1.2
-    chaseSpeed: 1.8
+    patrolSpeed: 1.0
+    chaseSpeed: 1.2
+    escapeDistanceTiles: 18
     responseDelaySeconds: 3
-    searchDurationSeconds: 8
-    despawnSeconds: 20
+    searchDurationSeconds: 5
+    despawnSeconds: 12
     spawnRadiusJitterFraction: 0.6
     spawnMaxAttempts: 20
 

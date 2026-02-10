@@ -191,6 +191,24 @@ export class PlayerController {
     return { state: this.getState(), accepted: true };
   }
 
+  respawn(position: { x: number; y: number }): PlayerState {
+    const maxHealth = this.config.player.stats.maxHealth;
+    const maxBlood = this.config.player.stats.maxBlood;
+    this.state = {
+      health: maxHealth,
+      blood: clamp(this.config.player.blood.startingBlood, 0, maxBlood),
+      position: { ...position },
+      action: "idle",
+      actionEndsAtMs: null,
+      cooldowns: {
+        biteReadyAtMs: 0,
+        hideReadyAtMs: 0,
+        escapeReadyAtMs: 0,
+      },
+    };
+    return this.getState();
+  }
+
   advance(nowMs: number): PlayerState {
     if (this.state.actionEndsAtMs !== null && nowMs >= this.state.actionEndsAtMs) {
       this.state.action = "idle";

@@ -42,6 +42,10 @@ const PlayerActionsSchema = defaultObject({
   hideCooldownSeconds: z.number().min(0).default(4),
 });
 
+const PlayerRespawnSchema = defaultObject({
+  delaySeconds: z.number().min(0).default(5),
+});
+
 const ControlsSchema = defaultObject({
   tapToMove: defaultObject({
     enabled: z.boolean().default(true),
@@ -222,6 +226,7 @@ const PoliceSchema = defaultObject({
   behavior: defaultObject({
     patrolSpeed: z.number().min(0).default(1.2),
     chaseSpeed: z.number().min(0).default(1.8),
+    escapeDistanceTiles: z.number().min(0).default(14),
     responseDelaySeconds: z.number().min(0).default(3),
     searchDurationSeconds: z.number().min(0).default(8),
     despawnSeconds: z.number().min(0).default(20),
@@ -366,6 +371,7 @@ export const ConfigSchema = z
           stats: PlayerStatsSchema,
           blood: PlayerBloodSchema,
           actions: PlayerActionsSchema,
+          respawn: PlayerRespawnSchema,
         })
         .partial()
         .strict(),

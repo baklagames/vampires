@@ -72,6 +72,16 @@ export class CoreSystemsHarness {
     return this.heat.addHeat(type, nowMs);
   }
 
+  respawn(position: { x: number; y: number }): CoreSystemsSnapshot {
+    this.player.respawn(position);
+    return {
+      player: this.player.getState(),
+      feeding: this.feeding.getStatus(0),
+      heat: this.heat.getState(),
+      sun: this.sun.getState(false),
+    };
+  }
+
   advance(nowMs: number, deltaMs: number, context: CoreSystemsAdvanceContext): { snapshot: CoreSystemsSnapshot; feedingEvent: FeedingEvent | null } {
     const deltaSeconds = deltaMs / 1000;
     this.player.setPosition(context.position);
