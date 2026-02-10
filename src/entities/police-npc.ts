@@ -22,6 +22,11 @@ export class PoliceNpc extends Phaser.GameObjects.Sprite {
     this.config = config;
     this.worldGrid = worldGrid;
     this.chase = new PoliceChaseController(config);
+    this.setDepth(70);
+    this.setScale(1.35);
+    this.setTint(0xffffff);
+    this.setAlpha(1);
+    this.setFrame(3);
   }
 
   setTarget(position: { x: number; y: number } | null, nowMs: number): void {

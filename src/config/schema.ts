@@ -49,6 +49,7 @@ const ControlsSchema = defaultObject({
   }),
   tapToTarget: defaultObject({
     enabled: z.boolean().default(true),
+    radiusTiles: z.number().min(0).default(2.5),
   }),
   targetRing: defaultObject({
     flashMs: z.number().int().min(0).default(200),
@@ -180,6 +181,10 @@ const HumansSchema = defaultObject({
 });
 
 const NpcSchema = defaultObject({
+  spawn: defaultObject({
+    nearPlayerCount: z.number().int().min(0).default(6),
+    nearPlayerRadiusTiles: z.number().min(0).default(6),
+  }),
   behavior: defaultObject({
     idleWanderRadiusTiles: z.number().min(0).default(6),
     idlePauseSeconds: z.number().min(0).default(2),
@@ -203,6 +208,8 @@ const PoliceSchema = defaultObject({
     baseCount: z.number().int().min(0).default(2),
     responseCountPerHeat: z.number().int().min(0).default(1),
     nightMultiplier: z.number().min(0).default(2.0),
+    nearPlayerCount: z.number().int().min(0).default(1),
+    nearPlayerRadiusTiles: z.number().min(0).default(8),
   }),
   vision: defaultObject({
     dayRangeTiles: z.number().min(0).default(9),
@@ -310,7 +317,7 @@ const MapsSchema = defaultObject({
   assets: defaultObject({
     tileset: defaultObject({
       key: z.string().min(1).default("placeholder-tiles"),
-      imagePath: z.string().min(1).default("/assets/tilesets/town-tiles.png"),
+      imagePath: z.string().min(1).default("/assets/tilesets/placeholder.png"),
       tileWidth: z.number().int().min(1).default(16),
       tileHeight: z.number().int().min(1).default(16),
     }),

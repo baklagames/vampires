@@ -31,6 +31,7 @@ controls:
     arrivalThresholdTiles: 0.1
   tapToTarget:
     enabled: true
+    radiusTiles: 2.5
   targetRing:
     flashMs: 200
   tapMarker:
@@ -101,6 +102,9 @@ humans:
       bloodQualityMultiplier: 0.8
 
 npc:
+  spawn:
+    nearPlayerCount: 6
+    nearPlayerRadiusTiles: 6
   behavior:
     idleWanderRadiusTiles: 6
     idlePauseSeconds: 2
@@ -121,6 +125,8 @@ police:
     baseCount: 2
     responseCountPerHeat: 1
     nightMultiplier: 2.0
+    nearPlayerCount: 1
+    nearPlayerRadiusTiles: 8
   vision:
     dayRangeTiles: 9
     nightRangeTiles: 6
@@ -216,7 +222,7 @@ maps:
   assets:
     tileset:
       key: "placeholder-tiles"
-      imagePath: "/assets/tilesets/town-tiles.png"
+      imagePath: "/assets/tilesets/placeholder.png"
       tileWidth: 16
       tileHeight: 16
     playerSprite:

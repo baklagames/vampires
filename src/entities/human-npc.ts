@@ -41,6 +41,11 @@ export class HumanNpc extends Phaser.GameObjects.Sprite {
     this.worldGrid = options.worldGrid;
     this.npcType = options.npcType;
     this.speed = this.resolveSpeed(options.npcType);
+    this.setDepth(60);
+    this.setScale(1.35);
+    this.setTint(0xffffff);
+    this.setAlpha(1);
+    this.setFrame(1);
   }
 
   getId(): string {

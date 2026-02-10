@@ -37,6 +37,30 @@ export class NpcManager {
     return [...this.active];
   }
 
+  spawnAt(x: number, y: number): void {
+    this.spawnNpc(x, y);
+  }
+
+  update(time: number, delta: number): void {
+    for (const npc of this.active) {
+      npc.update(time, delta);
+    }
+  }
+
+  findNearest(position: { x: number; y: number }, radius: number): HumanNpc | null {
+    let nearest: HumanNpc | null = null;
+    let nearestDistance = radius;
+    for (const npc of this.active) {
+      const npcPos = npc.getPosition();
+      const distance = Math.hypot(position.x - npcPos.x, position.y - npcPos.y);
+      if (distance <= nearestDistance) {
+        nearest = npc;
+        nearestDistance = distance;
+      }
+    }
+    return nearest;
+  }
+
   ensurePopulation(densityMultiplier: number): void {
     const maxActive = this.config.performance.maxActiveNpcs.town;
     const desired = Math.floor(maxActive * densityMultiplier);

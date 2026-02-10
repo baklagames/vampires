@@ -44,6 +44,12 @@ export class PoliceManager {
     }
   }
 
+  update(time: number, delta: number): void {
+    for (const npc of this.active) {
+      npc.update(time, delta);
+    }
+  }
+
   getActiveCount(): number {
     return this.active.length;
   }
